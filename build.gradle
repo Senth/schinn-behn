@@ -1,0 +1,19 @@
+apply plugin: 'eclipse'
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+group 'se.lu.sysa11'
+
+repositories {
+	maven { url "http://maven.senth.org/snapshots" }
+	maven { url "http://maven.senth.org/releases" }
+	mavenLocal()
+	jcenter()
+}
+
+dependencies {
+	compile 'com.spiddekauga:common-utils:0.1.0-SNAPSHOT'
+}

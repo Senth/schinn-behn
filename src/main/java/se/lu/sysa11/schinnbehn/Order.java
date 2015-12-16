@@ -38,4 +38,13 @@ public class Order {
 	public void setDeliveryAddress(String deliveryAddress) {
 		this.deliveryAddress = deliveryAddress;
 	}
+
+	public void addOrderLine(OrderLine l) {
+		addOrderLine(l);
+	}
+
+	public double getTotalPrice() {
+		// TODO
+		return 0;
+	}
 }

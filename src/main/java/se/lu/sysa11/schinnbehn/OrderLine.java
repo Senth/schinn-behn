@@ -87,7 +87,7 @@ public class OrderLine {
 		this.productPrice = productPrice;
 	}
 
-	public double getPriceLine() {
+	public double getLinePrice() {
 
 		return productPrice * quantity;
 	}

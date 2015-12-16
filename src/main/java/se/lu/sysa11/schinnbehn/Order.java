@@ -1,5 +1,7 @@
 package se.lu.sysa11.schinnbehn;
 
+import java.util.ArrayList;
+
 /**
  *
  *
@@ -8,12 +10,28 @@ package se.lu.sysa11.schinnbehn;
 public class Order {
 	private String orderNbr;
 	private String deliveryAdress;
+	private ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
 
 	/**
 	 * @return the orderNbr
 	 */
 	public String getOrderNbr() {
 		return orderNbr;
+	}
+
+	/**
+	 * @return the orderLineList
+	 */
+	public ArrayList<OrderLine> getOrderLines1() {
+		return orderlines;
+	}
+
+	/**
+	 * @param orderLineList
+	 *            the orderLineList to set
+	 */
+	public void setOrderLineList(ArrayList<OrderLine> orderLines1) {
+		this.orderlines = orderLines1;
 	}
 
 	/**
@@ -40,11 +58,15 @@ public class Order {
 	}
 
 	public void addOrderLine(OrderLine l) {
-		addOrderLine(l);
+		orderlines.add(l);
 	}
 
 	public double getTotalPrice() {
-		// TODO
-		return 0;
+		double sum = 0;
+		for (OrderLine orderLine : orderlines) {
+			sum += orderLine.getLinePrice();
+		}
+		return sum;
 	}
+
 }

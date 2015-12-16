@@ -7,7 +7,7 @@ package se.lu.sysa11.schinnbehn;
  */
 public class Order {
 	private String orderNbr;
-	private String deliveryAddress;
+	private String deliveryAdress;
 
 	/**
 	 * @return the orderNbr
@@ -27,16 +27,16 @@ public class Order {
 	/**
 	 * @return the deliveryAddress
 	 */
-	public String getDeliveryAddress() {
-		return deliveryAddress;
+	public String getDeliveryAdress() {
+		return deliveryAdress;
 	}
 
 	/**
 	 * @param deliveryAddress
 	 *            the deliveryAddress to set
 	 */
-	public void setDeliveryAddress(String deliveryAddress) {
-		this.deliveryAddress = deliveryAddress;
+	public void setDeliveryAdress(String deliveryAdress) {
+		this.deliveryAdress = deliveryAdress;
 	}
 
 	public void addOrderLine(OrderLine l) {

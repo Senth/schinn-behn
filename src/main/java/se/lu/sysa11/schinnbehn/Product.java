@@ -1,10 +1,7 @@
 package se.lu.sysa11.schinnbehn;
 
-/**
- *
- *
- * @author Matteus Magnusson <matteus.magnusson@spiddekauga.com>
- */
+import java.util.ArrayList;
+
 public class Product {
 	private String productNbr;
 	private double price;
@@ -13,6 +10,7 @@ public class Product {
 	private double weight;
 	private String batchNbr;
 	private double cost;
+	private ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
 
 	public String getProductNbr() {
 		return productNbr;
@@ -68,6 +66,14 @@ public class Product {
 
 	public void setCost(double cost) {
 		this.cost = cost;
+	}
+
+	public ArrayList<OrderLine> getOrderlines() {
+		return orderlines;
+	}
+
+	public void setOrderlines(ArrayList<OrderLine> orderlines) {
+		this.orderlines = orderlines;
 	}
 
 }

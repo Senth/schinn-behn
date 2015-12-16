@@ -76,4 +76,11 @@ public class Product {
 		this.orderlines = orderlines;
 	}
 
+	public int totalQuantityOrder() {
+		int summa = 0;
+		for (OrderLine tmp : orderlines) {
+			summa += tmp.getQuantity();
+		}
+		return summa;
+	}
 }

@@ -13,8 +13,7 @@ public class Customer {
 	private String email;
 	private String telephoneNbr;
 	private String contactPerson;
-	private HashMap<String, Order> orders = new HashMap<>(); // Fail med get o
-																// set
+	private HashMap<String, Order> orders = new HashMap<>();
 
 	/**
 	 * @return the orders

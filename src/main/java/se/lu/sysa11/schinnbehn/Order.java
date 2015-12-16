@@ -22,7 +22,7 @@ public class Order {
 	/**
 	 * @return the orderLineList
 	 */
-	public ArrayList<OrderLine> getOrderLines1() {
+	public ArrayList<OrderLine> getOrderline() {
 		return orderlines;
 	}
 
@@ -30,8 +30,8 @@ public class Order {
 	 * @param orderLineList
 	 *            the orderLineList to set
 	 */
-	public void setOrderLineList(ArrayList<OrderLine> orderLines1) {
-		this.orderlines = orderLines1;
+	public void setOrderLine(ArrayList<OrderLine> orderlines) {
+		this.orderlines = orderlines;
 	}
 
 	/**

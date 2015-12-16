@@ -4,5 +4,5 @@ I Slutet av dagen
 Jesper ändrar denna raden
 3. Add to index
 4. Commit = En ny sparpunkt
-Ann-Kathrine ändrar denna
+�ndrad
 5. Push = Ladda upp till servern

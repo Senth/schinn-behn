@@ -10,6 +10,7 @@ public class OrderLine {
 	private int quantity;
 	private Product product;
 	private Order order;
+	private double productPrice;
 
 	/**
 	 * @return the lineNbr
@@ -69,6 +70,26 @@ public class OrderLine {
 	 */
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	/**
+	 * @return the productPrice
+	 */
+	public double getProductPrice() {
+		return productPrice;
+	}
+
+	/**
+	 * @param productPrice
+	 *            the productPrice to set
+	 */
+	public void setProductPrice(double productPrice) {
+		this.productPrice = productPrice;
+	}
+
+	public double getPriceLine() {
+
+		return productPrice * quantity;
 	}
 
 }

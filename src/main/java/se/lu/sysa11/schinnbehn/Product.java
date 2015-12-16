@@ -77,10 +77,10 @@ public class Product {
 	}
 
 	public int totalQuantityOrder() {
-		int summa = 0;
+		int sum = 0;
 		for (OrderLine tmp : orderlines) {
-			summa += tmp.getQuantity();
+			sum += tmp.getQuantity();
 		}
-		return summa;
+		return sum;
 	}
 }

@@ -3,7 +3,6 @@ package se.lu.sysa11.schinnbehn;
 import java.util.HashMap;
 
 /**
- *
  * @author
  */
 public class Customer {
@@ -14,6 +13,16 @@ public class Customer {
 	private String telephoneNbr;
 	private String contactPerson;
 	private HashMap<String, Order> orders = new HashMap<>();
+	private static int customerNbrCounter = 1;
+
+	/**
+	 * Default constructor, automatically sets the customer number to the next available
+	 * customer number
+	 */
+	public Customer() {
+		customerNbr = String.valueOf(customerNbrCounter);
+		customerNbrCounter++;
+	}
 
 	public HashMap<String, Order> getOrders() {
 		return orders;

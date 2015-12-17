@@ -2,6 +2,7 @@ package se.lu.sysa11.schinnbehn.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +14,9 @@ import javax.swing.JScrollPane;
  */
 public class Window {
 	private JFrame frame;
+	private JPanel content;
+	private ArrayList<Gui> guis = new ArrayList<>();
+	private JPanel menu = new JPanel();
 
 	/**
 	 * Create the application.
@@ -31,23 +35,20 @@ public class Window {
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		// Add menu to the left
-		JPanel panel = new JPanel();
 		GridLayout menuLayout = new GridLayout(4, 1);
-		panel.setLayout(menuLayout);
-		frame.getContentPane().add(panel, BorderLayout.WEST);
+		menu.setLayout(menuLayout);
+		frame.getContentPane().add(menu, BorderLayout.WEST);
 
 		JButton btnCustomer = new JButton("Customer");
-		panel.add(btnCustomer);
+		menu.add(btnCustomer);
 		JButton btnOrder = new JButton("Order");
-		panel.add(btnOrder);
+		menu.add(btnOrder);
 		JButton btnProduct = new JButton("Product");
-		panel.add(btnProduct);
+		menu.add(btnProduct);
 
 		// Add content
 		JScrollPane scrollPane = new JScrollPane();
 		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-
-
 	}
 
 }

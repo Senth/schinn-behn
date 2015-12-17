@@ -12,6 +12,12 @@ public class Order {
 	private String deliveryAdress;
 	private Customer madeby;
 	private ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
+	private static int orderNbrCounter = 1;
+
+	public Order() {
+		orderNbr = String.valueOf(orderNbrCounter);
+		orderNbrCounter++;
+	}
 
 	public String getOrderNbr() {
 		return orderNbr;

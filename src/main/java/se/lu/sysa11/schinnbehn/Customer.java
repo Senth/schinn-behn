@@ -1,5 +1,6 @@
 package se.lu.sysa11.schinnbehn;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -13,11 +14,12 @@ public class Customer {
 	private String telephoneNbr;
 	private String contactPerson;
 	private HashMap<String, Order> orders = new HashMap<>();
+	private ArrayList<ContactPerson> contactpersons = new ArrayList<>();
 	private static int customerNbrCounter = 1;
 
 	/**
-	 * Default constructor, automatically sets the customer number to the next available
-	 * customer number
+	 * Default constructor, automatically sets the customer number to the next
+	 * available customer number
 	 */
 	public Customer() {
 		customerNbr = String.valueOf(customerNbrCounter);
@@ -82,6 +84,18 @@ public class Customer {
 
 	public void addOrder(Order o) {
 		orders.put(o.getOrderNbr(), o);
+	}
+
+	public ArrayList<ContactPerson> getContactpersons() {
+		return contactpersons;
+	}
+
+	public void setContactpersons(ArrayList<ContactPerson> contactpersons) {
+		this.contactpersons = contactpersons;
+	}
+
+	public void addContactPerson(ContactPerson a) {
+		contactpersons.add(a);
 	}
 
 }

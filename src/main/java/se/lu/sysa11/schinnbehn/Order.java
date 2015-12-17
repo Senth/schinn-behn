@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Order {
 	private String orderNbr;
 	private String deliveryAdress;
+	private Customer madeby;
 	private ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
 
 	/**
@@ -67,6 +68,14 @@ public class Order {
 			sum += orderLine.getLinePrice();
 		}
 		return sum;
+	}
+
+	public Customer getMadeby() {
+		return madeby;
+	}
+
+	public void setMadeby(Customer madeby) {
+		this.madeby = madeby;
 	}
 
 }

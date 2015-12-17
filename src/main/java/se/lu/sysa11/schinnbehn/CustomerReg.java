@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class CustomerReg {
 	private HashMap<String, Customer> customers = new HashMap<>();
 
-	public void addCustomer(Customer c) {
+	public void add(Customer c) {
 		customers.put(c.getCustomerNbr(), c);
 	}
 

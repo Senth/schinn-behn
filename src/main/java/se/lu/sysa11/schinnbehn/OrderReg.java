@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class OrderReg {
 	private HashMap<String, Order> orders = new HashMap<>();
 
-	private void addOrder(Order o) {
+	public void add(Order o) {
 		orders.put(o.getOrderNbr(), o);
 	}
 

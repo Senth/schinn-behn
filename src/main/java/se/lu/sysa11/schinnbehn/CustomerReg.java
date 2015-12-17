@@ -3,8 +3,7 @@ package se.lu.sysa11.schinnbehn;
 import java.util.HashMap;
 
 /**
- *
- * @author
+ * @author Jesper
  */
 public class CustomerReg {
 	private HashMap<String, Customer> customers = new HashMap<>();
@@ -21,8 +20,7 @@ public class CustomerReg {
 	}
 
 	/**
-	 * @param customers
-	 *            the customers to set
+	 * @param customers the customers to set
 	 */
 	public void setCustomers(HashMap<String, Customer> customers) {
 		this.customers = customers;

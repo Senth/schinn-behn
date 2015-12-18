@@ -2,7 +2,7 @@ package se.lu.sysa11.schinnbehn.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,7 +15,7 @@ import javax.swing.JScrollPane;
 public class Window {
 	private JFrame frame;
 	private JPanel content;
-	private ArrayList<Gui> guis = new ArrayList<>();
+	private HashMap<Views, Gui<?>> guis = new HashMap<>();
 	private JPanel menu = new JPanel();
 
 	/**
@@ -49,6 +49,23 @@ public class Window {
 		// Add content
 		JScrollPane scrollPane = new JScrollPane();
 		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+	}
+
+	/**
+	 * Add a new GUI
+	 * @param view identifier used for switching to this GUI
+	 * @param gui the GUI to add
+	 */
+	public void addGui(Views view, Gui<?> gui) {
+		guis.put(view, gui);
+	}
+
+	/**
+	 * Switch to this view
+	 * @param view the view
+	 */
+	public void switchTo(Views view) {
+		// TODO
 	}
 
 }

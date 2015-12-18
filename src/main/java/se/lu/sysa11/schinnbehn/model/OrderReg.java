@@ -1,4 +1,4 @@
-package se.lu.sysa11.schinnbehn;
+package se.lu.sysa11.schinnbehn.model;
 
 import java.util.HashMap;
 

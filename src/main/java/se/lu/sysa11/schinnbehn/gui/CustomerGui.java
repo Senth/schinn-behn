@@ -144,11 +144,11 @@ public class CustomerGui extends Gui {
 		String column_names[] = { "Ordernummer", "Datum", "Summa" };
 		table_Orders = new JTable();
 		table_Orders.setModel(new DefaultTableModel(new Object[][] {}, column_names) {
-			boolean[] columnEditables = new boolean[] { false, false, false };
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
+				return false;
 			}
 		});
 		table_Orders.getColumnModel().getColumn(0).setResizable(false);

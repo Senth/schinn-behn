@@ -1,6 +1,8 @@
 package se.lu.sysa11.schinnbehn.gui;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,7 +27,7 @@ public class CustomerGui extends Gui<CustomerController> {
 	private JTextField textField_ContactPerson;
 	private JTextField textField_Postadress;
 	private JTextField textField_FindCustomer;
-	private JTextField textField_FoundCustomer;
+	private JTextField textField_ShowCustomerNbr;
 	private JTable table_Orders;
 
 	/**
@@ -33,6 +35,7 @@ public class CustomerGui extends Gui<CustomerController> {
 	 */
 	@Override
 	protected void initialize() {
+
 		panel.setLayout(null);
 
 		JLabel lblNewCustomer = new JLabel("Ny Kund");
@@ -121,21 +124,53 @@ public class CustomerGui extends Gui<CustomerController> {
 		panel.add(textField_FindCustomer);
 		textField_FindCustomer.setColumns(10);
 
-		textField_FoundCustomer = new JTextField();
-		textField_FoundCustomer.setEditable(false);
-		textField_FoundCustomer.setBounds(158, 260, 138, 22);
-		panel.add(textField_FoundCustomer);
-		textField_FoundCustomer.setColumns(10);
+		textField_ShowCustomerNbr = new JTextField();
+		textField_ShowCustomerNbr.setEditable(false);
+		textField_ShowCustomerNbr.setBounds(158, 260, 138, 22);
+		panel.add(textField_ShowCustomerNbr);
+		textField_ShowCustomerNbr.setColumns(10);
 
 		JButton btnAddCustomer = new JButton("L\u00E4gg till kund");
+		btnAddCustomer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String name = textField_Name.getText();
+				String phoneNbr = textField_Phone.getText();
+				String adress = textField_Adress.getText() + " " + textField_Postadress.getText();
+				String email = textField_Email.getText();
+				String billingAdress = textField_BillingAdress.getText();
+
+				controller.addCustomer(name, phoneNbr, adress, email, billingAdress);
+			}
+		});
 		btnAddCustomer.setBounds(12, 292, 138, 25);
 		panel.add(btnAddCustomer);
 
 		JButton btnSearchCustomer = new JButton("S\u00F6k");
+		btnSearchCustomer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String searchString = textField_FindCustomer.getText();
+				controller.findCustomer(searchString);
+			}
+		});
 		btnSearchCustomer.setBounds(308, 358, 97, 25);
 		panel.add(btnSearchCustomer);
 
 		JButton btnUpdateCustomer = new JButton("Uppdatera kund");
+		btnUpdateCustomer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String customerNbr = textField_ShowCustomerNbr.getText();
+				String name = textField_Name.getText();
+				String telephone = textField_Phone.getText();
+				String address = textField_Adress.getText() + " " + textField_Postadress.getText();
+				String email = textField_Email.getText();
+				String billingAddress = textField_BillingAdress.getText();
+
+				controller.updateCustomer(customerNbr, name, telephone, address, email, billingAddress);
+			}
+		});
 		btnUpdateCustomer.setBounds(158, 292, 138, 25);
 		panel.add(btnUpdateCustomer);
 

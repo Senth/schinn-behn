@@ -2,10 +2,10 @@ package se.lu.sysa11.schinnbehn.controller;
 
 import java.util.ArrayList;
 
-import se.lu.sysa11.schinnbehn.Product;
-import se.lu.sysa11.schinnbehn.ProductReg;
 import se.lu.sysa11.schinnbehn.gui.ProductGui;
 import se.lu.sysa11.schinnbehn.gui.Window;
+import se.lu.sysa11.schinnbehn.model.Product;
+import se.lu.sysa11.schinnbehn.model.ProductReg;
 
 /**
  * Production controller
@@ -19,7 +19,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 	 * @param productReg
 	 *            Register/model of the product controller
 	 */
-	protected ProductController(Window window, ProductGui productGui, ProductReg productReg) {
+	public ProductController(Window window, ProductGui productGui, ProductReg productReg) {
 		super(window, productGui, productReg);
 		gui.setController(this);
 		// TODO Auto-generated constructor stub

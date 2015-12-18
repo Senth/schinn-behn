@@ -1,16 +1,19 @@
 package se.lu.sysa11.schinnbehn.controller;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
-import se.lu.sysa11.schinnbehn.Customer;
-import se.lu.sysa11.schinnbehn.CustomerReg;
 import se.lu.sysa11.schinnbehn.gui.CustomerGui;
 import se.lu.sysa11.schinnbehn.gui.Window;
+import se.lu.sysa11.schinnbehn.model.Customer;
+import se.lu.sysa11.schinnbehn.model.CustomerReg;
 
 /**
  * Connects the customer model and view
  */
 public class CustomerController extends Controller<CustomerGui, CustomerReg> {
+	private Logger logger = Logger.getLogger(CustomerController.class.getSimpleName());
+
 	/**
 	 * Create a custom controller with the window
 	 *
@@ -21,7 +24,7 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	 * @param customerReg
 	 *            the customer model/register
 	 */
-	protected CustomerController(Window window, CustomerGui customerGui, CustomerReg customerReg) {
+	public CustomerController(Window window, CustomerGui customerGui, CustomerReg customerReg) {
 		super(window, customerGui, customerReg);
 		gui.setController(this);
 	}

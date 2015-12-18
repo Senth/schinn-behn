@@ -10,10 +10,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import se.lu.sysa11.schinnbehn.controller.CustomerController;
+
 /**
- * @author senth
+ * @author Kalle
  */
-public class CustomerGui extends Gui {
+public class CustomerGui extends Gui<CustomerController> {
 	private JPanel panel = new JPanel();
 	private JTextField textField_Name;
 	private JTextField textField_Phone;
@@ -143,15 +145,14 @@ public class CustomerGui extends Gui {
 
 		String column_names[] = { "Ordernummer", "Datum", "Summa" };
 		table_Orders = new JTable();
-		table_Orders
-				.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Ordernummer", "Datum", "Summa" }) {
-					boolean[] columnEditables = new boolean[] { false, false, false };
+		table_Orders.setModel(new DefaultTableModel(new Object[][] {}, column_names) {
+			private static final long serialVersionUID = 1L;
 
-					@Override
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		});
 		table_Orders.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane.setViewportView(table_Orders);
 

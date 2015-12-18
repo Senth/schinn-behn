@@ -1,14 +1,13 @@
 package se.lu.sysa11.schinnbehn.gui;
 
-import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,7 +24,7 @@ public class CustomerGui extends Gui {
 	private JTextField textField_Postadress;
 	private JTextField textField_FindCustomer;
 	private JTextField textField_FoundCustomer;
-	private JTable table;
+	private JTable table_Orders;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -36,7 +35,7 @@ public class CustomerGui extends Gui {
 
 		JLabel lblNewCustomer = new JLabel("Ny Kund");
 		lblNewCustomer.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewCustomer.setBounds(12, 28, 72, 22);
+		lblNewCustomer.setBounds(12, 24, 72, 22);
 		panel.add(lblNewCustomer);
 
 		JLabel lblName = new JLabel("Namn: ");
@@ -66,6 +65,19 @@ public class CustomerGui extends Gui {
 		JLabel lblContactPerson = new JLabel("Kontaktperson:");
 		lblContactPerson.setBounds(12, 231, 86, 22);
 		panel.add(lblContactPerson);
+
+		JLabel lblFoundCustomer = new JLabel("Kundnr:");
+		lblFoundCustomer.setBounds(12, 260, 56, 22);
+		panel.add(lblFoundCustomer);
+
+		JLabel lblFindCustomer = new JLabel("Hitta kund");
+		lblFindCustomer.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblFindCustomer.setBounds(12, 330, 86, 22);
+		panel.add(lblFindCustomer);
+
+		JLabel lblKundnr = new JLabel("Kundnr:");
+		lblKundnr.setBounds(12, 359, 56, 22);
+		panel.add(lblKundnr);
 
 		textField_Name = new JTextField();
 		textField_Name.setBounds(158, 57, 138, 22);
@@ -102,23 +114,20 @@ public class CustomerGui extends Gui {
 		panel.add(textField_Postadress);
 		textField_Postadress.setColumns(10);
 
-		JButton btnAddCustomer = new JButton("L\u00E4gg till kund");
-		btnAddCustomer.setBounds(12, 292, 138, 25);
-		panel.add(btnAddCustomer);
-
-		JLabel lblFindCustomer = new JLabel("Hitta kund");
-		lblFindCustomer.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblFindCustomer.setBounds(12, 330, 86, 22);
-		panel.add(lblFindCustomer);
-
-		JLabel lblKundnr = new JLabel("Kundnr:");
-		lblKundnr.setBounds(12, 359, 56, 22);
-		panel.add(lblKundnr);
-
 		textField_FindCustomer = new JTextField();
 		textField_FindCustomer.setBounds(158, 359, 138, 22);
 		panel.add(textField_FindCustomer);
 		textField_FindCustomer.setColumns(10);
+
+		textField_FoundCustomer = new JTextField();
+		textField_FoundCustomer.setEditable(false);
+		textField_FoundCustomer.setBounds(158, 260, 138, 22);
+		panel.add(textField_FoundCustomer);
+		textField_FoundCustomer.setColumns(10);
+
+		JButton btnAddCustomer = new JButton("L\u00E4gg till kund");
+		btnAddCustomer.setBounds(12, 292, 138, 25);
+		panel.add(btnAddCustomer);
 
 		JButton btnSearchCustomer = new JButton("S\u00F6k");
 		btnSearchCustomer.setBounds(308, 358, 97, 25);
@@ -128,26 +137,22 @@ public class CustomerGui extends Gui {
 		btnUpdateCustomer.setBounds(158, 292, 138, 25);
 		panel.add(btnUpdateCustomer);
 
-		textField_FoundCustomer = new JTextField();
-		textField_FoundCustomer.setEditable(false);
-		textField_FoundCustomer.setBounds(158, 260, 138, 22);
-		panel.add(textField_FoundCustomer);
-		textField_FoundCustomer.setColumns(10);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(459, 28, 452, 353);
+		panel.add(scrollPane);
 
-		JLabel lblFoundCustomer = new JLabel("Kundnr:");
-		lblFoundCustomer.setBounds(12, 260, 56, 22);
-		panel.add(lblFoundCustomer);
+		String column_names[] = { "Ordernummer", "Datum", "Summa" };
+		table_Orders = new JTable();
+		table_Orders.setModel(new DefaultTableModel(new Object[][] {}, column_names) {
+			boolean[] columnEditables = new boolean[] { false, false, false };
 
-		table = new JTable();
-		DefaultTableModel tableModel = new DefaultTableModel(new Object[][] { { "Ordernummer", "Datum", "Summa" }, },
-				new String[] { "New column", "New column", "New column" });
-		table.setModel(tableModel);
-
-		tableModel.addRow(new Object[] { "1", "2015-12-14", "333:-" });
-
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setBounds(475, 61, 466, 319);
-		panel.add(table);
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_Orders.getColumnModel().getColumn(0).setResizable(false);
+		scrollPane.setViewportView(table_Orders);
 
 	}
 }

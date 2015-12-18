@@ -8,7 +8,6 @@ public class Product {
 	private String name;
 	private String ingredients;
 	private double weight;
-	private String batchNbr;
 	private double cost;
 	private HashMap<String, OrderLine> orderlines = new HashMap<String, OrderLine>();
 
@@ -50,14 +49,6 @@ public class Product {
 
 	public void setWeight(double weight) {
 		this.weight = weight;
-	}
-
-	public String getBatchNbr() {
-		return batchNbr;
-	}
-
-	public void setBatchNbr(String batchNbr) {
-		this.batchNbr = batchNbr;
 	}
 
 	public double getCost() {

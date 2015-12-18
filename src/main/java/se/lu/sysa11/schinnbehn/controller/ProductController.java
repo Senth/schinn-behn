@@ -33,8 +33,6 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 	 * @return true if successfully added product
 	 */
 	public boolean addProduct(String productNbr, String name, double price, String ingredients, double weight, double cost) {
-		boolean successful = false;
-
 		if (!isInputValid(productNbr, name, price, ingredients, weight, cost)) {
 			return false;
 		}
@@ -53,7 +51,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 		// send notification
 		window.showNotificationSuccess("Produkt tillagd");
 
-		return successful;
+		return true;
 	}
 
 	/**
@@ -80,6 +78,9 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 			product.setIngredients(ingredients);
 			product.setWeight(weight);
 			product.setCost(cost);
+		} else {
+			window.showNotificationError("Ingen produkt med produktnummer " + productNbr + " funnen");
+			return false;
 		}
 
 		// send notification

@@ -9,10 +9,10 @@ import se.lu.sysa11.schinnbehn.gui.Window;
  * @param <GuiType> the GUI/View class
  * @param <RegisterType> the Register/Model class
  */
-public class Controller<GuiType extends Gui, RegisterType> {
+public class Controller<GuiType extends Gui<?>, RegisterType> {
 	/** Application Window */
 	protected Window window;
-	/** Gui/View */
+	/** GUI/View */
 	protected GuiType gui;
 	/** Register/Model */
 	protected RegisterType register;

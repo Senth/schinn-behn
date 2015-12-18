@@ -17,6 +17,7 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	 */
 	protected CustomerController(Window window, CustomerGui customerGui, CustomerReg customerReg) {
 		super(window, customerGui, customerReg);
+		gui.setController(this);
 	}
 
 	/**

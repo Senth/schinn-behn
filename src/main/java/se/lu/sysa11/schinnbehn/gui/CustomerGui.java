@@ -10,10 +10,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import se.lu.sysa11.schinnbehn.controller.CustomerController;
+
 /**
  * @author senth
  */
-public class CustomerGui extends Gui {
+public class CustomerGui extends Gui<CustomerController> {
 	private JPanel panel = new JPanel();
 	private JTextField textField_Name;
 	private JTextField textField_Phone;

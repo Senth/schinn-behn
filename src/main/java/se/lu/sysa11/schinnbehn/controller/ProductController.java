@@ -15,6 +15,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 	 */
 	protected ProductController(Window window, ProductGui productGui, ProductReg productReg) {
 		super(window, productGui, productReg);
+		gui.setController(this);
 		// TODO Auto-generated constructor stub
 	}
 

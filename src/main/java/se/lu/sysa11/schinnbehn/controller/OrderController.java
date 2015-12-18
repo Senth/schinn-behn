@@ -15,6 +15,7 @@ public class OrderController extends Controller<OrderGui, OrderReg> {
 	 */
 	protected OrderController(Window window, OrderGui gui, OrderReg register) {
 		super(window, gui, register);
+		gui.setController(this);
 		// TODO Auto-generated constructor stub
 	}
 

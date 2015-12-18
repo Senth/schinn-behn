@@ -9,14 +9,13 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 /**
  * @author Matteus Magnusson
  */
 public class Window {
 	private JFrame frame;
-	private JScrollPane content;
+	private JPanel content = new JPanel();
 	private HashMap<Views, Gui<?>> guis = new HashMap<>();
 	private JPanel menu = new JPanel();
 
@@ -32,16 +31,17 @@ public class Window {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 720, 480);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		frame.setTitle("Schinn & Behn");
 
 		// Add menu to the left
 		GridLayout menuLayout = new GridLayout(4, 1);
 		menu.setLayout(menuLayout);
 		frame.getContentPane().add(menu, BorderLayout.WEST);
 
-		JButton btnCustomer = new JButton("Customer");
+		JButton btnCustomer = new JButton("Kund");
 		btnCustomer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -57,7 +57,7 @@ public class Window {
 			}
 		});
 		menu.add(btnOrder);
-		JButton btnProduct = new JButton("Product");
+		JButton btnProduct = new JButton("Produkt");
 		btnProduct.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -67,8 +67,11 @@ public class Window {
 		menu.add(btnProduct);
 
 		// Add content
-		content = new JScrollPane();
+		// content = new JScrollPane();
+		// content.setViewportView(new JPanel());
 		frame.getContentPane().add(content, BorderLayout.CENTER);
+
+		frame.setVisible(true);
 	}
 
 	/**
@@ -85,9 +88,21 @@ public class Window {
 	 * @param view the view
 	 */
 	public void switchTo(Views view) {
-		Gui gui = guis.get(view);
+		Gui<?> gui = guis.get(view);
 
-		content.removeAll();
+		if (gui != null) {
+			// content.removeAll();
+			JPanel innerContent = gui.getContent();
+			innerContent.setVisible(true);
+			content.removeAll();
+			content.add(innerContent);
+			innerContent.revalidate();
+			innerContent.repaint();
+			content.revalidate();
+			content.repaint();
+		} else {
+			showNotificationError("Ingen view med namnet " + view.toString().toLowerCase() + "!");
+		}
 	}
 
 	/**
@@ -107,7 +122,8 @@ public class Window {
 	}
 
 	/**
-	 * Send an info notification (displayed as black text
+	 * Send an info notification (displayed as black text)
+	 * @param message the message to display
 	 */
 	public void showNotificationInfo(String message) {
 		// TODO

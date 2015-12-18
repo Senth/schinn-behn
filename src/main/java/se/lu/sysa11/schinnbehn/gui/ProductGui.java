@@ -25,7 +25,11 @@ import se.lu.sysa11.schinnbehn.controller.ProductController;
  * @author Jesper
  */
 public class ProductGui extends Gui<ProductController> {
-	JPanel panel = new JPanel();
+	/**
+	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
+	 * then
+	 */
+	private JPanel panel = new JPanel();
 	private JTextField textField_ProduktNr;
 	private JTextField textField_Name;
 	private JTextField textField_Pris;
@@ -209,5 +213,10 @@ public class ProductGui extends Gui<ProductController> {
 		textArea_Ingridienser.setBounds(103, 253, 120, 59);
 		panel.add(textArea_Ingridienser);
 
+	}
+
+	@Override
+	public JPanel getContent() {
+		return panel;
 	}
 }

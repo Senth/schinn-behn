@@ -9,8 +9,6 @@ import javax.swing.JPanel;
 public abstract class Gui<ControllerType> {
 	/** Controller for the GUI class */
 	protected ControllerType controller;
-	/** Panel */
-	protected JPanel panel = new JPanel();
 
 	/**
 	 * Initialize the GUI
@@ -20,9 +18,7 @@ public abstract class Gui<ControllerType> {
 	/**
 	 * @return context for this GUI
 	 */
-	public JPanel getContext() {
-		return panel;
-	}
+	public abstract JPanel getContent();
 
 	/**
 	 * Set the controller for the GUI

@@ -18,6 +18,10 @@ import se.lu.sysa11.schinnbehn.controller.CustomerController;
  * @author Kalle
  */
 public class CustomerGui extends Gui<CustomerController> {
+	/**
+	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
+	 * then
+	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_Name;
 	private JTextField textField_Phone;
@@ -190,6 +194,10 @@ public class CustomerGui extends Gui<CustomerController> {
 		});
 		table_Orders.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane.setViewportView(table_Orders);
+	}
 
+	@Override
+	public JPanel getContent() {
+		return panel;
 	}
 }

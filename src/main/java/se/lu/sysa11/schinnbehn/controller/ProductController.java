@@ -12,12 +12,9 @@ import se.lu.sysa11.schinnbehn.model.ProductReg;
  */
 public class ProductController extends Controller<ProductGui, ProductReg> {
 	/**
-	 * @param window
-	 *            the application window
-	 * @param productGui
-	 *            GUI/view of the product controller
-	 * @param productReg
-	 *            Register/model of the product controller
+	 * @param window the application window
+	 * @param productGui GUI/view of the product controller
+	 * @param productReg Register/model of the product controller
 	 */
 	public ProductController(Window window, ProductGui productGui, ProductReg productReg) {
 		super(window, productGui, productReg);
@@ -27,30 +24,23 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 	/**
 	 * Add a new product
-	 *
-	 * @param productNbr
-	 *            number/serial of the product
-	 * @param name
-	 *            product name
-	 * @param price
-	 *            current price of the product
-	 * @param ingredients
-	 *            ingredients of the product
-	 * @param weight
-	 *            weight of the product
-	 * @param cost
-	 *            how much it costs to buy or produce the product
+	 * @param productNbr number/serial of the product
+	 * @param name product name
+	 * @param price current price of the product
+	 * @param ingredients ingredients of the product
+	 * @param weight weight of the product
+	 * @param cost how much it costs to buy or produce the product
 	 * @return true if successfully added product
 	 */
-	public boolean addProduct(String productNbr, String name, double price, String ingredients, double weight,
-			double cost) {
+	public boolean addProduct(String productNbr, String name, double price, String ingredients, double weight, double cost) {
 		boolean successful = false;
 
-		// TODO check if valid
+		if (!isInputValid(productNbr, name, price, ingredients, weight, cost)) {
+			return false;
+		}
 
-		// TODO if invalid -> Send notification
 
-		// TODO Add product
+		// Add product
 		Product product = new Product();
 		product.setProductNbr(productNbr);
 		product.setName(name);
@@ -60,37 +50,28 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 		product.setCost(cost);
 		register.add(product);
 
-		// TODO send notification
+		// send notification
+		window.showNotificationSuccess("Produkt tillagd");
 
 		return successful;
 	}
 
 	/**
 	 * Update an existing product
-	 *
-	 * @param productNbr
-	 *            number/serial of the product
-	 * @param name
-	 *            product name
-	 * @param price
-	 *            current price of the product
-	 * @param ingredients
-	 *            ingredients of the product
-	 * @param weight
-	 *            weight of the product
-	 * @param cost
-	 *            how much it costs to buy or produce the product
+	 * @param productNbr number/serial of the product
+	 * @param name product name
+	 * @param price current price of the product
+	 * @param ingredients ingredients of the product
+	 * @param weight weight of the product
+	 * @param cost how much it costs to buy or produce the product
 	 * @return true if successfully added product
 	 */
-	public boolean updateProduct(String productNbr, String name, double price, String ingredients, double weight,
-			double cost) {
-		boolean successful = false;
-
-		// TODO check if valid
-
-		// TODO if invalid -> Send notification
-
-		// TODO Update product
+	public boolean updateProduct(String productNbr, String name, double price, String ingredients, double weight, double cost) {
+		// check if valid
+		if (!isInputValid(productNbr, name, price, ingredients, weight, cost)) {
+			return false;
+		}
+		// Update product
 		Product product = register.findProduct(productNbr);
 		if (product != null) {
 			product.setProductNbr(productNbr);
@@ -101,18 +82,55 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 			product.setCost(cost);
 		}
 
-		// TODO send notification
+		// send notification
+		window.showNotificationSuccess("Produkt uppdaterad");
 
-		return successful;
+		return true;
+	}
+
+	/**
+	 * Tests if input is valid
+	 */
+	private boolean isInputValid(String productNbr, String name, double price, String ingredients, double weight, double cost) {
+		if (productNbr == null || productNbr.isEmpty()) {
+			window.showNotificationError("Produktnummer är tomt");
+
+			return false;
+		}
+		if (name == null || name.isEmpty()) {
+			window.showNotificationError("Produktnamnet är tomt");
+
+			return false;
+		}
+		if (price <= 0) {
+			window.showNotificationError("Ogilitgt pris");
+
+			return false;
+		}
+		if (weight <= 0) {
+			window.showNotificationError("Ogiltig vikt");
+
+			return false;
+		}
+		if (cost <= 0) {
+			window.showNotificationError("Ogilig kostnad");
+
+			return false;
+		}
+		if (ingredients == null || ingredients.isEmpty()) {
+			window.showNotificationError("Ingridienser finns ej");
+
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
 	 * Find existing products
-	 *
-	 * @param searchString
-	 *            what to search for (currently only the product number)
-	 * @return list of all found products (currently the list only contains
-	 *         either one or zero)
+	 * @param searchString what to search for (currently only the product number)
+	 * @return list of all found products (currently the list only contains either one or
+	 *         zero)
 	 */
 	public ArrayList<Product> findProduct(String searchString) {
 		// TODO implement find custom

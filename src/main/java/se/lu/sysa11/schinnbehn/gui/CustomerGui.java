@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import se.lu.sysa11.schinnbehn.controller.CustomerController;
 
 /**
- * @author senth
+ * @author Kalle
  */
 public class CustomerGui extends Gui<CustomerController> {
 	private JPanel panel = new JPanel();

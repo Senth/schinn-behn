@@ -10,10 +10,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import se.lu.sysa11.schinnbehn.controller.ProductController;
+
 /**
- * @author senth
+ * @author Jesper
  */
-public class ProductGui extends Gui {
+public class ProductGui extends Gui<ProductController> {
 	JPanel panel = new JPanel();
 	private JTextField textField;
 	private JTextField textField_1;

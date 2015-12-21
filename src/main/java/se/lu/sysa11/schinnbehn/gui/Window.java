@@ -9,13 +9,14 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  * @author Matteus Magnusson
  */
 public class Window {
 	private JFrame frame;
-	private JPanel content = new JPanel();
+	private JScrollPane content = new JScrollPane();
 	private HashMap<Views, Gui<?>> guis = new HashMap<>();
 	private JPanel menu = new JPanel();
 
@@ -67,8 +68,9 @@ public class Window {
 		menu.add(btnProduct);
 
 		// Add content
-		// content = new JScrollPane();
-		// content.setViewportView(new JPanel());
+		GridLayout contentLayout = new GridLayout(1, 1);
+		// content.setLayout(contentLayout);
+		content.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		frame.getContentPane().add(content, BorderLayout.CENTER);
 
 		frame.setVisible(true);
@@ -91,13 +93,7 @@ public class Window {
 		Gui<?> gui = guis.get(view);
 
 		if (gui != null) {
-			// content.removeAll();
-			JPanel innerContent = gui.getContent();
-			innerContent.setVisible(true);
-			content.removeAll();
-			content.add(innerContent);
-			innerContent.revalidate();
-			innerContent.repaint();
+			content.setViewportView(gui.getContent());
 			content.revalidate();
 			content.repaint();
 		} else {

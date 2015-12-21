@@ -13,7 +13,7 @@ public abstract class Gui<ControllerType> {
 	/**
 	 * Initialize the GUI
 	 */
-	protected abstract void initialize();
+	public abstract void initialize();
 
 	/**
 	 * @return context for this GUI

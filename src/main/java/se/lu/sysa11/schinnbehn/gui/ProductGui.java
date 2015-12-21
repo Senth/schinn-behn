@@ -46,7 +46,7 @@ public class ProductGui extends Gui<ProductController> {
 	 * @wbp.parser.entryPoint
 	 */
 	@Override
-	protected void initialize() {
+	public void initialize() {
 		panel.setLayout(null);
 
 		textField_ProduktNr = new JTextField();

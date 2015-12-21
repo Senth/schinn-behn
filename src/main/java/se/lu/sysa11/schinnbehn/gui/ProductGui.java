@@ -97,7 +97,7 @@ public class ProductGui extends Gui<ProductController> {
 		rdbtnNej.setBounds(184, 329, 61, 23);
 		panel.add(rdbtnNej);
 
-		JButton btnNewButton = new JButton("Lägg till:");
+		JButton btnNewButton = new JButton("L\u00E4gg till:");
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -35,17 +35,16 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	 * @return true if the customer was added successfully. False if one or more of the
 	 *         parameters are wrong or empty
 	 */
-	public boolean addCustomer(String name, String telephone, String address, String email, String billingAddress) {
+	public boolean addCustomer(String name, String telephone, String address, String email) {
 		boolean successfull = false;
-		if (!isInputValid(name, telephone, address, email, billingAddress)) {
+		if (!isInputValid(name, telephone, address, email)) {
 			return false;
 		}
 
 		// Add customer
 		Customer customer = new Customer();
-		customer.getName();
-		customer.getTelephoneNbr();
-		customer.getBillingAdress();
+		customer.setName(name);
+		customer.setTelephoneNbr(telephone);
 		customer.getEmail();
 
 		register.add(customer);
@@ -67,7 +66,7 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	 * @return true if the customer was changed successfully. False if one or more of the
 	 *         parameters are wrong or empty.
 	 */
-	public boolean updateCustomer(String customerNbr, String name, String telephone, String address, String email, String billingAddress) {
+	public boolean updateCustomer(String customerNbr, String name, String telephone, String address, String email) {
 		boolean successfull = false;
 
 		// TODO check if valid
@@ -79,7 +78,6 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 			customer.setName(name);
 			customer.setTelephoneNbr(telephone);
 			customer.setEmail(email);
-			customer.setBillingAdress(billingAddress);
 
 		} else {
 			window.showNotificationError("Ingen kund med kundnummer " + customerNbr + " funnen");
@@ -97,23 +95,18 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	}
 
 
-	private boolean isInputValid(String name, String telephone, String address, String email, String billingAddress) {
-		if (name != null || name.isEmpty()) {
+	private boolean isInputValid(String name, String telephone, String address, String email) {
+		if (name == null || name.isEmpty()) {
 			window.showNotificationError("Ogiltigt namn");
 
 			return false;
 		}
-		if (telephone != null || telephone.isEmpty()) {
+		if (telephone == null || telephone.isEmpty()) {
 			window.showNotificationError("Ogiltigt telefonnummer");
 
 			return false;
 		}
-		if (email != null || email.isEmpty()) {
-			window.showNotificationError("Ogiltig address");
-
-			return false;
-		}
-		if (billingAddress != null || billingAddress.isEmpty()) {
+		if (email == null || email.isEmpty()) {
 			window.showNotificationError("Ogiltig address");
 
 			return false;

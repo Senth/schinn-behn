@@ -1,6 +1,5 @@
 package se.lu.sysa11.schinnbehn.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -9,17 +8,15 @@ import java.util.HashMap;
 public class Customer {
 	private String customerNbr;
 	private String name;
-	private String billingAdress;
+	private String address;
 	private String email;
 	private String telephoneNbr;
-	private String contactPerson;
 	private HashMap<String, Order> orders = new HashMap<>();
-	private ArrayList<ContactPerson> contactpersons = new ArrayList<>();
 	private static int customerNbrCounter = 1;
 
 	/**
-	 * Default constructor, automatically sets the customer number to the next
-	 * available customer number
+	 * Default constructor, automatically sets the customer number to the next available
+	 * customer number
 	 */
 	public Customer() {
 		customerNbr = String.valueOf(customerNbrCounter);
@@ -50,12 +47,12 @@ public class Customer {
 		this.name = name;
 	}
 
-	public String getBillingAdress() {
-		return billingAdress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setBillingAdress(String billingAdress) {
-		this.billingAdress = billingAdress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getEmail() {
@@ -74,28 +71,8 @@ public class Customer {
 		this.telephoneNbr = telephoneNbr;
 	}
 
-	public String getContactPerson() {
-		return contactPerson;
-	}
-
-	public void setContactPerson(String contactPerson) {
-		this.contactPerson = contactPerson;
-	}
-
 	public void addOrder(Order o) {
 		orders.put(o.getOrderNbr(), o);
-	}
-
-	public ArrayList<ContactPerson> getContactpersons() {
-		return contactpersons;
-	}
-
-	public void setContactpersons(ArrayList<ContactPerson> contactpersons) {
-		this.contactpersons = contactpersons;
-	}
-
-	public void addContactPerson(ContactPerson a) {
-		contactpersons.add(a);
 	}
 
 }

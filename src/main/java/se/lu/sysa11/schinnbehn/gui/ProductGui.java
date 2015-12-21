@@ -30,7 +30,7 @@ public class ProductGui extends Gui<ProductController> {
 	 * then
 	 */
 	private JPanel panel = new JPanel();
-	private JTextField textField_ProduktNr;
+	private JTextField textField_ProductNr;
 	private JTextField textField_Name;
 	private JTextField textField_Pris;
 	private JTextField textField_Vikt;
@@ -40,7 +40,6 @@ public class ProductGui extends Gui<ProductController> {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextArea textArea_Ingridienser;
 
-	private ProductController productController;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -49,13 +48,13 @@ public class ProductGui extends Gui<ProductController> {
 	protected void initialize() {
 		panel.setLayout(null);
 
-		textField_ProduktNr = new JTextField();
-		textField_ProduktNr.setBounds(103, 60, 130, 26);
-		panel.add(textField_ProduktNr);
-		textField_ProduktNr.setColumns(10);
+		textField_ProductNr = new JTextField();
+		textField_ProductNr.setBounds(103, 60, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		panel.add(textField_ProductNr);
+		textField_ProductNr.setColumns(10);
 
 		textField_Name = new JTextField();
-		textField_Name.setBounds(103, 101, 130, 26);
+		textField_Name.setBounds(103, 101, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Name);
 		textField_Name.setColumns(10);
 
@@ -63,17 +62,17 @@ public class ProductGui extends Gui<ProductController> {
 		DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
 		decimalFormat.setGroupingUsed(false);
 		textField_Pris = new JFormattedTextField(decimalFormat);
-		textField_Pris.setBounds(103, 139, 130, 26);
+		textField_Pris.setBounds(103, 139, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Pris);
 		textField_Pris.setColumns(10);
 
 		textField_Vikt = new JTextField();
-		textField_Vikt.setBounds(103, 177, 130, 26);
+		textField_Vikt.setBounds(103, 177, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Vikt);
 		textField_Vikt.setColumns(10);
 
 		textField_Kostnad = new JTextField();
-		textField_Kostnad.setBounds(103, 215, 130, 26);
+		textField_Kostnad.setBounds(103, 215, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Kostnad);
 		textField_Kostnad.setColumns(10);
 
@@ -82,27 +81,27 @@ public class ProductGui extends Gui<ProductController> {
 		panel.add(scrollPane);
 
 		textField_6 = new JTextField();
-		textField_6.setBounds(500, 26, 130, 26);
+		textField_6.setBounds(500, 26, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_6);
 		textField_6.setColumns(10);
 
-		JRadioButton rdbtnJa = new JRadioButton("Ja");
-		rdbtnJa.setSelected(true);
-		buttonGroup.add(rdbtnJa);
-		rdbtnJa.setBounds(139, 329, 43, 23);
-		panel.add(rdbtnJa);
+		JRadioButton rdbtnYes = new JRadioButton("Ja");
+		rdbtnYes.setSelected(true);
+		buttonGroup.add(rdbtnYes);
+		rdbtnYes.setBounds(139, 329, 43, 23);
+		panel.add(rdbtnYes);
 
-		JRadioButton rdbtnNej = new JRadioButton("Nej");
-		buttonGroup.add(rdbtnNej);
-		rdbtnNej.setBounds(184, 329, 61, 23);
-		panel.add(rdbtnNej);
+		JRadioButton rdbtnNo = new JRadioButton("Nej");
+		buttonGroup.add(rdbtnNo);
+		rdbtnNo.setBounds(184, 329, 61, 23);
+		panel.add(rdbtnNo);
 
-		JButton btnNewButton = new JButton("L\u00E4gg till:");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnAddProduct = new JButton("L\u00E4gg till:");
+		btnAddProduct.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String name = textField_Name.getText();
-				String productNbr = textField_ProduktNr.getText();
+				String productNbr = textField_ProductNr.getText();
 				String priceString = textField_Pris.getText();
 				String costString = textField_Kostnad.getText();
 				String weightString = textField_Vikt.getText();
@@ -125,14 +124,14 @@ public class ProductGui extends Gui<ProductController> {
 
 			}
 		});
-		btnNewButton.setBounds(43, 377, 84, 26);
-		panel.add(btnNewButton);
+		btnAddProduct.setBounds(43, 377, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel.add(btnAddProduct);
 
 		JButton btnNewButton_1 = new JButton("Ändra:");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String productNbr = textField_ProduktNr.getText();
+				String productNbr = textField_ProductNr.getText();
 				String name = textField_Name.getText();
 				String costString = textField_Kostnad.getText();
 				String priceString = textField_Pris.getText();
@@ -156,32 +155,32 @@ public class ProductGui extends Gui<ProductController> {
 				controller.updateProduct(productNbr, name, price, ingredients, weight, cost);
 			}
 		});
-		btnNewButton_1.setBounds(139, 377, 84, 29);
+		btnNewButton_1.setBounds(139, 377, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnNewButton_1);
 
 		JLabel lblProduct = new JLabel("Produkt");
 		lblProduct.setFont(new Font("Lucida Grande", Font.BOLD, 14));
-		lblProduct.setBounds(20, 31, 61, 16);
+		lblProduct.setBounds(20, 31, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblProduct);
 
 		JLabel lblProduktnr = new JLabel("ProduktNr:");
-		lblProduktnr.setBounds(20, 68, 75, 16);
+		lblProduktnr.setBounds(20, 68, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblProduktnr);
 
 		JLabel lblNewLabel = new JLabel("Namn:");
-		lblNewLabel.setBounds(20, 106, 61, 16);
+		lblNewLabel.setBounds(20, 106, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Pris:");
-		lblNewLabel_1.setBounds(20, 144, 61, 16);
+		lblNewLabel_1.setBounds(20, 144, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblNewLabel_1);
 
 		JLabel lblVikt = new JLabel("Vikt:");
-		lblVikt.setBounds(20, 182, 61, 16);
+		lblVikt.setBounds(20, 182, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblVikt);
 
 		JLabel lblNewLabel_2 = new JLabel("Kostnad:");
-		lblNewLabel_2.setBounds(20, 220, 61, 16);
+		lblNewLabel_2.setBounds(20, 220, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("Ingridienser:");
@@ -189,12 +188,12 @@ public class ProductGui extends Gui<ProductController> {
 		panel.add(lblNewLabel_3);
 
 		JLabel lblAktivISortiment = new JLabel("Aktiv i sortiment:");
-		lblAktivISortiment.setBounds(20, 336, 110, 16);
+		lblAktivISortiment.setBounds(20, 336, 110, LABEL_HEIGHT);
 		panel.add(lblAktivISortiment);
 
-		JLabel lblSkProdukt = new JLabel("Sök produkt:");
-		lblSkProdukt.setBounds(395, 31, 94, 16);
-		panel.add(lblSkProdukt);
+		JLabel lblSearchProduct = new JLabel("Sök produkt:");
+		lblSearchProduct.setBounds(395, 31, 94, LABEL_HEIGHT);
+		panel.add(lblSearchProduct);
 
 		String column_names[] = { "Nummer", "Namn", "Pris", "Kostnad" };
 		table_Products = new JTable();

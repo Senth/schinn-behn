@@ -36,7 +36,7 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	 *         parameters are wrong or empty
 	 */
 	public boolean addCustomer(String name, String telephone, String address, String email) {
-		boolean successfull = false;
+
 		if (!isInputValid(name, telephone, address, email)) {
 			return false;
 		}
@@ -45,14 +45,15 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 		Customer customer = new Customer();
 		customer.setName(name);
 		customer.setTelephoneNbr(telephone);
-		customer.getEmail();
+		customer.setAddress(address);
+		customer.setEmail(email);
 
 		register.add(customer);
 
 		// send notification
 		window.showNotificationSuccess("Kund tillagd");
 
-		return successfull;
+		return true;
 	}
 
 	/**
@@ -67,24 +68,23 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	 *         parameters are wrong or empty.
 	 */
 	public boolean updateCustomer(String customerNbr, String name, String telephone, String address, String email) {
-		boolean successfull = false;
 
-		// TODO check if valid
-
+		// check if valid
+		if (!isInputValid(name, telephone, address, email)) {
+			return false;
+		}
 		// TODO update customer
 		Customer customer = register.findCustomer(customerNbr);
 		if (customerNbr != null) {
-			customer.setCustomerNbr(customerNbr);
 			customer.setName(name);
 			customer.setTelephoneNbr(telephone);
+			customer.setAddress(address);
 			customer.setEmail(email);
 
 		} else {
 			window.showNotificationError("Ingen kund med kundnummer " + customerNbr + " funnen");
 
 			return false;
-
-
 		}
 
 

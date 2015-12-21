@@ -43,84 +43,84 @@ public class CustomerGui extends Gui<CustomerController> {
 
 		JLabel lblNewCustomer = new JLabel("Ny Kund");
 		lblNewCustomer.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewCustomer.setBounds(12, 24, 72, 22);
+		lblNewCustomer.setBounds(12, 24, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblNewCustomer);
 
 		JLabel lblName = new JLabel("Namn:");
-		lblName.setBounds(12, 57, 56, 22);
+		lblName.setBounds(12, 57, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblName);
 
 		JLabel lblPhoneNumber = new JLabel("Telefonnr:");
-		lblPhoneNumber.setBounds(12, 86, 72, 22);
+		lblPhoneNumber.setBounds(12, 86, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblPhoneNumber);
 
 		JLabel lblStreetAdress = new JLabel("Gatuadress:");
-		lblStreetAdress.setBounds(12, 115, 72, 22);
+		lblStreetAdress.setBounds(12, 115, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblStreetAdress);
 
 		JLabel lblPostalNbr = new JLabel("Postnummer:");
-		lblPostalNbr.setBounds(12, 144, 86, 22);
+		lblPostalNbr.setBounds(12, 144, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblPostalNbr);
 
 		JLabel lblCity = new JLabel("Stad:");
-		lblCity.setBounds(12, 173, 56, 22);
+		lblCity.setBounds(12, 173, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblCity);
 
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(12, 202, 56, 22);
+		lblEmail.setBounds(12, 202, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblEmail);
 
 		JLabel lblFoundCustomer = new JLabel("Kundnr:");
-		lblFoundCustomer.setBounds(12, 231, 56, 22);
+		lblFoundCustomer.setBounds(12, 231, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblFoundCustomer);
 
 		JLabel lblFindCustomer = new JLabel("Hitta kund");
 		lblFindCustomer.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblFindCustomer.setBounds(12, 312, 86, 22);
+		lblFindCustomer.setBounds(12, 312, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblFindCustomer);
 
 		JLabel lblKundnr = new JLabel("Kundnr:");
-		lblKundnr.setBounds(12, 345, 56, 22);
+		lblKundnr.setBounds(12, 345, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblKundnr);
 
 		textField_City = new JTextField();
-		textField_City.setBounds(158, 173, 138, 22);
+		textField_City.setBounds(158, 173, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_City);
 		textField_City.setColumns(10);
 
 		textField_Name = new JTextField();
-		textField_Name.setBounds(158, 57, 138, 22);
+		textField_Name.setBounds(158, 57, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Name);
 		textField_Name.setColumns(10);
 
 		textField_Phone = new JTextField();
-		textField_Phone.setBounds(158, 86, 138, 22);
+		textField_Phone.setBounds(158, 86, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Phone);
 		textField_Phone.setColumns(10);
 
 		textField_Adress = new JTextField();
-		textField_Adress.setBounds(158, 115, 138, 22);
+		textField_Adress.setBounds(158, 115, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Adress);
 		textField_Adress.setColumns(10);
 
 		textField_Email = new JTextField();
-		textField_Email.setBounds(158, 202, 138, 22);
+		textField_Email.setBounds(158, 202, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Email);
 		textField_Email.setColumns(10);
 
 		textField_PostalNbr = new JTextField();
-		textField_PostalNbr.setBounds(158, 144, 138, 22);
+		textField_PostalNbr.setBounds(158, 144, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_PostalNbr);
 		textField_PostalNbr.setColumns(10);
 
 		textField_FindCustomer = new JTextField();
-		textField_FindCustomer.setBounds(158, 345, 138, 22);
+		textField_FindCustomer.setBounds(158, 345, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_FindCustomer);
 		textField_FindCustomer.setColumns(10);
 
 		textField_ShowCustomerNbr = new JTextField();
 		textField_ShowCustomerNbr.setEditable(false);
-		textField_ShowCustomerNbr.setBounds(158, 231, 138, 22);
+		textField_ShowCustomerNbr.setBounds(158, 231, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_ShowCustomerNbr);
 		textField_ShowCustomerNbr.setColumns(10);
 
@@ -137,7 +137,7 @@ public class CustomerGui extends Gui<CustomerController> {
 				controller.addCustomer(name, phoneNbr, adress, email);
 			}
 		});
-		btnAddCustomer.setBounds(12, 273, 138, 25);
+		btnAddCustomer.setBounds(12, 273, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnAddCustomer);
 
 		JButton btnSearchCustomer = new JButton("S\u00F6k");
@@ -148,7 +148,7 @@ public class CustomerGui extends Gui<CustomerController> {
 				controller.findCustomer(searchString);
 			}
 		});
-		btnSearchCustomer.setBounds(304, 344, 97, 25);
+		btnSearchCustomer.setBounds(304, 344, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnSearchCustomer);
 
 		JButton btnUpdateCustomer = new JButton("Uppdatera kund");
@@ -164,7 +164,7 @@ public class CustomerGui extends Gui<CustomerController> {
 				controller.updateCustomer(customerNbr, name, telephone, address, email);
 			}
 		});
-		btnUpdateCustomer.setBounds(158, 273, 138, 25);
+		btnUpdateCustomer.setBounds(158, 273, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnUpdateCustomer);
 
 		JScrollPane scrollPane = new JScrollPane();

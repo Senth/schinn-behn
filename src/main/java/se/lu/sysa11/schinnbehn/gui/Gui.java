@@ -14,7 +14,7 @@ public abstract class Gui<ControllerType> {
 	protected static final int LABEL_WIDTH = 144;
 	protected static final int TEXTFIELD_HEIGHT = 25;
 	protected static final int TEXTFIELD_WIDTH = 138;
-	protected static final int BUTTON_HEIGT = 25;
+	protected static final int BUTTON_HEIGHT = 25;
 	protected static final int BUTTON_WIDTH = 138;
 
 	/**

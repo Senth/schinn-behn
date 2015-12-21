@@ -37,7 +37,7 @@ public class CustomerGui extends Gui<CustomerController> {
 	 * @wbp.parser.entryPoint
 	 */
 	@Override
-	protected void initialize() {
+	public void initialize() {
 
 		panel.setLayout(null);
 

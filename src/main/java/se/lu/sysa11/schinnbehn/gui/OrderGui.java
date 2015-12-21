@@ -15,7 +15,7 @@ public class OrderGui extends Gui<OrderController> {
 	private JPanel panel = new JPanel();
 
 	@Override
-	protected void initialize() {
+	public void initialize() {
 
 
 	}

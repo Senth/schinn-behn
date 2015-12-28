@@ -76,11 +76,11 @@ public class CustomerGui extends Gui<CustomerController> {
 
 		JLabel lblFindCustomer = new JLabel("Hitta kund");
 		lblFindCustomer.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblFindCustomer.setBounds(12, 312, LABEL_WIDTH, LABEL_HEIGHT);
+		lblFindCustomer.setBounds(12, 328, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblFindCustomer);
 
 		JLabel lblKundnr = new JLabel("Kundnr:");
-		lblKundnr.setBounds(12, 345, LABEL_WIDTH, LABEL_HEIGHT);
+		lblKundnr.setBounds(12, 361, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblKundnr);
 
 		textField_City = new JTextField();
@@ -114,7 +114,7 @@ public class CustomerGui extends Gui<CustomerController> {
 		textField_PostalNbr.setColumns(10);
 
 		textField_FindCustomer = new JTextField();
-		textField_FindCustomer.setBounds(158, 345, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_FindCustomer.setBounds(158, 361, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_FindCustomer);
 		textField_FindCustomer.setColumns(10);
 
@@ -148,7 +148,7 @@ public class CustomerGui extends Gui<CustomerController> {
 				controller.findCustomer(searchString);
 			}
 		});
-		btnSearchCustomer.setBounds(304, 344, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btnSearchCustomer.setBounds(309, 361, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnSearchCustomer);
 
 		JButton btnUpdateCustomer = new JButton("Uppdatera kund");

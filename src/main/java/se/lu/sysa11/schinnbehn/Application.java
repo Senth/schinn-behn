@@ -23,7 +23,7 @@ import se.lu.sysa11.schinnbehn.model.ProductReg;
  */
 public class Application {
 	private static final int CUSTOMERS = 50;
-	private static final int ORDERS_PER_CUSTMORES = 50;
+	private static final int ORDERS_PER_CUSTOMERS = 50;
 	private static final int PRODUCTS = 50;
 	private static final int PRODUCT_PRICE_MAX = 5000;
 	private static final double PRODUCT_WEIGHT_MAX = 50;

@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import se.lu.sysa11.schinnbehn.controller.CustomerController;
+import se.lu.sysa11.schinnbehn.model.Customer;
 
 /**
  * @author Kalle
@@ -145,7 +146,11 @@ public class CustomerGui extends Gui<CustomerController> {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String searchString = textField_FindCustomer.getText();
-				controller.findCustomer(searchString);
+				Customer tmpCustomer = controller.findCustomer(searchString);
+				textField_Name.setText(tmpCustomer.getName());
+				textField_Phone.setText(tmpCustomer.getTelephoneNbr());
+				textField_ShowCustomerNbr.setText(tmpCustomer.getCustomerNbr());
+				textField_Email.setText(tmpCustomer.getEmail());
 			}
 		});
 		btnSearchCustomer.setBounds(309, 361, BUTTON_WIDTH, BUTTON_HEIGHT);

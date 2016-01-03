@@ -1,6 +1,6 @@
 package se.lu.sysa11.schinnbehn.controller;
 
-import java.util.ArrayList;
+
 import java.util.logging.Logger;
 
 import se.lu.sysa11.schinnbehn.gui.CustomerGui;
@@ -120,9 +120,9 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	 * @return list of all found customer (currently the list can only contain one or
 	 *         zero)
 	 */
-	public ArrayList<Customer> findCustomer(String searchString) {
+	public Customer findCustomer(String searchString) {
 		// TODO implement find Customer
+		return register.findCustomer(searchString);
 
-		return null;
 	}
 }

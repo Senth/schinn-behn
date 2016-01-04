@@ -101,18 +101,23 @@ public class Application {
 		for (int i = 0; i < ORDERS_PER_CUSTOMERS; ++i) {
 			Order order = new Order();
 			order.setDeliveryAdress(loremIpsum.words(2));
-			order.setMadeby(customers.get(random.nextInt(CUSTOMERS)));
+			Customer customer = customers.get(random.nextInt(CUSTOMERS));
+			order.setMadeby(customer);
+			customer.addOrder(order);
 
 			// Create order lines
 			for (i = 0; i < ORDER_LINES_PER_ORDER; ++i) {
 				OrderLine orderLine = new OrderLine();
 				orderLine.setLineNbr(i + 1);
 				orderLine.setOrder(order);
+				order.addOrderLine(orderLine);
 				Product product = products.get(random.nextInt(PRODUCTS));
 				orderLine.setProduct(product);
 				orderLine.setProductPrice(product.getPrice());
 				orderLine.setQuantity(random.nextInt(QUANTITY_MAX + 1));
 			}
+
+			orderReg.add(order);
 		}
 	}
 }

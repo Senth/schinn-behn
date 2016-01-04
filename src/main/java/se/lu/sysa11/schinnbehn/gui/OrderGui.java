@@ -159,7 +159,7 @@ public class OrderGui extends Gui<OrderController> {
 		panel.add(textField);
 		textField.setColumns(10);
 
-
+		setInitialized(true);
 	}
 
 	@Override

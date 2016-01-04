@@ -3,7 +3,6 @@ package se.lu.sysa11.schinnbehn.model;
 import java.util.HashMap;
 
 /**
- * @author Jesper
  */
 public class CustomerReg {
 	private HashMap<String, Customer> customers = new HashMap<>();

@@ -31,7 +31,6 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	 * @param telephone company telephone number
 	 * @param address company address
 	 * @param email company email address
-	 * @param billingAddress where to send the bills
 	 * @return true if the customer was added successfully. False if one or more of the
 	 *         parameters are wrong or empty
 	 */

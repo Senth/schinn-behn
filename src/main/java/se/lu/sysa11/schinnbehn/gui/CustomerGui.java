@@ -193,6 +193,7 @@ public class CustomerGui extends Gui<CustomerController> {
 		btnClearFields.setBounds(304, 216, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnClearFields);
 
+		setInitialized(true);
 	}
 
 	@Override

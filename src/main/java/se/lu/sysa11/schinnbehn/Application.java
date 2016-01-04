@@ -30,9 +30,9 @@ public class Application {
 	private static final int ORDERS_PER_CUSTOMERS = 50;
 	private static final int ORDER_LINES_PER_ORDER = 50;
 	private static final int PRODUCTS = 500;
-	private static final int PRODUCT_PRICE_MAX = 5000;
+	private static final int PRODUCT_PRICE_MAX = 50;
 	private static final double PRODUCT_WEIGHT_MAX = 50;
-	private static final int QUANTITY_MAX = 1000;
+	private static final int QUANTITY_MAX = 100;
 
 	/**
 	 * Main class

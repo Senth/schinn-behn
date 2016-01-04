@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 /**
  * dfdsf
- *
  * @author Jesper
  */
 public class Order {
@@ -13,6 +12,7 @@ public class Order {
 	private Customer madeby;
 	private ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
 	private static int orderNbrCounter = 1;
+	private String orderDate = "2016-01-04";
 
 	public Order() {
 		orderNbr = String.valueOf(orderNbrCounter);
@@ -61,6 +61,14 @@ public class Order {
 
 	public void setMadeby(Customer madeby) {
 		this.madeby = madeby;
+	}
+
+	public String getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
 	}
 
 }

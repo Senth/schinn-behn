@@ -1,5 +1,6 @@
 package se.lu.sysa11.schinnbehn.gui;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,8 +13,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+
 import se.lu.sysa11.schinnbehn.controller.CustomerController;
 import se.lu.sysa11.schinnbehn.model.Customer;
+import se.lu.sysa11.schinnbehn.model.Order;
 
 /**
  * @author Kalle
@@ -31,6 +35,8 @@ public class CustomerGui extends Gui<CustomerController> {
 	private JTextField textField_FindCustomer;
 	private JTextField textField_ShowCustomerNbr;
 	private JTable table_Orders;
+	private DefaultTableModel table_Model;
+
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -113,8 +119,11 @@ public class CustomerGui extends Gui<CustomerController> {
 				String phoneNbr = textField_Phone.getText();
 				String adress = textField_Adress.getText();
 				String email = textField_Email.getText();
+				String customerNbr = controller.addCustomer(name, phoneNbr, adress, email);
 
-				controller.addCustomer(name, phoneNbr, adress, email);
+				if (customerNbr != null) {
+					textField_ShowCustomerNbr.setText(customerNbr);
+				}
 			}
 		});
 		btnAddCustomer.setBounds(12, 216, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -127,12 +136,23 @@ public class CustomerGui extends Gui<CustomerController> {
 				String searchString = textField_FindCustomer.getText();
 				Customer tmpCustomer = controller.findCustomer(searchString);
 
+				while (table_Model.getRowCount() > 0) {
+					table_Model.removeRow(0);
+				}
+
 				if (tmpCustomer != null) {
 					textField_Name.setText(tmpCustomer.getName());
 					textField_Phone.setText(tmpCustomer.getTelephoneNbr());
 					textField_Adress.setText(tmpCustomer.getAddress());
 					textField_Email.setText(tmpCustomer.getEmail());
 					textField_ShowCustomerNbr.setText(tmpCustomer.getCustomerNbr());
+
+					for (Order tmpOrder : tmpCustomer.getOrders().values()) {
+						int orderNbr = Integer.parseInt(tmpOrder.getOrderNbr());
+						Object[] row = { orderNbr, tmpOrder.getOrderDate(), tmpOrder.getTotalPrice() };
+						table_Model.addRow(row);
+					}
+
 				} else {
 					textField_Name.setText("");
 					textField_Phone.setText("");
@@ -140,7 +160,6 @@ public class CustomerGui extends Gui<CustomerController> {
 					textField_Email.setText("");
 					textField_ShowCustomerNbr.setText(searchString);
 				}
-
 			}
 		});
 		btnSearchCustomer.setBounds(304, 304, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -167,15 +186,33 @@ public class CustomerGui extends Gui<CustomerController> {
 		panel.add(scrollPane);
 
 		String column_names[] = { "Ordernummer", "Datum", "Summa" };
-		table_Orders = new JTable();
-		table_Orders.setModel(new DefaultTableModel(new Object[][] {}, column_names) {
+		table_Model = new DefaultTableModel(new Object[][] {}, column_names) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
-		});
+
+			@Override
+			public Class<?> getColumnClass(int columnIndex) {
+				switch (columnIndex) {
+				case 0:
+					return Integer.class;
+				case 1:
+					return String.class;
+				case 2:
+					return Double.class;
+				default:
+					return String.class;
+				}
+			}
+
+		};
+
+		table_Orders = new JTable();
+		table_Orders.setAutoCreateRowSorter(true);
+		table_Orders.setModel(table_Model);
 		table_Orders.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane.setViewportView(table_Orders);
 
@@ -192,6 +229,10 @@ public class CustomerGui extends Gui<CustomerController> {
 		});
 		btnClearFields.setBounds(304, 216, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnClearFields);
+		panel.setFocusTraversalPolicy(
+				new FocusTraversalOnArray(new Component[] { lblNewCustomer, lblName, lblPhoneNumber, lblAdress, lblEmail, lblFoundCustomer,
+						lblFindCustomer, lblKundnr, textField_Name, textField_Phone, textField_Adress, textField_Email, textField_FindCustomer,
+						textField_ShowCustomerNbr, btnAddCustomer, btnSearchCustomer, btnUpdateCustomer, scrollPane, table_Orders, btnClearFields }));
 
 		setInitialized(true);
 	}

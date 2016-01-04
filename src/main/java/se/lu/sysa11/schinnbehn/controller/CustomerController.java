@@ -31,13 +31,13 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	 * @param telephone company telephone number
 	 * @param address company address
 	 * @param email company email address
-	 * @return true if the customer was added successfully. False if one or more of the
-	 *         parameters are wrong or empty
+	 * @return customerNbr if the customer was added successfully. Null if one or more of
+	 *         the parameters are wrong or empty
 	 */
-	public boolean addCustomer(String name, String telephone, String address, String email) {
+	public String addCustomer(String name, String telephone, String address, String email) {
 
 		if (!isInputValid(name, telephone, address, email)) {
-			return false;
+			return null;
 		}
 
 		// Add customer
@@ -52,7 +52,7 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 		// send notification
 		window.showNotificationSuccess("Kund tillagd");
 
-		return true;
+		return customer.getCustomerNbr();
 	}
 
 	/**

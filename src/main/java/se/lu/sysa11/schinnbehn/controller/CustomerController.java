@@ -122,7 +122,12 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	 */
 	public Customer findCustomer(String searchString) {
 		// TODO implement find Customer
-		return register.findCustomer(searchString);
-
+		Customer tmpCustomer = register.findCustomer(searchString);
+		if (tmpCustomer == null) {
+			window.showNotificationError("Finns ingen kund med kundnummer " + searchString + ".");
+		} else {
+			window.showNotificationSuccess("Kund med kundnummer " + searchString + " hittad.");
+		}
+		return tmpCustomer;
 	}
 }

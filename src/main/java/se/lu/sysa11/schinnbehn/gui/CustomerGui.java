@@ -126,14 +126,24 @@ public class CustomerGui extends Gui<CustomerController> {
 			public void actionPerformed(ActionEvent e) {
 				String searchString = textField_FindCustomer.getText();
 				Customer tmpCustomer = controller.findCustomer(searchString);
-				textField_Name.setText(tmpCustomer.getName());
-				textField_Phone.setText(tmpCustomer.getTelephoneNbr());
-				textField_Adress.setText(tmpCustomer.getAddress());
-				textField_Email.setText(tmpCustomer.getEmail());
-				textField_ShowCustomerNbr.setText(tmpCustomer.getCustomerNbr());
+
+				if (tmpCustomer != null) {
+					textField_Name.setText(tmpCustomer.getName());
+					textField_Phone.setText(tmpCustomer.getTelephoneNbr());
+					textField_Adress.setText(tmpCustomer.getAddress());
+					textField_Email.setText(tmpCustomer.getEmail());
+					textField_ShowCustomerNbr.setText(tmpCustomer.getCustomerNbr());
+				} else {
+					textField_Name.setText("");
+					textField_Phone.setText("");
+					textField_Adress.setText("");
+					textField_Email.setText("");
+					textField_ShowCustomerNbr.setText(searchString);
+				}
+
 			}
 		});
-		btnSearchCustomer.setBounds(309, 304, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btnSearchCustomer.setBounds(304, 304, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnSearchCustomer);
 
 		JButton btnUpdateCustomer = new JButton("Uppdatera kund");
@@ -168,6 +178,20 @@ public class CustomerGui extends Gui<CustomerController> {
 		});
 		table_Orders.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane.setViewportView(table_Orders);
+
+		JButton btnClearFields = new JButton("T\u00F6m f\u00E4lten");
+		btnClearFields.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				textField_Name.setText("");
+				textField_Phone.setText("");
+				textField_Adress.setText("");
+				textField_Email.setText("");
+				textField_ShowCustomerNbr.setText("");
+			}
+		});
+		btnClearFields.setBounds(304, 216, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel.add(btnClearFields);
 
 	}
 

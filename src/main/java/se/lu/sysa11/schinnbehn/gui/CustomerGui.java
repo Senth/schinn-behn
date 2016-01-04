@@ -234,6 +234,7 @@ public class CustomerGui extends Gui<CustomerController> {
 						lblFindCustomer, lblKundnr, textField_Name, textField_Phone, textField_Adress, textField_Email, textField_FindCustomer,
 						textField_ShowCustomerNbr, btnAddCustomer, btnSearchCustomer, btnUpdateCustomer, scrollPane, table_Orders, btnClearFields }));
 
+		setInitialized(true);
 	}
 
 	@Override

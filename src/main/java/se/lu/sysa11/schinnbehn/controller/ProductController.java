@@ -1,6 +1,6 @@
 package se.lu.sysa11.schinnbehn.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import se.lu.sysa11.schinnbehn.gui.ProductGui;
 import se.lu.sysa11.schinnbehn.gui.Window;
@@ -19,7 +19,6 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 	public ProductController(Window window, ProductGui productGui, ProductReg productReg) {
 		super(window, productGui, productReg);
 		gui.setController(this);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -133,10 +132,18 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 	 * @return list of all found products (currently the list only contains either one or
 	 *         zero)
 	 */
-	public ArrayList<Product> findProduct(String searchString) {
-		// TODO implement find custom
+	public Product findProduct(String searchString) {
+		return register.findProduct(searchString);
+	}
 
-		return null;
+	/**
+	 * Find a product by search string.
+	 * @param searchString what to search for. If you use more than one word they are
+	 *        combined with an and.
+	 * @return found products sorted by relevance
+	 */
+	public List<Product> findProducts(String searchString) {
+		return register.findProducts(searchString);
 	}
 
 }

@@ -23,7 +23,7 @@ import se.lu.sysa11.schinnbehn.model.Product;
 import se.lu.sysa11.schinnbehn.model.ProductReg;
 
 /**
- * @author Matteus Magnusson <matteus.magnusson@spiddekauga.com>
+ * Main application of Schinn och Behn
  */
 public class Application {
 	private static final int CUSTOMERS = 50;
@@ -44,21 +44,18 @@ public class Application {
 
 		// Customer
 		CustomerGui customerGui = new CustomerGui();
-		customerGui.initialize();
 		CustomerReg customerReg = new CustomerReg();
 		new CustomerController(window, customerGui, customerReg);
 		window.addGui(Views.CUSTOMER, customerGui);
 
 		// Product
 		ProductGui productGui = new ProductGui();
-		productGui.initialize();
 		ProductReg productReg = new ProductReg();
 		new ProductController(window, productGui, productReg);
 		window.addGui(Views.PRODUCT, productGui);
 
 		// Order
 		OrderGui orderGui = new OrderGui();
-		orderGui.initialize();
 		OrderReg orderReg = new OrderReg();
 		new OrderController(window, orderGui, orderReg);
 		window.addGui(Views.ORDER, orderGui);

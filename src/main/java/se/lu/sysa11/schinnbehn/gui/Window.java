@@ -115,6 +115,9 @@ public class Window {
 		Gui<?> gui = guis.get(view);
 
 		if (gui != null) {
+			if (!gui.isInitialized()) {
+				gui.initialize();
+			}
 			content.setViewportView(gui.getContent());
 			content.revalidate();
 			content.repaint();

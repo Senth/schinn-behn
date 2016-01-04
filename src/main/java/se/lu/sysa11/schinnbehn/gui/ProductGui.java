@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 import javax.swing.ButtonGroup;
@@ -17,9 +18,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import se.lu.sysa11.schinnbehn.controller.ProductController;
+import se.lu.sysa11.schinnbehn.model.Product;
 
 /**
  * @author Jesper
@@ -39,6 +43,7 @@ public class ProductGui extends Gui<ProductController> {
 	private JTextField textField_SearchProduct;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextArea textArea_Ingredients;
+	private DefaultTableModel tableModel_Product;
 
 
 	/**
@@ -84,6 +89,22 @@ public class ProductGui extends Gui<ProductController> {
 		textField_SearchProduct.setBounds(500, 24, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_SearchProduct);
 		textField_SearchProduct.setColumns(10);
+		textField_SearchProduct.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				populateTable();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				populateTable();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				populateTable();
+			}
+		});
 
 		JRadioButton rdbtnYes = new JRadioButton("Ja");
 		rdbtnYes.setSelected(true);
@@ -191,20 +212,21 @@ public class ProductGui extends Gui<ProductController> {
 		lblActive.setBounds(12, 269, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblActive);
 
-		JLabel lblSearchProduct = new JLabel("Sök produkt:");
+		JLabel lblSearchProduct = new JLabel("Sï¿½k produkt:");
 		lblSearchProduct.setBounds(359, 24, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblSearchProduct);
 
 		String column_names[] = { "Nummer", "Namn", "Pris", "Kostnad" };
 		table_Products = new JTable();
-		table_Products.setModel(new DefaultTableModel(new Object[][] {}, column_names) {
+		tableModel_Product = new DefaultTableModel(new Object[][] {}, column_names) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
-		});
+		};
+		table_Products.setModel(tableModel_Product);
 		table_Products.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane.setViewportView(table_Products);
 
@@ -212,6 +234,29 @@ public class ProductGui extends Gui<ProductController> {
 		textArea_Ingredients.setBounds(158, 202, TEXTFIELD_WIDTH, 59);
 		panel.add(textArea_Ingredients);
 
+		populateTable(controller.findProducts(""));
+
+		setInitialized(true);
+	}
+
+	/**
+	 * Populate table with all products that matches the search string
+	 */
+	private void populateTable() {
+		populateTable(controller.findProducts(textField_SearchProduct.getText()));
+	}
+
+	private void populateTable(List<Product> products) {
+		// Remove rows
+		while (tableModel_Product.getRowCount() > 0) {
+			tableModel_Product.removeRow(0);
+		}
+
+		// Add products
+		for (Product product : products) {
+			Object[] row = { product.getProductNbr(), product.getName(), product.getPrice(), product.getCost() };
+			tableModel_Product.addRow(row);
+		}
 	}
 
 	@Override

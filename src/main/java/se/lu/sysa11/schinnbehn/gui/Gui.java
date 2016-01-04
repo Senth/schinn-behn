@@ -3,12 +3,13 @@ package se.lu.sysa11.schinnbehn.gui;
 import javax.swing.JPanel;
 
 /**
- * @author Matteus Magnusson
  * @param <ControllerType> The Controller class
  */
 public abstract class Gui<ControllerType> {
 	/** Controller for the GUI class */
 	protected ControllerType controller;
+	/** if the GUI has been initialized */
+	private boolean initialized = false;
 
 	protected static final int LABEL_HEIGHT = 25;
 	protected static final int LABEL_WIDTH = 144;
@@ -21,6 +22,20 @@ public abstract class Gui<ControllerType> {
 	 * Initialize the GUI
 	 */
 	public abstract void initialize();
+
+	/**
+	 * @return true if initialized
+	 */
+	public boolean isInitialized() {
+		return initialized;
+	}
+
+	/**
+	 * Set if the GUI has been initialized or not
+	 */
+	public void setInitialized(boolean initialized) {
+		this.initialized = initialized;
+	}
 
 	/**
 	 * @return context for this GUI

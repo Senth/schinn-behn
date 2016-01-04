@@ -175,6 +175,8 @@ public class OrderGui extends Gui<OrderController> {
 		table_Orders = new JTable();
 		table_Orders.setModel(new DefaultTableModel(new Object[][] {}, columnHeadersForOrders));
 		scrollPane_Orders.setViewportView(table_Orders);
+
+		setInitialized(true);
 	}
 
 	@Override

@@ -49,9 +49,8 @@ public class OrderGui extends Gui<OrderController> {
 
 				if (tmpOrder != null) {
 					textField_DeliveryAddress.setText(tmpOrder.getDeliveryAdress());
-					textField_CustomerName.setText(tmpOrder.getMadeby().getName());
 					textField_CustomerNbr.setText(tmpOrder.getMadeby().getCustomerNbr());
-
+					textField_CustomerName.setText(tmpOrder.getMadeby().getName());
 				}
 			}
 		});

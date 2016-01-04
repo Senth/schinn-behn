@@ -14,14 +14,15 @@ import javax.swing.table.DefaultTableModel;
 
 import se.lu.sysa11.schinnbehn.controller.OrderController;
 import se.lu.sysa11.schinnbehn.model.Order;
+import se.lu.sysa11.schinnbehn.model.OrderLine;
 
 /**
  * @author
  */
 public class OrderGui extends Gui<OrderController> {
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
-	 * then
+	 * Can't have panel in base class as we're not able to access WindowBuilder
+	 * correctly then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_FindOrderNbr;
@@ -32,6 +33,8 @@ public class OrderGui extends Gui<OrderController> {
 	private JTable table_Orders;
 	private JTextField textField_SearchProduct;
 	private JTextField textField_TotalSum;
+	private DefaultTableModel table_ModelOrders;
+	private DefaultTableModel table_ModelProducts;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -47,10 +50,21 @@ public class OrderGui extends Gui<OrderController> {
 				String searchString = textField_FindOrderNbr.getText();
 				Order tmpOrder = controller.findOrder(searchString);
 
+				while (table_ModelOrders.getRowCount() > 0) {
+					table_ModelOrders.removeRow(0);
+				}
+
 				if (tmpOrder != null) {
 					textField_DeliveryAddress.setText(tmpOrder.getDeliveryAdress());
 					textField_CustomerNbr.setText(tmpOrder.getMadeby().getCustomerNbr());
 					textField_CustomerName.setText(tmpOrder.getMadeby().getName());
+
+					for (int i = 0; i < tmpOrder.getOrderline().size(); i++) {
+						OrderLine tmpOrderLine = tmpOrder.getOrderline().get(i);
+						Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
+								tmpOrderLine.getQuantity(), tmpOrder.getTotalPrice() };
+						table_ModelOrders.addRow(row);
+					}
 				}
 			}
 		});
@@ -110,7 +124,6 @@ public class OrderGui extends Gui<OrderController> {
 		lblAddProducts.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblAddProducts.setBounds(12, 198, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblAddProducts);
-
 
 		JLabel lblOrder = new JLabel("Orderrader");
 		lblOrder.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -172,8 +185,13 @@ public class OrderGui extends Gui<OrderController> {
 		panel.add(scrollPane_Orders);
 
 		String columnHeadersForOrders[] = { "Produktnamn", "Pris", "Antal", "Summa" };
+		table_ModelOrders = new DefaultTableModel(new Object[][] {}, columnHeadersForOrders) {
+			private static final long serialVersionUID = 1L;
+		};
+
 		table_Orders = new JTable();
-		table_Orders.setModel(new DefaultTableModel(new Object[][] {}, columnHeadersForOrders));
+		table_Orders.setModel(table_ModelOrders);
+		table_Orders.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane_Orders.setViewportView(table_Orders);
 
 		setInitialized(true);

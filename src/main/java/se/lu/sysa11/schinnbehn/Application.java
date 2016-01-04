@@ -29,7 +29,7 @@ public class Application {
 	private static final int CUSTOMERS = 50;
 	private static final int ORDERS_PER_CUSTOMERS = 50;
 	private static final int ORDER_LINES_PER_ORDER = 50;
-	private static final int PRODUCTS = 50;
+	private static final int PRODUCTS = 500;
 	private static final int PRODUCT_PRICE_MAX = 5000;
 	private static final double PRODUCT_WEIGHT_MAX = 50;
 	private static final int QUANTITY_MAX = 1000;
@@ -87,7 +87,7 @@ public class Application {
 
 		// Customers
 		List<Customer> customers = new ArrayList<>();
-		for (int i = 0; i < CUSTOMERS; ++i) {
+		for (int customerIndex = 0; customerIndex < CUSTOMERS; ++customerIndex) {
 			Customer customer = new Customer();
 			customer.setEmail(loremIpsum.randomWord() + "." + loremIpsum.randomWord() + "@example.com");
 			customer.setName(loremIpsum.randomWord());
@@ -95,29 +95,30 @@ public class Application {
 			// TODO address
 			customerReg.add(customer);
 			customers.add(customer);
-		}
 
-		// Orders
-		for (int i = 0; i < ORDERS_PER_CUSTOMERS; ++i) {
-			Order order = new Order();
-			order.setDeliveryAdress(loremIpsum.words(2));
-			Customer customer = customers.get(random.nextInt(CUSTOMERS));
-			order.setMadeby(customer);
-			customer.addOrder(order);
+			// Orders
+			for (int orderIndex = 0; orderIndex < ORDERS_PER_CUSTOMERS; ++orderIndex) {
+				Order order = new Order();
+				order.setDeliveryAdress(loremIpsum.words(2));
+				order.setMadeby(customer);
+				customer.addOrder(order);
 
-			// Create order lines
-			for (i = 0; i < ORDER_LINES_PER_ORDER; ++i) {
-				OrderLine orderLine = new OrderLine();
-				orderLine.setLineNbr(i + 1);
-				orderLine.setOrder(order);
-				order.addOrderLine(orderLine);
-				Product product = products.get(random.nextInt(PRODUCTS));
-				orderLine.setProduct(product);
-				orderLine.setProductPrice(product.getPrice());
-				orderLine.setQuantity(random.nextInt(QUANTITY_MAX + 1));
+				// Create order lines
+				for (int lineIndex = 0; lineIndex < ORDER_LINES_PER_ORDER; ++lineIndex) {
+					OrderLine orderLine = new OrderLine();
+					orderLine.setLineNbr(lineIndex + 1);
+					orderLine.setOrder(order);
+					order.addOrderLine(orderLine);
+					Product product = products.get(random.nextInt(PRODUCTS));
+					orderLine.setProduct(product);
+					orderLine.setProductPrice(product.getPrice());
+					orderLine.setQuantity(random.nextInt(QUANTITY_MAX + 1));
+				}
+
+				orderReg.add(order);
 			}
-
-			orderReg.add(order);
 		}
+
+
 	}
 }

@@ -9,10 +9,11 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
@@ -28,7 +29,7 @@ public class Window {
 	private JFrame frame;
 	private JScrollPane content = new JScrollPane();
 	private HashMap<Views, Controller<?, ?>> controllers = new HashMap<>();
-	private HashMap<Views, JButton> viewButtons = new HashMap<>();
+	private HashMap<Views, JRadioButtonMenuItem> viewButtons = new HashMap<>();
 	private JPanel menu = new JPanel();
 	private JLabel notificationLabel = new JLabel("Meddelanden");
 
@@ -55,7 +56,9 @@ public class Window {
 		menu.setLayout(menuLayout);
 		frame.getContentPane().add(menu, BorderLayout.WEST);
 
-		JButton btnCustomer = new JButton("Kund");
+		ButtonGroup group = new ButtonGroup();
+		JRadioButtonMenuItem btnCustomer = new JRadioButtonMenuItem("Kund");
+		group.add(btnCustomer);
 		btnCustomer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -64,7 +67,8 @@ public class Window {
 		});
 		menu.add(btnCustomer);
 		viewButtons.put(Views.CUSTOMER, btnCustomer);
-		JButton btnOrder = new JButton("Order");
+		JRadioButtonMenuItem btnOrder = new JRadioButtonMenuItem("Order");
+		group.add(btnOrder);
 		btnOrder.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -73,7 +77,8 @@ public class Window {
 		});
 		menu.add(btnOrder);
 		viewButtons.put(Views.ORDER, btnOrder);
-		JButton btnProduct = new JButton("Produkt");
+		JRadioButtonMenuItem btnProduct = new JRadioButtonMenuItem("Produkt");
+		group.add(btnProduct);
 		btnProduct.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -137,7 +142,7 @@ public class Window {
 			content.revalidate();
 			content.repaint();
 
-			JButton button = viewButtons.get(view);
+			JRadioButtonMenuItem button = viewButtons.get(view);
 			if (button != null && !button.isSelected()) {
 				button.setSelected(true);
 			}

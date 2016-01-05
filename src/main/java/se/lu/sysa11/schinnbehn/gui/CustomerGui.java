@@ -24,8 +24,8 @@ import se.lu.sysa11.schinnbehn.model.Order;
  */
 public class CustomerGui extends Gui<CustomerController> {
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
-	 * then
+	 * Can't have panel in base class as we're not able to access WindowBuilder
+	 * correctly then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_Name;
@@ -36,7 +36,6 @@ public class CustomerGui extends Gui<CustomerController> {
 	private JTextField textField_ShowCustomerNbr;
 	private JTable table_Orders;
 	private DefaultTableModel table_Model;
-
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -149,7 +148,7 @@ public class CustomerGui extends Gui<CustomerController> {
 
 					for (Order tmpOrder : tmpCustomer.getOrders().values()) {
 						int orderNbr = Integer.parseInt(tmpOrder.getOrderNbr());
-						Object[] row = { orderNbr, tmpOrder.getOrderDate(), tmpOrder.getTotalPrice() };
+						Object[] row = { tmpOrder.getOrderDate(), orderNbr, tmpOrder.getTotalPrice() };
 						table_Model.addRow(row);
 					}
 
@@ -185,7 +184,7 @@ public class CustomerGui extends Gui<CustomerController> {
 		scrollPane.setBounds(459, 24, 452, 362);
 		panel.add(scrollPane);
 
-		String column_names[] = { "Ordernummer", "Datum", "Summa" };
+		String column_names[] = { "Datum", "Ordernummer", "Summa" };
 		table_Model = new DefaultTableModel(new Object[][] {}, column_names) {
 			private static final long serialVersionUID = 1L;
 
@@ -198,9 +197,9 @@ public class CustomerGui extends Gui<CustomerController> {
 			public Class<?> getColumnClass(int columnIndex) {
 				switch (columnIndex) {
 				case 0:
-					return Integer.class;
-				case 1:
 					return String.class;
+				case 1:
+					return Integer.class;
 				case 2:
 					return Double.class;
 				default:
@@ -229,10 +228,10 @@ public class CustomerGui extends Gui<CustomerController> {
 		});
 		btnClearFields.setBounds(304, 216, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnClearFields);
-		panel.setFocusTraversalPolicy(
-				new FocusTraversalOnArray(new Component[] { lblNewCustomer, lblName, lblPhoneNumber, lblAdress, lblEmail, lblFoundCustomer,
-						lblFindCustomer, lblKundnr, textField_Name, textField_Phone, textField_Adress, textField_Email, textField_FindCustomer,
-						textField_ShowCustomerNbr, btnAddCustomer, btnSearchCustomer, btnUpdateCustomer, scrollPane, table_Orders, btnClearFields }));
+		panel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { lblNewCustomer, lblName,
+				lblPhoneNumber, lblAdress, lblEmail, lblFoundCustomer, lblFindCustomer, lblKundnr, textField_Name,
+				textField_Phone, textField_Adress, textField_Email, textField_FindCustomer, textField_ShowCustomerNbr,
+				btnAddCustomer, btnSearchCustomer, btnUpdateCustomer, scrollPane, table_Orders, btnClearFields }));
 
 		setInitialized(true);
 	}

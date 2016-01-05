@@ -61,10 +61,9 @@ public class OrderGui extends Gui<OrderController> {
 					textField_CustomerNbr.setText(tmpOrder.getMadeby().getCustomerNbr());
 					textField_CustomerName.setText(tmpOrder.getMadeby().getName());
 
-					for (int i = 0; i < tmpOrder.getOrderline().size(); i++) {
-						OrderLine tmpOrderLine = tmpOrder.getOrderline().get(i);
+					for (OrderLine tmpOrderLine : tmpOrder.getOrderline()) {
 						Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
-								tmpOrderLine.getQuantity(), tmpOrder.getTotalPrice() };
+								tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
 						tableModel_Orders.addRow(row);
 					}
 				}
@@ -243,6 +242,7 @@ public class OrderGui extends Gui<OrderController> {
 		scrollPane_Orders.setViewportView(table_Orders);
 
 		populateTable();
+		setOrder(controller.findOrder("1"));
 		setInitialized(true);
 	}
 
@@ -265,6 +265,26 @@ public class OrderGui extends Gui<OrderController> {
 		for (Product product : products) {
 			Object[] row = { product.getName(), product.getPrice() };
 			tableModel_Products.addRow(row);
+		}
+	}
+
+	public void setOrder(Order order) {
+
+		while (tableModel_Orders.getRowCount() > 0) {
+			tableModel_Orders.removeRow(0);
+		}
+
+		if (order != null) {
+			textField_CustomerName.setText(order.getMadeby().getName());
+			textField_CustomerNbr.setText(order.getMadeby().getCustomerNbr());
+			textField_DeliveryAddress.setText(order.getDeliveryAdress());
+			textField_FindOrderNbr.setText(order.getOrderNbr());
+
+			for (OrderLine tmpOrderLine : order.getOrderline()) {
+				Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
+						tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
+				tableModel_Orders.addRow(row);
+			}
 		}
 	}
 }

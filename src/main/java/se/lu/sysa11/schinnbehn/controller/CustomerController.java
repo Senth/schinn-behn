@@ -1,9 +1,8 @@
 package se.lu.sysa11.schinnbehn.controller;
 
 
-import java.util.logging.Logger;
-
 import se.lu.sysa11.schinnbehn.gui.CustomerGui;
+import se.lu.sysa11.schinnbehn.gui.Views;
 import se.lu.sysa11.schinnbehn.gui.Window;
 import se.lu.sysa11.schinnbehn.model.Customer;
 import se.lu.sysa11.schinnbehn.model.CustomerReg;
@@ -12,8 +11,6 @@ import se.lu.sysa11.schinnbehn.model.CustomerReg;
  * Connects the customer model and view
  */
 public class CustomerController extends Controller<CustomerGui, CustomerReg> {
-	private Logger logger = Logger.getLogger(CustomerController.class.getSimpleName());
-
 	/**
 	 * Create a custom controller with the window
 	 * @param window application window
@@ -62,7 +59,6 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	 * @param telephone company telephone number
 	 * @param address company address
 	 * @param email company email address
-	 * @param billingAddress where to send the bills
 	 * @return true if the customer was changed successfully. False if one or more of the
 	 *         parameters are wrong or empty.
 	 */
@@ -114,13 +110,20 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	}
 
 	/**
+	 * Go to the specified order
+	 * @param orderNumber the order number to go to
+	 */
+	public void gotoOrder(String orderNumber) {
+		window.switchTo(Views.ORDER, orderNumber);
+	}
+
+	/**
 	 * Find existing customers
 	 * @param searchString what to search for (currently only the customer number)
 	 * @return list of all found customer (currently the list can only contain one or
 	 *         zero)
 	 */
 	public Customer findCustomer(String searchString) {
-		// TODO implement find Customer
 		Customer tmpCustomer = register.findCustomer(searchString);
 		if (tmpCustomer == null) {
 			window.showNotificationError("Finns ingen kund med kundnummer " + searchString + ".");

@@ -16,13 +16,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
+import se.lu.sysa11.schinnbehn.controller.Controller;
+
 /**
- * @author Matteus Magnusson
+ * Main window for the application. Switch between content by calling
+ * {@link #switchTo(Views)} or {@link #switchTo(Views, Object)}
  */
 public class Window {
 	private JFrame frame;
 	private JScrollPane content = new JScrollPane();
-	private HashMap<Views, Gui<?>> guis = new HashMap<>();
+	private HashMap<Views, Controller<?, ?>> controllers = new HashMap<>();
+	private HashMap<Views, JButton> viewButtons = new HashMap<>();
 	private JPanel menu = new JPanel();
 	private JLabel notificationLabel = new JLabel("Meddelanden");
 
@@ -57,6 +61,7 @@ public class Window {
 			}
 		});
 		menu.add(btnCustomer);
+		viewButtons.put(Views.CUSTOMER, btnCustomer);
 		JButton btnOrder = new JButton("Order");
 		btnOrder.addActionListener(new ActionListener() {
 			@Override
@@ -65,6 +70,7 @@ public class Window {
 			}
 		});
 		menu.add(btnOrder);
+		viewButtons.put(Views.ORDER, btnOrder);
 		JButton btnProduct = new JButton("Produkt");
 		btnProduct.addActionListener(new ActionListener() {
 			@Override
@@ -73,11 +79,10 @@ public class Window {
 			}
 		});
 		menu.add(btnProduct);
+		viewButtons.put(Views.PRODUCT, btnProduct);
 
 
 		// Content
-		GridLayout contentLayout = new GridLayout(1, 1);
-		// content.setLayout(contentLayout);
 		content.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		frame.getContentPane().add(content, BorderLayout.CENTER);
 
@@ -99,12 +104,13 @@ public class Window {
 	}
 
 	/**
-	 * Add a new GUI
+	 * Add a new Controller to the window
 	 * @param view identifier used for switching to this GUI
-	 * @param gui the GUI to add
+	 * @param controller the controller to switch to when {@link #switchTo(Views)} is
+	 *        called
 	 */
-	public void addGui(Views view, Gui<?> gui) {
-		guis.put(view, gui);
+	public void addController(Views view, Controller<?, ?> controller) {
+		controllers.put(view, controller);
 	}
 
 	/**
@@ -112,15 +118,27 @@ public class Window {
 	 * @param view the view
 	 */
 	public void switchTo(Views view) {
-		Gui<?> gui = guis.get(view);
+		switchTo(view, null);
+	}
 
-		if (gui != null) {
-			if (!gui.isInitialized()) {
-				gui.initialize();
-			}
-			content.setViewportView(gui.getContent());
+	/**
+	 * Switch to this view and send the appropriate data to it
+	 * @param view the view to switch to
+	 * @param data what to send to the view
+	 */
+	public void switchTo(Views view, Object data) {
+		Controller<?, ?> controller = controllers.get(view);
+
+		if (controller != null) {
+			controller.activate(data);
+			content.setViewportView(controller.getGui().getContent());
 			content.revalidate();
 			content.repaint();
+
+			JButton button = viewButtons.get(view);
+			if (button != null && !button.isSelected()) {
+				button.setSelected(true);
+			}
 		} else {
 			showNotificationError("Ingen view med namnet " + view.toString().toLowerCase() + "!");
 		}

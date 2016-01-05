@@ -23,7 +23,7 @@ import se.lu.sysa11.schinnbehn.model.Product;
 import se.lu.sysa11.schinnbehn.model.ProductReg;
 
 /**
- * Main application of Schinn och Behn
+ * Main application of Schinn & Behn
  */
 public class Application {
 	private static final int CUSTOMERS = 50;
@@ -45,20 +45,20 @@ public class Application {
 		// Customer
 		CustomerGui customerGui = new CustomerGui();
 		CustomerReg customerReg = new CustomerReg();
-		new CustomerController(window, customerGui, customerReg);
-		window.addGui(Views.CUSTOMER, customerGui);
+		CustomerController customerController = new CustomerController(window, customerGui, customerReg);
+		window.addController(Views.CUSTOMER, customerController);
 
 		// Product
 		ProductGui productGui = new ProductGui();
 		ProductReg productReg = new ProductReg();
-		new ProductController(window, productGui, productReg);
-		window.addGui(Views.PRODUCT, productGui);
+		ProductController productController = new ProductController(window, productGui, productReg);
+		window.addController(Views.PRODUCT, productController);
 
 		// Order
 		OrderGui orderGui = new OrderGui();
 		OrderReg orderReg = new OrderReg();
-		new OrderController(window, orderGui, orderReg);
-		window.addGui(Views.ORDER, orderGui);
+		OrderController orderController = new OrderController(window, orderGui, orderReg, productReg, customerReg);
+		window.addController(Views.ORDER, orderController);
 
 		populateRegisters(customerReg, productReg, orderReg);
 
@@ -89,7 +89,7 @@ public class Application {
 			customer.setEmail(loremIpsum.randomWord() + "." + loremIpsum.randomWord() + "@example.com");
 			customer.setName(loremIpsum.randomWord());
 			customer.setTelephoneNbr("000-000 00 00");
-			// TODO address
+			customer.setAddress(loremIpsum.words(2));
 			customerReg.add(customer);
 			customers.add(customer);
 

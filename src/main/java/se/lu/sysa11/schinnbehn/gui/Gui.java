@@ -32,6 +32,7 @@ public abstract class Gui<ControllerType> {
 
 	/**
 	 * Set if the GUI has been initialized or not
+	 * @param initialized set to true when the GUI has been initialized
 	 */
 	public void setInitialized(boolean initialized) {
 		this.initialized = initialized;

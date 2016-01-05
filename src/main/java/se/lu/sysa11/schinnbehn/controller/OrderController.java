@@ -19,19 +19,13 @@ public class OrderController extends Controller<OrderGui, OrderReg> {
 	private CustomerReg customerRegister;
 
 	/**
-	 * @param window
-	 *            the application window
-	 * @param orderGui
-	 *            GUI/view of the product controller
-	 * @param orderRegister
-	 *            Register/model of the product controller
-	 * @param productRegister
-	 *            for finding products
-	 * @param customerRegister
-	 *            for finding customers
+	 * @param window the application window
+	 * @param orderGui GUI/view of the product controller
+	 * @param orderRegister Register/model of the product controller
+	 * @param productRegister for finding products
+	 * @param customerRegister for finding customers
 	 */
-	public OrderController(Window window, OrderGui orderGui, OrderReg orderRegister, ProductReg productRegister,
-			CustomerReg customerRegister) {
+	public OrderController(Window window, OrderGui orderGui, OrderReg orderRegister, ProductReg productRegister, CustomerReg customerRegister) {
 		super(window, orderGui, orderRegister);
 		this.productRegister = productRegister;
 		this.customerRegister = customerRegister;
@@ -79,7 +73,6 @@ public class OrderController extends Controller<OrderGui, OrderReg> {
 
 	/**
 	 * Find or rather filter products
-	 *
 	 * @param searchString
 	 * @return the found products
 	 */
@@ -89,11 +82,18 @@ public class OrderController extends Controller<OrderGui, OrderReg> {
 
 	/**
 	 * Find a customer
-	 *
 	 * @param searchString
 	 * @return found customer, null if not found
 	 */
 	public Customer findCustomer(String searchString) {
-		return customerRegister.findCustomer(searchString);
+		Customer tmpCustomer = customerRegister.findCustomer(searchString);
+
+		if (tmpCustomer == null) {
+			window.showNotificationError("Finns ingen kund med kundnummer " + searchString + ".");
+		} else {
+			window.showNotificationSuccess("Kund med kundnummer " + searchString + " hittad.");
+		}
+		return tmpCustomer;
+
 	}
 }

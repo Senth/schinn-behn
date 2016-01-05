@@ -17,6 +17,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import se.lu.sysa11.schinnbehn.controller.OrderController;
+import se.lu.sysa11.schinnbehn.model.Customer;
 import se.lu.sysa11.schinnbehn.model.Order;
 import se.lu.sysa11.schinnbehn.model.OrderLine;
 import se.lu.sysa11.schinnbehn.model.Product;
@@ -55,25 +56,9 @@ public class OrderGui extends Gui<OrderController> {
 				String searchString = textField_FindOrderNbr.getText();
 				Order order = controller.findOrder(searchString);
 				setOrder(order);
-				// while (tableModel_Orders.getRowCount() > 0) {
-				// tableModel_Orders.removeRow(0);
-				// }
-				//
-				// if (tmpOrder != null) {
-				// textField_DeliveryAddress.setText(tmpOrder.getDeliveryAdress());
-				// textField_CustomerNbr.setText(tmpOrder.getMadeby().getCustomerNbr());
-				// textField_CustomerName.setText(tmpOrder.getMadeby().getName());
-				//
-				// for (OrderLine tmpOrderLine : tmpOrder.getOrderline()) {
-				// Object[] row = { tmpOrderLine.getProduct().getName(),
-				// tmpOrderLine.getProductPrice(),
-				// tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
-				// tableModel_Orders.addRow(row);
-				// }
-				// }
 			}
 		});
-		btnSearchOrder.setBounds(274, 73, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btnSearchOrder.setBounds(274, 160, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnSearchOrder);
 
 		JButton btnAddToOrder = new JButton(">");
@@ -101,11 +86,25 @@ public class OrderGui extends Gui<OrderController> {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String searchString = textField_CustomerNbr.getText();
+				Customer tmpCustomer = controller.findCustomer(searchString);
 
-				controller.findCustomer(searchString);
+				while (tableModel_Orders.getRowCount() > 0) {
+					tableModel_Orders.removeRow(0);
+				}
+
+				if (tmpCustomer != null) {
+					textField_CustomerName.setText(tmpCustomer.getName());
+					textField_DeliveryAddress.setText(tmpCustomer.getAddress());
+					textField_FindOrderNbr.setText("");
+				} else {
+					textField_CustomerName.setText("");
+					textField_DeliveryAddress.setText("");
+					textField_FindOrderNbr.setText("");
+				}
+
 			}
 		});
-		btnSearchCustomerNbr.setBounds(274, 131, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btnSearchCustomerNbr.setBounds(274, 73, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnSearchCustomerNbr);
 
 		JLabel lblSearchOrder = new JLabel("Order");
@@ -114,19 +113,19 @@ public class OrderGui extends Gui<OrderController> {
 		panel.add(lblSearchOrder);
 
 		JLabel lblFindOrderNbr = new JLabel("Ordernr:");
-		lblFindOrderNbr.setBounds(12, 73, LABEL_WIDTH, LABEL_HEIGHT);
+		lblFindOrderNbr.setBounds(12, 160, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblFindOrderNbr);
 
 		JLabel lblDeliveryAddress = new JLabel("Leveransaddress:");
-		lblDeliveryAddress.setBounds(12, 102, LABEL_WIDTH, LABEL_HEIGHT);
+		lblDeliveryAddress.setBounds(12, 131, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblDeliveryAddress);
 
 		JLabel lblCustomerName = new JLabel("Kundnamn:");
-		lblCustomerName.setBounds(12, 160, LABEL_WIDTH, LABEL_HEIGHT);
+		lblCustomerName.setBounds(12, 102, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblCustomerName);
 
 		JLabel lblCustomerNbr = new JLabel("Kundnr:");
-		lblCustomerNbr.setBounds(12, 131, LABEL_WIDTH, LABEL_HEIGHT);
+		lblCustomerNbr.setBounds(12, 73, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblCustomerNbr);
 
 		JLabel lblAddProducts = new JLabel("L\u00E4gg till produkter");
@@ -148,24 +147,24 @@ public class OrderGui extends Gui<OrderController> {
 		panel.add(lblTotalSumma);
 
 		textField_FindOrderNbr = new JTextField();
-		textField_FindOrderNbr.setBounds(124, 73, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_FindOrderNbr.setBounds(124, 160, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_FindOrderNbr);
 		textField_FindOrderNbr.setColumns(10);
 
 		textField_DeliveryAddress = new JTextField();
-		textField_DeliveryAddress.setBounds(124, 102, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_DeliveryAddress.setBounds(124, 131, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_DeliveryAddress);
 		textField_DeliveryAddress.setColumns(10);
 
 		textField_CustomerNbr = new JTextField();
 		textField_CustomerNbr.setText("");
-		textField_CustomerNbr.setBounds(124, 131, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_CustomerNbr.setBounds(124, 73, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_CustomerNbr);
 		textField_CustomerNbr.setColumns(10);
 
 		textField_CustomerName = new JTextField();
 		textField_CustomerName.setEditable(false);
-		textField_CustomerName.setBounds(124, 160, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_CustomerName.setBounds(124, 102, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_CustomerName);
 		textField_CustomerName.setColumns(10);
 

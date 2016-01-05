@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import se.lu.sysa11.schinnbehn.controller.OrderController;
@@ -50,23 +51,24 @@ public class OrderGui extends Gui<OrderController> {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String searchString = textField_FindOrderNbr.getText();
-				Order tmpOrder = controller.findOrder(searchString);
-
-				while (tableModel_Orders.getRowCount() > 0) {
-					tableModel_Orders.removeRow(0);
-				}
-
-				if (tmpOrder != null) {
-					textField_DeliveryAddress.setText(tmpOrder.getDeliveryAdress());
-					textField_CustomerNbr.setText(tmpOrder.getMadeby().getCustomerNbr());
-					textField_CustomerName.setText(tmpOrder.getMadeby().getName());
-
-					for (OrderLine tmpOrderLine : tmpOrder.getOrderline()) {
-						Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
-								tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
-						tableModel_Orders.addRow(row);
-					}
-				}
+				Order order = controller.findOrder(searchString);
+				setOrder(order);
+				// while (tableModel_Orders.getRowCount() > 0) {
+				// tableModel_Orders.removeRow(0);
+				// }
+				//
+				// if (tmpOrder != null) {
+				// textField_DeliveryAddress.setText(tmpOrder.getDeliveryAdress());
+				// textField_CustomerNbr.setText(tmpOrder.getMadeby().getCustomerNbr());
+				// textField_CustomerName.setText(tmpOrder.getMadeby().getName());
+				//
+				// for (OrderLine tmpOrderLine : tmpOrder.getOrderline()) {
+				// Object[] row = { tmpOrderLine.getProduct().getName(),
+				// tmpOrderLine.getProductPrice(),
+				// tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
+				// tableModel_Orders.addRow(row);
+				// }
+				// }
 			}
 		});
 		btnSearchOrder.setBounds(274, 73, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -175,6 +177,7 @@ public class OrderGui extends Gui<OrderController> {
 		textField_SearchProduct.setColumns(10);
 
 		textField_TotalSum = new JTextField();
+		textField_TotalSum.setHorizontalAlignment(SwingConstants.RIGHT);
 		textField_TotalSum.setEditable(false);
 		textField_TotalSum.setBounds(1213, 674, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_TotalSum);
@@ -284,7 +287,9 @@ public class OrderGui extends Gui<OrderController> {
 				Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
 						tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
 				tableModel_Orders.addRow(row);
+
 			}
 		}
+		textField_TotalSum.setText(Double.toString(order.getTotalPrice()));
 	}
 }

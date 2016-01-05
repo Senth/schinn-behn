@@ -1,9 +1,7 @@
 package se.lu.sysa11.schinnbehn.model;
 
 /**
- *
- *
- * @author Jesper
+ * Order line
  */
 public class OrderLine {
 	private int lineNbr;

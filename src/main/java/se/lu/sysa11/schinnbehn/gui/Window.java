@@ -17,12 +17,14 @@ import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
 /**
- * @author Matteus Magnusson
+ * Main window for the application. Switch between content by calling
+ * {@link #switchTo(Views)} or {@link #switchTo(Views, Object)}
  */
 public class Window {
 	private JFrame frame;
 	private JScrollPane content = new JScrollPane();
 	private HashMap<Views, Gui<?>> guis = new HashMap<>();
+	private HashMap<Views, JButton> viewButtons = new HashMap<>();
 	private JPanel menu = new JPanel();
 	private JLabel notificationLabel = new JLabel("Meddelanden");
 
@@ -76,8 +78,6 @@ public class Window {
 
 
 		// Content
-		GridLayout contentLayout = new GridLayout(1, 1);
-		// content.setLayout(contentLayout);
 		content.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		frame.getContentPane().add(content, BorderLayout.CENTER);
 
@@ -112,12 +112,22 @@ public class Window {
 	 * @param view the view
 	 */
 	public void switchTo(Views view) {
+		switchTo(view, null);
+	}
+
+	/**
+	 * Switch to this view and send the appropriate data to it
+	 * @param view the view to switch to
+	 * @param data what to send to the view
+	 */
+	public void switchTo(Views view, Object data) {
 		Gui<?> gui = guis.get(view);
 
 		if (gui != null) {
 			if (!gui.isInitialized()) {
 				gui.initialize();
 			}
+			gui.onActivated(data);
 			content.setViewportView(gui.getContent());
 			content.revalidate();
 			content.repaint();

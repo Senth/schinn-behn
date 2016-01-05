@@ -5,7 +5,6 @@ import se.lu.sysa11.schinnbehn.gui.Window;
 
 /**
  * Base class for all controllers?
- * @author Matteus
  * @param <GuiType> the GUI/View class
  * @param <RegisterType> the Register/Model class
  */

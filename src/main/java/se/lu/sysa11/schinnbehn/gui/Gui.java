@@ -24,6 +24,14 @@ public abstract class Gui<ControllerType> {
 	public abstract void initialize();
 
 	/**
+	 * Called when the GUI in activated / switched to
+	 * @param data the data that was passed to the GUI
+	 */
+	public void onActivated(Object data) {
+		// Does nothing
+	}
+
+	/**
 	 * @return true if initialized
 	 */
 	public boolean isInitialized() {
@@ -32,6 +40,7 @@ public abstract class Gui<ControllerType> {
 
 	/**
 	 * Set if the GUI has been initialized or not
+	 * @param initialized set to true when the GUI has been initialized
 	 */
 	public void setInitialized(boolean initialized) {
 		this.initialized = initialized;

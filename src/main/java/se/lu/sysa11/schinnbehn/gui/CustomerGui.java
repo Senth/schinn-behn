@@ -17,12 +17,16 @@ import se.lu.sysa11.schinnbehn.model.Customer;
 import se.lu.sysa11.schinnbehn.model.Order;
 
 /**
- * @author Kalle
+ * GUI for the Customer
  */
 public class CustomerGui extends Gui<CustomerController> {
+	private static final int COLUMN_DATE = 0;
+	private static final int COLUMN_ID = 1;
+	private static final int COLUMN_SUM = 2;
+
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder
-	 * correctly then
+	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
+	 * then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_Name;
@@ -193,11 +197,11 @@ public class CustomerGui extends Gui<CustomerController> {
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				switch (columnIndex) {
-				case 0:
+				case COLUMN_DATE:
 					return String.class;
-				case 1:
+				case COLUMN_ID:
 					return Integer.class;
-				case 2:
+				case COLUMN_SUM:
 					return Double.class;
 				default:
 					return String.class;
@@ -211,6 +215,20 @@ public class CustomerGui extends Gui<CustomerController> {
 		table_Orders.setModel(table_Model);
 		table_Orders.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane.setViewportView(table_Orders);
+		table_Orders.addMouseListener(new TableClickListener() {
+			@Override
+			public void onDoubleClick(JTable table, int row) {
+				try {
+					Object value = table_Model.getValueAt(row, COLUMN_ID);
+					if (value instanceof Integer) {
+						String orderNumber = String.valueOf(value);
+						controller.gotoOrder(orderNumber);
+					}
+				} catch (ArrayIndexOutOfBoundsException exception) {
+					// Does nothing
+				}
+			}
+		});
 
 		JButton btnClearFields = new JButton("T\u00F6m f\u00E4lten");
 		btnClearFields.addActionListener(new ActionListener() {

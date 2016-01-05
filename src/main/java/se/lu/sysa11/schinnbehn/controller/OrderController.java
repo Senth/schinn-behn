@@ -1,31 +1,35 @@
 package se.lu.sysa11.schinnbehn.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import se.lu.sysa11.schinnbehn.gui.OrderGui;
 import se.lu.sysa11.schinnbehn.gui.Window;
 import se.lu.sysa11.schinnbehn.model.Customer;
+import se.lu.sysa11.schinnbehn.model.CustomerReg;
 import se.lu.sysa11.schinnbehn.model.Order;
 import se.lu.sysa11.schinnbehn.model.OrderReg;
 import se.lu.sysa11.schinnbehn.model.Product;
+import se.lu.sysa11.schinnbehn.model.ProductReg;
 
 /**
  * The order controller
  */
 public class OrderController extends Controller<OrderGui, OrderReg> {
+	private ProductReg productRegister;
+	private CustomerReg customerRegister;
+
 	/**
-	 * @param window
-	 *            the application window
-	 * @param orderGui
-	 *            GUI/view of the product controller
-	 * @param orderRegister
-	 *            Register/model of the product controller
+	 * @param window the application window
+	 * @param orderGui GUI/view of the product controller
+	 * @param orderRegister Register/model of the product controller
+	 * @param productRegister for finding products
+	 * @param customerRegister for finding customers
 	 */
-	public OrderController(Window window, OrderGui orderGui, OrderReg orderRegister) {
+	public OrderController(Window window, OrderGui orderGui, OrderReg orderRegister, ProductReg productRegister, CustomerReg customerRegister) {
 		super(window, orderGui, orderRegister);
+		this.productRegister = productRegister;
+		this.customerRegister = customerRegister;
 		orderGui.setController(this);
-		// TODO Auto-generated constructor stub
 	}
 
 	public Order findOrder(String searchString) {
@@ -58,11 +62,21 @@ public class OrderController extends Controller<OrderGui, OrderReg> {
 		return true;
 	}
 
+	/**
+	 * Find or rather filter products
+	 * @param searchString
+	 * @return the found products
+	 */
 	public List<Product> findProducts(String searchString) {
-		return new ArrayList();
+		return productRegister.findProducts(searchString);
 	}
 
+	/**
+	 * Find a customer
+	 * @param searchString
+	 * @return found customer, null if not found
+	 */
 	public Customer findCustomer(String searchString) {
-		return null;
+		return customerRegister.findCustomer(searchString);
 	}
 }

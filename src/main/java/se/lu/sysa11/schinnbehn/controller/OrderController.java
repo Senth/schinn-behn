@@ -62,6 +62,15 @@ public class OrderController extends Controller<OrderGui, OrderReg> {
 		return true;
 	}
 
+	@Override
+	protected void onActivate(Object data) {
+		if (data instanceof String) {
+			String orderNumber = (String) data;
+
+			// TODO
+		}
+	}
+
 	/**
 	 * Find or rather filter products
 	 * @param searchString

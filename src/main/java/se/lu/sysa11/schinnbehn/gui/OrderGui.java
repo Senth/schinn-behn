@@ -26,6 +26,12 @@ import se.lu.sysa11.schinnbehn.model.Product;
  * @author
  */
 public class OrderGui extends Gui<OrderController> {
+	private static final int PRODUCT_TABLE_COLUMN_NAME = 0;
+	private static final int PRODUCT_TABLE_COLUMN_PRICE = 1;
+	private static final int ORDER_TABLE_COLUMN_NAME = 0;
+	private static final int ORDER_TABLE_COLUMN_PRICE = 1;
+	private static final int ORDER_TABLE_COLUMN_QUANTITY = 2;
+	private static final int ORDER_TABLE_COLUMN_SUM = 3;
 	/**
 	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
 	 * then
@@ -211,15 +217,19 @@ public class OrderGui extends Gui<OrderController> {
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				switch (columnIndex) {
-				case 0:
+				case PRODUCT_TABLE_COLUMN_NAME:
 					return String.class;
-				case 1:
+				case PRODUCT_TABLE_COLUMN_PRICE:
 					return Double.class;
 				default:
 					return String.class;
 				}
 			}
 
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
 		};
 
 		table_Products = new JTable();
@@ -239,13 +249,13 @@ public class OrderGui extends Gui<OrderController> {
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				switch (columnIndex) {
-				case 0:
+				case ORDER_TABLE_COLUMN_NAME:
 					return String.class;
-				case 1:
+				case ORDER_TABLE_COLUMN_PRICE:
 					return Double.class;
-				case 2:
+				case ORDER_TABLE_COLUMN_QUANTITY:
 					return Integer.class;
-				case 3:
+				case ORDER_TABLE_COLUMN_SUM:
 					return Double.class;
 				default:
 					return String.class;
@@ -253,6 +263,21 @@ public class OrderGui extends Gui<OrderController> {
 
 			}
 
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				switch (column) {
+				case ORDER_TABLE_COLUMN_NAME:
+					return false;
+				case ORDER_TABLE_COLUMN_PRICE:
+					return false;
+				case ORDER_TABLE_COLUMN_QUANTITY:
+					return true;
+				case ORDER_TABLE_COLUMN_SUM:
+					return false;
+				default:
+					return false;
+				}
+			}
 		};
 
 		table_Orders = new JTable();

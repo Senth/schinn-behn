@@ -3,7 +3,6 @@ package se.lu.sysa11.schinnbehn;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 import net._01001111.text.LoremIpsum;
 import se.lu.sysa11.schinnbehn.controller.CustomerController;
@@ -76,7 +75,8 @@ public class Application {
 			product.setName(loremIpsum.words(2));
 			product.setIngredients(loremIpsum.sentence());
 			product.setPrice(random.nextInt(PRODUCT_PRICE_MAX) + 1);
-			product.setProductNbr(UUID.randomUUID().toString());
+			product.setCost(product.getPrice() * random.nextDouble());
+			product.setProductNbr(String.valueOf(i));
 			product.setWeight(random.nextDouble() * PRODUCT_WEIGHT_MAX);
 			productReg.add(product);
 			products.add(product);
@@ -115,7 +115,5 @@ public class Application {
 				orderReg.add(order);
 			}
 		}
-
-
 	}
 }

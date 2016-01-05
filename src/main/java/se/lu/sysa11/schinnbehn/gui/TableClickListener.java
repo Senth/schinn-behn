@@ -18,10 +18,11 @@ public abstract class TableClickListener extends MouseAdapter {
 			Point point = mouseEvent.getPoint();
 			int row = table.rowAtPoint(point);
 			if (row != -1) {
+				int index = table.convertRowIndexToModel(row);
 				if (mouseEvent.getClickCount() == 1) {
-					onClick(table, row);
+					onClick(table, index);
 				} else if (mouseEvent.getClickCount() == 2) {
-					onDoubleClick(table, row);
+					onDoubleClick(table, index);
 				}
 			}
 		}

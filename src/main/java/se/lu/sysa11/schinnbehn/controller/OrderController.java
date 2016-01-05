@@ -1,18 +1,26 @@
 package se.lu.sysa11.schinnbehn.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import se.lu.sysa11.schinnbehn.gui.OrderGui;
 import se.lu.sysa11.schinnbehn.gui.Window;
+import se.lu.sysa11.schinnbehn.model.Customer;
 import se.lu.sysa11.schinnbehn.model.Order;
 import se.lu.sysa11.schinnbehn.model.OrderReg;
+import se.lu.sysa11.schinnbehn.model.Product;
 
 /**
  * The order controller
  */
 public class OrderController extends Controller<OrderGui, OrderReg> {
 	/**
-	 * @param window the application window
-	 * @param orderGui GUI/view of the product controller
-	 * @param orderRegister Register/model of the product controller
+	 * @param window
+	 *            the application window
+	 * @param orderGui
+	 *            GUI/view of the product controller
+	 * @param orderRegister
+	 *            Register/model of the product controller
 	 */
 	public OrderController(Window window, OrderGui orderGui, OrderReg orderRegister) {
 		super(window, orderGui, orderRegister);
@@ -49,5 +57,12 @@ public class OrderController extends Controller<OrderGui, OrderReg> {
 		}
 		return true;
 	}
-	// TODO
+
+	public List<Product> findProducts(String searchString) {
+		return new ArrayList();
+	}
+
+	public Customer findCustomer(String searchString) {
+		return null;
+	}
 }

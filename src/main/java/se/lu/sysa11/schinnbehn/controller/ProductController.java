@@ -55,7 +55,8 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 	/**
 	 * Update an existing product
-	 * @param productNbr number/serial of the product
+	 * @param oldProductNbr the old product number of the product
+	 * @param productNbr new number/serial of the product
 	 * @param name product name
 	 * @param price current price of the product
 	 * @param ingredients ingredients of the product
@@ -63,13 +64,20 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 	 * @param cost how much it costs to buy or produce the product
 	 * @return true if successfully added product
 	 */
-	public boolean updateProduct(String productNbr, String name, double price, String ingredients, double weight, double cost) {
+	public boolean updateProduct(String oldProductNbr, String productNbr, String name, double price, String ingredients, double weight, double cost) {
 		// check if valid
 		if (!isInputValid(productNbr, name, price, ingredients, weight, cost)) {
 			return false;
 		}
-		// Update product
+
 		Product product = register.findProduct(productNbr);
+
+		// Try with the old product number
+		if (product == null && oldProductNbr != null) {
+			product = register.findProduct(oldProductNbr);
+		}
+
+		// Update product
 		if (product != null) {
 			product.setProductNbr(productNbr);
 			product.setName(name);

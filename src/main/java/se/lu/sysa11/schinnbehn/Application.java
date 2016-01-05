@@ -1,8 +1,11 @@
 package se.lu.sysa11.schinnbehn;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import com.spiddekauga.utils.Maths;
 
 import net._01001111.text.LoremIpsum;
 import se.lu.sysa11.schinnbehn.controller.CustomerController;
@@ -66,7 +69,7 @@ public class Application {
 
 	private static void populateRegisters(CustomerReg customerReg, ProductReg productReg, OrderReg orderReg) {
 		LoremIpsum loremIpsum = new LoremIpsum();
-		Random random = new Random();
+		Random random = new Random(12);
 
 		// Products
 		List<Product> products = new ArrayList<>();
@@ -75,9 +78,9 @@ public class Application {
 			product.setName(loremIpsum.words(2));
 			product.setIngredients(loremIpsum.sentence());
 			product.setPrice(random.nextInt(PRODUCT_PRICE_MAX) + 1);
-			product.setCost(product.getPrice() * random.nextDouble());
+			product.setCost(round(product.getPrice() * random.nextDouble()));
 			product.setProductNbr(String.valueOf(i));
-			product.setWeight(random.nextDouble() * PRODUCT_WEIGHT_MAX);
+			product.setWeight(round(random.nextDouble() * PRODUCT_WEIGHT_MAX));
 			productReg.add(product);
 			products.add(product);
 		}
@@ -115,5 +118,14 @@ public class Application {
 				orderReg.add(order);
 			}
 		}
+	}
+
+	/**
+	 * Helper method for rounding double values
+	 * @param value the value to round
+	 * @return rounded to two decimals
+	 */
+	private static double round(double value) {
+		return Maths.round(value, 2, BigDecimal.ROUND_HALF_UP);
 	}
 }

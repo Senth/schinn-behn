@@ -26,7 +26,7 @@ import se.lu.sysa11.schinnbehn.controller.ProductController;
 import se.lu.sysa11.schinnbehn.model.Product;
 
 /**
- * @author Jesper
+ * Display products
  */
 public class ProductGui extends Gui<ProductController> {
 	private static final int COLUMN_NUMBER = 0;
@@ -35,8 +35,8 @@ public class ProductGui extends Gui<ProductController> {
 	private static final int COLUMN_COST = 3;
 
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder
-	 * correctly then
+	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
+	 * then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_ProductNr;
@@ -49,6 +49,7 @@ public class ProductGui extends Gui<ProductController> {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextArea textArea_Ingredients;
 	private DefaultTableModel tableModel_Product;
+	private String oldProductNbr = null;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -121,7 +122,7 @@ public class ProductGui extends Gui<ProductController> {
 		rdbtnNo.setBounds(203, 269, 61, 23);
 		panel.add(rdbtnNo);
 
-		JButton btnAddProduct = new JButton("L\u00E4gg till:");
+		JButton btnAddProduct = new JButton("L\u00E4gg till");
 		btnAddProduct.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -145,14 +146,14 @@ public class ProductGui extends Gui<ProductController> {
 					return;
 				}
 
+				oldProductNbr = null;
 				controller.addProduct(productNbr, name, price, ingredients, weight, cost);
-
 			}
 		});
 		btnAddProduct.setBounds(12, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnAddProduct);
 
-		JButton btnChangeProduct = new JButton("Ändra:");
+		JButton btnChangeProduct = new JButton("Ändra");
 		btnChangeProduct.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -177,7 +178,7 @@ public class ProductGui extends Gui<ProductController> {
 					return;
 				}
 
-				controller.updateProduct(productNbr, name, price, ingredients, weight, cost);
+				controller.updateProduct(oldProductNbr, productNbr, name, price, ingredients, weight, cost);
 			}
 		});
 		btnChangeProduct.setBounds(158, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -209,14 +210,14 @@ public class ProductGui extends Gui<ProductController> {
 		panel.add(lblCost);
 
 		JLabel lblIngredients = new JLabel("Ingredienser:");
-		lblIngredients.setBounds(12, 202, 79, 23);
+		lblIngredients.setBounds(12, 202, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblIngredients);
 
 		JLabel lblActive = new JLabel("Aktiv i sortiment:");
 		lblActive.setBounds(12, 269, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblActive);
 
-		JLabel lblSearchProduct = new JLabel("S�k produkt:");
+		JLabel lblSearchProduct = new JLabel("Filtrera Produkt:");
 		lblSearchProduct.setBounds(359, 24, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblSearchProduct);
 
@@ -251,14 +252,41 @@ public class ProductGui extends Gui<ProductController> {
 		table_Products.setModel(tableModel_Product);
 		table_Products.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane.setViewportView(table_Products);
+		table_Products.addMouseListener(new TableClickListener() {
+			@Override
+			public void onClick(JTable table, int row) {
+				String productNumber = (String) tableModel_Product.getValueAt(row, COLUMN_NUMBER);
+				if (productNumber != null) {
+					setProduct(controller.findProduct(productNumber));
+				}
+			}
+		});
 
-		JTextArea textArea_Ingredients = new JTextArea();
+		textArea_Ingredients = new JTextArea();
 		textArea_Ingredients.setBounds(158, 202, TEXTFIELD_WIDTH, 59);
+		textArea_Ingredients.setWrapStyleWord(true);
+		textArea_Ingredients.setLineWrap(true);
 		panel.add(textArea_Ingredients);
 
 		populateTable(controller.findProducts(""));
 
 		setInitialized(true);
+	}
+
+	/**
+	 * Set the current active product
+	 * @param product the product to set
+	 */
+	private void setProduct(Product product) {
+		if (product != null) {
+			oldProductNbr = product.getProductNbr();
+			textField_ProductNr.setText(product.getProductNbr());
+			textField_Name.setText(product.getName());
+			textField_Cost.setText(String.valueOf(product.getCost()));
+			textField_Price.setText(String.valueOf(product.getPrice()));
+			textField_Weight.setText(String.valueOf(product.getWeight()));
+			textArea_Ingredients.setText(product.getIngredients());
+		}
 	}
 
 	/**

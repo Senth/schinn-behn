@@ -177,6 +177,7 @@ public class OrderGui extends Gui<OrderController> {
 
 		String columnHeadersForProducts[] = { "Produktnamn", "Pris", "Lagersaldo" };
 		table_Products = new JTable();
+		table_Products.setAutoCreateRowSorter(true);
 		table_Products.setModel(new DefaultTableModel(new Object[][] {}, columnHeadersForProducts));
 		scrollPane_Products.setViewportView(table_Products);
 
@@ -187,9 +188,28 @@ public class OrderGui extends Gui<OrderController> {
 		String columnHeadersForOrders[] = { "Produktnamn", "Pris", "Antal", "Summa" };
 		table_ModelOrders = new DefaultTableModel(new Object[][] {}, columnHeadersForOrders) {
 			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Class<?> getColumnClass(int columnIndex) {
+				switch (columnIndex) {
+				case 0:
+					return String.class;
+				case 1:
+					return Double.class;
+				case 2:
+					return Integer.class;
+				case 3:
+					return Double.class;
+				default:
+					return String.class;
+				}
+
+			}
+
 		};
 
 		table_Orders = new JTable();
+		table_Orders.setAutoCreateRowSorter(true);
 		table_Orders.setModel(table_ModelOrders);
 		table_Orders.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane_Orders.setViewportView(table_Orders);

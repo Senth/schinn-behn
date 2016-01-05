@@ -1,6 +1,5 @@
 package se.lu.sysa11.schinnbehn.gui;
 
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,8 +11,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import se.lu.sysa11.schinnbehn.controller.CustomerController;
 import se.lu.sysa11.schinnbehn.model.Customer;
@@ -228,10 +225,6 @@ public class CustomerGui extends Gui<CustomerController> {
 		});
 		btnClearFields.setBounds(304, 216, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnClearFields);
-		panel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { lblNewCustomer, lblName,
-				lblPhoneNumber, lblAdress, lblEmail, lblFoundCustomer, lblFindCustomer, lblKundnr, textField_Name,
-				textField_Phone, textField_Adress, textField_Email, textField_FindCustomer, textField_ShowCustomerNbr,
-				btnAddCustomer, btnSearchCustomer, btnUpdateCustomer, scrollPane, table_Orders, btnClearFields }));
 
 		setInitialized(true);
 	}

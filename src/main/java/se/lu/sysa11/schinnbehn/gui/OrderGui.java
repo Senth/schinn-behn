@@ -3,6 +3,7 @@ package se.lu.sysa11.schinnbehn.gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import se.lu.sysa11.schinnbehn.controller.OrderController;
 import se.lu.sysa11.schinnbehn.model.Order;
 import se.lu.sysa11.schinnbehn.model.OrderLine;
+import se.lu.sysa11.schinnbehn.model.Product;
 
 /**
  * @author
@@ -33,8 +35,8 @@ public class OrderGui extends Gui<OrderController> {
 	private JTable table_Orders;
 	private JTextField textField_SearchProduct;
 	private JTextField textField_TotalSum;
-	private DefaultTableModel table_ModelOrders;
-	private DefaultTableModel table_ModelProducts;
+	private DefaultTableModel tableModel_Orders;
+	private DefaultTableModel tableModel_Products;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -50,8 +52,8 @@ public class OrderGui extends Gui<OrderController> {
 				String searchString = textField_FindOrderNbr.getText();
 				Order tmpOrder = controller.findOrder(searchString);
 
-				while (table_ModelOrders.getRowCount() > 0) {
-					table_ModelOrders.removeRow(0);
+				while (tableModel_Orders.getRowCount() > 0) {
+					tableModel_Orders.removeRow(0);
 				}
 
 				if (tmpOrder != null) {
@@ -63,7 +65,7 @@ public class OrderGui extends Gui<OrderController> {
 						OrderLine tmpOrderLine = tmpOrder.getOrderline().get(i);
 						Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
 								tmpOrderLine.getQuantity(), tmpOrder.getTotalPrice() };
-						table_ModelOrders.addRow(row);
+						tableModel_Orders.addRow(row);
 					}
 				}
 			}
@@ -96,6 +98,14 @@ public class OrderGui extends Gui<OrderController> {
 		panel.add(btnRemoveOrder);
 
 		JButton btnSearchCustomerNbr = new JButton("S\u00F6k");
+		btnSearchCustomerNbr.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String searchString = textField_CustomerNbr.getText();
+
+				controller.findCustomer(searchString);
+			}
+		});
 		btnSearchCustomerNbr.setBounds(274, 131, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnSearchCustomerNbr);
 
@@ -175,10 +185,28 @@ public class OrderGui extends Gui<OrderController> {
 		scrollPane_Products.setBounds(12, 236, 636, 424);
 		panel.add(scrollPane_Products);
 
-		String columnHeadersForProducts[] = { "Produktnamn", "Pris", "Lagersaldo" };
+		String columnHeadersForProducts[] = { "Produktnamn", "Pris" };
+		tableModel_Products = new DefaultTableModel(new Object[][] {}, columnHeadersForProducts) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Class<?> getColumnClass(int columnIndex) {
+				switch (columnIndex) {
+				case 0:
+					return String.class;
+				case 1:
+					return Double.class;
+				default:
+					return String.class;
+				}
+			}
+
+		};
+
 		table_Products = new JTable();
 		table_Products.setAutoCreateRowSorter(true);
-		table_Products.setModel(new DefaultTableModel(new Object[][] {}, columnHeadersForProducts));
+		table_Products.setModel(tableModel_Products);
+		table_Products.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane_Products.setViewportView(table_Products);
 
 		JScrollPane scrollPane_Orders = new JScrollPane();
@@ -186,7 +214,7 @@ public class OrderGui extends Gui<OrderController> {
 		panel.add(scrollPane_Orders);
 
 		String columnHeadersForOrders[] = { "Produktnamn", "Pris", "Antal", "Summa" };
-		table_ModelOrders = new DefaultTableModel(new Object[][] {}, columnHeadersForOrders) {
+		tableModel_Orders = new DefaultTableModel(new Object[][] {}, columnHeadersForOrders) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -210,15 +238,33 @@ public class OrderGui extends Gui<OrderController> {
 
 		table_Orders = new JTable();
 		table_Orders.setAutoCreateRowSorter(true);
-		table_Orders.setModel(table_ModelOrders);
+		table_Orders.setModel(tableModel_Orders);
 		table_Orders.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane_Orders.setViewportView(table_Orders);
 
+		populateTable();
 		setInitialized(true);
 	}
 
 	@Override
 	public JPanel getContent() {
 		return panel;
+	}
+
+	private void populateTable() {
+		populateTable(controller.findProducts(textField_SearchProduct.getText()));
+	}
+
+	private void populateTable(List<Product> products) {
+		// Remove rows
+		while (tableModel_Products.getRowCount() > 0) {
+			tableModel_Products.removeRow(0);
+		}
+
+		// Add products
+		for (Product product : products) {
+			Object[] row = { product.getName(), product.getPrice() };
+			tableModel_Products.addRow(row);
+		}
 	}
 }

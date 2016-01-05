@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import se.lu.sysa11.schinnbehn.controller.OrderController;
@@ -50,24 +51,24 @@ public class OrderGui extends Gui<OrderController> {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String searchString = textField_FindOrderNbr.getText();
-				Order tmpOrder = controller.findOrder(searchString);
-
-				while (tableModel_Orders.getRowCount() > 0) {
-					tableModel_Orders.removeRow(0);
-				}
-
-				if (tmpOrder != null) {
-					textField_DeliveryAddress.setText(tmpOrder.getDeliveryAdress());
-					textField_CustomerNbr.setText(tmpOrder.getMadeby().getCustomerNbr());
-					textField_CustomerName.setText(tmpOrder.getMadeby().getName());
-
-					for (int i = 0; i < tmpOrder.getOrderline().size(); i++) {
-						OrderLine tmpOrderLine = tmpOrder.getOrderline().get(i);
-						Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
-								tmpOrderLine.getQuantity(), tmpOrder.getTotalPrice() };
-						tableModel_Orders.addRow(row);
-					}
-				}
+				Order order = controller.findOrder(searchString);
+				setOrder(order);
+				// while (tableModel_Orders.getRowCount() > 0) {
+				// tableModel_Orders.removeRow(0);
+				// }
+				//
+				// if (tmpOrder != null) {
+				// textField_DeliveryAddress.setText(tmpOrder.getDeliveryAdress());
+				// textField_CustomerNbr.setText(tmpOrder.getMadeby().getCustomerNbr());
+				// textField_CustomerName.setText(tmpOrder.getMadeby().getName());
+				//
+				// for (OrderLine tmpOrderLine : tmpOrder.getOrderline()) {
+				// Object[] row = { tmpOrderLine.getProduct().getName(),
+				// tmpOrderLine.getProductPrice(),
+				// tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
+				// tableModel_Orders.addRow(row);
+				// }
+				// }
 			}
 		});
 		btnSearchOrder.setBounds(274, 73, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -176,6 +177,7 @@ public class OrderGui extends Gui<OrderController> {
 		textField_SearchProduct.setColumns(10);
 
 		textField_TotalSum = new JTextField();
+		textField_TotalSum.setHorizontalAlignment(SwingConstants.RIGHT);
 		textField_TotalSum.setEditable(false);
 		textField_TotalSum.setBounds(1213, 674, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_TotalSum);
@@ -243,6 +245,7 @@ public class OrderGui extends Gui<OrderController> {
 		scrollPane_Orders.setViewportView(table_Orders);
 
 		populateTable();
+		setOrder(controller.findOrder("1"));
 		setInitialized(true);
 	}
 
@@ -266,5 +269,27 @@ public class OrderGui extends Gui<OrderController> {
 			Object[] row = { product.getName(), product.getPrice() };
 			tableModel_Products.addRow(row);
 		}
+	}
+
+	public void setOrder(Order order) {
+
+		while (tableModel_Orders.getRowCount() > 0) {
+			tableModel_Orders.removeRow(0);
+		}
+
+		if (order != null) {
+			textField_CustomerName.setText(order.getMadeby().getName());
+			textField_CustomerNbr.setText(order.getMadeby().getCustomerNbr());
+			textField_DeliveryAddress.setText(order.getDeliveryAdress());
+			textField_FindOrderNbr.setText(order.getOrderNbr());
+
+			for (OrderLine tmpOrderLine : order.getOrderline()) {
+				Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
+						tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
+				tableModel_Orders.addRow(row);
+
+			}
+		}
+		textField_TotalSum.setText(Double.toString(order.getTotalPrice()));
 	}
 }

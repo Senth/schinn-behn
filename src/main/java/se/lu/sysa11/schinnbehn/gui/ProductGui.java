@@ -29,9 +29,14 @@ import se.lu.sysa11.schinnbehn.model.Product;
  * @author Jesper
  */
 public class ProductGui extends Gui<ProductController> {
+	private static final int COLUMN_NUMBER = 0;
+	private static final int COLUMN_NAME = 1;
+	private static final int COLUMN_PRICE = 2;
+	private static final int COLUMN_COST = 3;
+
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
-	 * then
+	 * Can't have panel in base class as we're not able to access WindowBuilder
+	 * correctly then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_ProductNr;
@@ -44,7 +49,6 @@ public class ProductGui extends Gui<ProductController> {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextArea textArea_Ingredients;
 	private DefaultTableModel tableModel_Product;
-
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -225,7 +229,25 @@ public class ProductGui extends Gui<ProductController> {
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
+
+			@Override
+			public Class<?> getColumnClass(int columnIndex) {
+				switch (columnIndex) {
+				case COLUMN_NUMBER:
+					return String.class;
+				case COLUMN_NAME:
+					return String.class;
+				case COLUMN_PRICE:
+					return Double.class;
+				case COLUMN_COST:
+					return Double.class;
+				default:
+					return String.class;
+				}
+
+			}
 		};
+		table_Products.setAutoCreateRowSorter(true);
 		table_Products.setModel(tableModel_Product);
 		table_Products.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane.setViewportView(table_Products);

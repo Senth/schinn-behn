@@ -12,6 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import se.lu.sysa11.schinnbehn.controller.OrderController;
@@ -24,8 +26,8 @@ import se.lu.sysa11.schinnbehn.model.Product;
  */
 public class OrderGui extends Gui<OrderController> {
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder
-	 * correctly then
+	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
+	 * then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_FindOrderNbr;
@@ -85,10 +87,6 @@ public class OrderGui extends Gui<OrderController> {
 		JButton btnCreateOrder = new JButton("Skapa order");
 		btnCreateOrder.setBounds(913, 712, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnCreateOrder);
-
-		JButton btnSearchProduct = new JButton("S\u00F6k");
-		btnSearchProduct.setBounds(162, 712, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel.add(btnSearchProduct);
 
 		JButton btnChangeOrder = new JButton("\u00C4ndra order");
 		btnChangeOrder.setBounds(1063, 712, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -175,6 +173,26 @@ public class OrderGui extends Gui<OrderController> {
 		textField_SearchProduct.setBounds(12, 712, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_SearchProduct);
 		textField_SearchProduct.setColumns(10);
+		textField_SearchProduct.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				populateTable();
+
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				populateTable();
+
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				populateTable();
+
+			}
+		});
 
 		textField_TotalSum = new JTextField();
 		textField_TotalSum.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -284,8 +302,8 @@ public class OrderGui extends Gui<OrderController> {
 			textField_FindOrderNbr.setText(order.getOrderNbr());
 
 			for (OrderLine tmpOrderLine : order.getOrderline()) {
-				Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
-						tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
+				Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(), tmpOrderLine.getQuantity(),
+						tmpOrderLine.getLinePrice() };
 				tableModel_Orders.addRow(row);
 
 			}

@@ -171,7 +171,7 @@ public class Window {
 		notificationLabel.setForeground(INFO_COLOR);
 	}
 
-	private static final Color ERROR_COLOR = new Color(242, 116, 137);
-	private static final Color SUCCESS_COLOR = new Color(116, 242, 137);
+	private static final Color ERROR_COLOR = new Color(115, 14, 14);
+	private static final Color SUCCESS_COLOR = new Color(63, 115, 14);
 	private static final Color INFO_COLOR = new Color(0, 0, 0);
 }

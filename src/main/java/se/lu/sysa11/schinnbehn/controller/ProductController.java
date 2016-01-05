@@ -72,9 +72,13 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 		Product product = register.findProduct(productNbr);
 
-		// Try with the old product number
+		// Try with the old product
 		if (product == null && oldProductNbr != null) {
 			product = register.findProduct(oldProductNbr);
+
+			if (product != null) {
+				register.updateProductNbr(oldProductNbr, productNbr);
+			}
 		}
 
 		// Update product

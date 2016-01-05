@@ -178,7 +178,10 @@ public class ProductGui extends Gui<ProductController> {
 					return;
 				}
 
-				controller.updateProduct(oldProductNbr, productNbr, name, price, ingredients, weight, cost);
+				boolean success = controller.updateProduct(oldProductNbr, productNbr, name, price, ingredients, weight, cost);
+				if (success) {
+					populateTable();
+				}
 			}
 		});
 		btnChangeProduct.setBounds(158, 307, BUTTON_WIDTH, BUTTON_HEIGHT);

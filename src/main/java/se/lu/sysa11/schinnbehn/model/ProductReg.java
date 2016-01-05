@@ -21,6 +21,23 @@ public class ProductReg {
 		return products;
 	}
 
+	public boolean updateProductNbr(String oldNbr, String newNbr) {
+		// Check if the new product number exist, return false then
+		if (findProduct(newNbr) != null) {
+			return false;
+		}
+
+		// Update hashmap number
+		Product product = products.remove(oldNbr);
+		if (product != null) {
+			products.put(newNbr, product);
+		} else {
+			return false;
+		}
+
+		return true;
+	}
+
 	public void add(Product p) {
 		if (p != null) {
 			products.put(p.getProductNbr(), p);

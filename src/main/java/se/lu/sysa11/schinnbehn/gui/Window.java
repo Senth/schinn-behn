@@ -23,6 +23,8 @@ import se.lu.sysa11.schinnbehn.controller.Controller;
  * {@link #switchTo(Views)} or {@link #switchTo(Views, Object)}
  */
 public class Window {
+	private static final int MENU_BUTTONS_MAX = 10;
+
 	private JFrame frame;
 	private JScrollPane content = new JScrollPane();
 	private HashMap<Views, Controller<?, ?>> controllers = new HashMap<>();
@@ -42,14 +44,14 @@ public class Window {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1280, 720);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.setTitle("Schinn & Behn");
 
 
 		// Menu
-		GridLayout menuLayout = new GridLayout(4, 1);
+		GridLayout menuLayout = new GridLayout(MENU_BUTTONS_MAX, 1);
 		menu.setLayout(menuLayout);
 		frame.getContentPane().add(menu, BorderLayout.WEST);
 

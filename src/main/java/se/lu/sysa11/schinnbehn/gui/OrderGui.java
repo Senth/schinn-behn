@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -47,6 +49,7 @@ public class OrderGui extends Gui<OrderController> {
 	private JTextField textField_TotalSum;
 	private DefaultTableModel tableModel_Orders;
 	private DefaultTableModel tableModel_Products;
+
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -278,8 +281,33 @@ public class OrderGui extends Gui<OrderController> {
 
 		table_Orders = new JTable();
 		table_Orders.setAutoCreateRowSorter(true);
+
 		table_Orders.setModel(tableModel_Orders);
 		table_Orders.getColumnModel().getColumn(0).setResizable(false);
+		Action action = new AbstractAction() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TableCellListener tableCellListener = (TableCellListener) e.getSource();
+				int oldQuantity = (Integer) tableCellListener.getOldValue();
+				int updatedquantity = (Integer) tableCellListener.getNewValue();
+				double price = (Double) tableModel_Orders.getValueAt(tableCellListener.getRow(), ORDER_TABLE_COLUMN_PRICE);
+				double totalSum = Double.parseDouble(textField_TotalSum.getText());
+				double diff = (oldQuantity * price) - (updatedquantity * price);
+
+
+				if (updatedquantity > 0 || tableModel_Orders.getValueAt(tableCellListener.getRow(), ORDER_TABLE_COLUMN_QUANTITY) != null) {
+					tableModel_Orders.setValueAt(updatedquantity * price, tableCellListener.getRow(), ORDER_TABLE_COLUMN_SUM);
+					textField_TotalSum.setText(Double.toString(totalSum - diff));
+				} else {
+					// TODO notifications
+				}
+
+			}
+		};
+
+		new TableCellListener(table_Orders, action);
 		scrollPane_Orders.setViewportView(table_Orders);
 
 		populateTable();

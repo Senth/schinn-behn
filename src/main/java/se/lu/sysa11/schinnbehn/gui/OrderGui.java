@@ -28,6 +28,13 @@ import se.lu.sysa11.schinnbehn.model.Product;
  * @author
  */
 public class OrderGui extends Gui<OrderController> {
+	/**
+	 * @param window
+	 */
+	public OrderGui(Window window) {
+		super(window);
+	}
+
 	private static final int PRODUCT_TABLE_COLUMN_NAME = 0;
 	private static final int PRODUCT_TABLE_COLUMN_PRICE = 1;
 	private static final int ORDER_TABLE_COLUMN_NAME = 0;
@@ -49,7 +56,6 @@ public class OrderGui extends Gui<OrderController> {
 	private JTextField textField_TotalSum;
 	private DefaultTableModel tableModel_Orders;
 	private DefaultTableModel tableModel_Products;
-
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -290,18 +296,20 @@ public class OrderGui extends Gui<OrderController> {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				TableCellListener tableCellListener = (TableCellListener) e.getSource();
-				int oldQuantity = (Integer) tableCellListener.getOldValue();
-				int updatedquantity = (Integer) tableCellListener.getNewValue();
-				double price = (Double) tableModel_Orders.getValueAt(tableCellListener.getRow(), ORDER_TABLE_COLUMN_PRICE);
-				double totalSum = Double.parseDouble(textField_TotalSum.getText());
-				double diff = (oldQuantity * price) - (updatedquantity * price);
+				Integer oldQuantity = (Integer) tableCellListener.getOldValue();
+				Integer updatedQuantity = (Integer) tableCellListener.getNewValue();
 
-
-				if (updatedquantity > 0 || tableModel_Orders.getValueAt(tableCellListener.getRow(), ORDER_TABLE_COLUMN_QUANTITY) != null) {
-					tableModel_Orders.setValueAt(updatedquantity * price, tableCellListener.getRow(), ORDER_TABLE_COLUMN_SUM);
+				if (updatedQuantity != null && updatedQuantity > 0) {
+					double price = (Double) tableModel_Orders.getValueAt(tableCellListener.getRow(),
+							ORDER_TABLE_COLUMN_PRICE);
+					double totalSum = Double.parseDouble(textField_TotalSum.getText());
+					double diff = (oldQuantity * price) - (updatedQuantity * price);
+					tableModel_Orders.setValueAt(updatedQuantity * price, tableCellListener.getRow(),
+							ORDER_TABLE_COLUMN_SUM);
 					textField_TotalSum.setText(Double.toString(totalSum - diff));
 				} else {
-					// TODO notifications
+					tableModel_Orders.setValueAt(oldQuantity, tableCellListener.getRow(), ORDER_TABLE_COLUMN_QUANTITY);
+					window.showNotificationError("Felaktigt värde, antal måste vara större än 0.");
 				}
 
 			}
@@ -311,6 +319,7 @@ public class OrderGui extends Gui<OrderController> {
 		scrollPane_Orders.setViewportView(table_Orders);
 
 		populateTable();
+
 		setOrder(controller.findOrder("1"));
 		setInitialized(true);
 	}

@@ -29,14 +29,21 @@ import se.lu.sysa11.schinnbehn.model.Product;
  * Display products
  */
 public class ProductGui extends Gui<ProductController> {
+	/**
+	 * @param window
+	 */
+	public ProductGui(Window window) {
+		super(window);
+	}
+
 	private static final int COLUMN_NUMBER = 0;
 	private static final int COLUMN_NAME = 1;
 	private static final int COLUMN_PRICE = 2;
 	private static final int COLUMN_COST = 3;
 
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
-	 * then
+	 * Can't have panel in base class as we're not able to access WindowBuilder
+	 * correctly then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_ProductNr;
@@ -181,7 +188,8 @@ public class ProductGui extends Gui<ProductController> {
 					return;
 				}
 
-				boolean success = controller.updateProduct(oldProductNbr, productNbr, name, price, ingredients, weight, cost, active);
+				boolean success = controller.updateProduct(oldProductNbr, productNbr, name, price, ingredients, weight,
+						cost, active);
 				if (success) {
 					populateTable();
 				}
@@ -281,7 +289,9 @@ public class ProductGui extends Gui<ProductController> {
 
 	/**
 	 * Set the current active product
-	 * @param product the product to set
+	 * 
+	 * @param product
+	 *            the product to set
 	 */
 	private void setProduct(Product product) {
 		if (product != null) {

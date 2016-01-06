@@ -20,13 +20,20 @@ import se.lu.sysa11.schinnbehn.model.Order;
  * GUI for the Customer
  */
 public class CustomerGui extends Gui<CustomerController> {
+	/**
+	 * @param window
+	 */
+	public CustomerGui(Window window) {
+		super(window);
+	}
+
 	private static final int COLUMN_DATE = 0;
 	private static final int COLUMN_ID = 1;
 	private static final int COLUMN_SUM = 2;
 
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
-	 * then
+	 * Can't have panel in base class as we're not able to access WindowBuilder
+	 * correctly then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_Name;

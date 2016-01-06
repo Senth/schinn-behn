@@ -73,9 +73,7 @@ public class Product {
 		for (OrderLine tmp : getOrderlines().values()) {
 			sum += tmp.getQuantity();
 		}
-		// for (OrderLine tmp : orderlines) {
-		// sum += tmp.getQuantity();
-		// }
 		return sum;
 	}
+
 }

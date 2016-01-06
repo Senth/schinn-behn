@@ -79,17 +79,19 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 		}
 
 		Product product = register.findProduct(oldProductNbr);
-		if (product != null) {
-			boolean success = register.updateProductNbr(oldProductNbr, productNbr);
-
-			if (!success) {
-				window.showNotificationError("Finns redan en produkt med produktnummer " + productNbr + ". Var god välj ett annat produktnummer");
-				return false;
-			}
-		}
 
 		// Update product
 		if (product != null) {
+
+			if (!oldProductNbr.equals(productNbr)) {
+				boolean success = register.updateProductNbr(oldProductNbr, productNbr);
+
+				if (!success) {
+					window.showNotificationError("Finns redan en produkt med produktnummer " + productNbr + ". Var god välj ett annat produktnummer");
+					return false;
+				}
+			}
+
 			product.setProductNbr(productNbr);
 			product.setName(name);
 			product.setPrice(price);
@@ -97,6 +99,8 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 			product.setWeight(weight);
 			product.setCost(cost);
 			product.setActive(active);
+
+			register.update(product);
 		} else {
 			window.showNotificationError("Ingen produkt med produktnummer " + productNbr + " funnen");
 			return false;
@@ -110,6 +114,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 	/**
 	 * Tests if input is valid
+	 * @return true if the input is valid
 	 */
 	private boolean isInputValid(String productNbr, String name, double price, String ingredients, double weight, double cost) {
 		if (productNbr == null || productNbr.isEmpty()) {

@@ -3,8 +3,8 @@ package se.lu.sysa11.schinnbehn.model;
 import java.util.HashMap;
 import java.util.List;
 
-import com.spiddekauga.utils.Strings.TokenizePatterns;
 import com.spiddekauga.utils.TokenSearch;
+import com.spiddekauga.utils.TokenizePatterns;
 
 /**
  * @author Ann-Kathrine
@@ -39,9 +39,11 @@ public class ProductReg {
 	}
 
 	/**
-	 * Call this when a product has been updated. This makes the product searchable with
-	 * the new information.
-	 * @param product the product that has been updated
+	 * Call this when a product has been updated. This makes the product
+	 * searchable with the new information.
+	 * 
+	 * @param product
+	 *            the product that has been updated
 	 */
 	public void update(Product product) {
 		if (product != null) {
@@ -63,8 +65,10 @@ public class ProductReg {
 
 	/**
 	 * Find a product by search string.
-	 * @param searchString what to search for. If you use more than one word they are
-	 *        combined with an and.
+	 * 
+	 * @param searchString
+	 *            what to search for. If you use more than one word they are
+	 *            combined with an and.
 	 * @return found products sorted by relevance
 	 */
 	public List<Product> findProducts(String searchString) {

@@ -3,8 +3,8 @@ package se.lu.sysa11.schinnbehn.model;
 import java.util.HashMap;
 import java.util.List;
 
-import com.spiddekauga.utils.Strings.TokenizePatterns;
 import com.spiddekauga.utils.TokenSearch;
+import com.spiddekauga.utils.TokenizePatterns;
 
 /**
  * @author Ann-Kathrine
@@ -46,6 +46,13 @@ public class ProductReg {
 	public void update(Product product) {
 		if (product != null) {
 			searchHelper.update(product, TokenizePatterns.FROM_START, product.getName(), product.getProductNbr());
+
+			// Add active/deactive state afterwards
+			if (product.isActive()) {
+				searchHelper.add(product, TokenizePatterns.WORD, "aktiv");
+			} else {
+				searchHelper.add(product, TokenizePatterns.WORD, "inaktiv");
+			}
 		}
 	}
 
@@ -64,7 +71,7 @@ public class ProductReg {
 	/**
 	 * Find a product by search string.
 	 * @param searchString what to search for. If you use more than one word they are
-	 *        combined with an and.
+	 *        combined with an 'and'.
 	 * @return found products sorted by relevance
 	 */
 	public List<Product> findProducts(String searchString) {

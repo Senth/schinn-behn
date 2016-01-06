@@ -1,17 +1,16 @@
 package se.lu.sysa11.schinnbehn.model;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * dfdsf
- * 
  * @author Jesper
  */
 public class Order {
 	private String orderNbr;
 	private String deliveryAdress;
 	private Customer madeby;
-	private ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
+	private HashSet<OrderLine> orderlines = new HashSet<OrderLine>();
 	private static int orderNbrCounter = 1;
 	private String orderDate = "2016-01-04";
 
@@ -36,11 +35,11 @@ public class Order {
 		this.deliveryAdress = deliveryAdress;
 	}
 
-	public ArrayList<OrderLine> getOrderline() {
+	public HashSet<OrderLine> getOrderline() {
 		return orderlines;
 	}
 
-	public void setOrderLine(ArrayList<OrderLine> orderlines) {
+	public void setOrderLine(HashSet<OrderLine> orderlines) {
 		this.orderlines = orderlines;
 	}
 
@@ -70,6 +69,10 @@ public class Order {
 
 	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
+	}
+
+	public void removeOrderLine(OrderLine line) {
+		orderlines.remove(line);
 	}
 
 }

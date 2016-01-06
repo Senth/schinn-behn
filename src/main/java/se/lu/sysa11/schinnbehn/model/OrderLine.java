@@ -4,19 +4,10 @@ package se.lu.sysa11.schinnbehn.model;
  * Order line
  */
 public class OrderLine {
-	private int lineNbr;
 	private int quantity;
 	private Product product;
 	private Order order;
 	private double productPrice;
-
-	public int getLineNbr() {
-		return lineNbr;
-	}
-
-	public void setLineNbr(int lineNbr) {
-		this.lineNbr = lineNbr;
-	}
 
 	public int getQuantity() {
 		return quantity;

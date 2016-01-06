@@ -45,6 +45,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 		product.setIngredients(ingredients);
 		product.setWeight(weight);
 		product.setCost(cost);
+		product.setActive(true);
 		register.add(product);
 
 		// send notification
@@ -62,33 +63,44 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 	 * @param ingredients ingredients of the product
 	 * @param weight weight of the product
 	 * @param cost how much it costs to buy or produce the product
+	 * @param active if the product is active in the assortment
 	 * @return true if successfully added product
 	 */
-	public boolean updateProduct(String oldProductNbr, String productNbr, String name, double price, String ingredients, double weight, double cost) {
+	public boolean updateProduct(String oldProductNbr, String productNbr, String name, double price, String ingredients, double weight, double cost,
+			boolean active) {
 		// check if valid
 		if (!isInputValid(productNbr, name, price, ingredients, weight, cost)) {
 			return false;
 		}
 
-		Product product = register.findProduct(productNbr);
-
-		// Try with the old product
-		if (product == null && oldProductNbr != null) {
-			product = register.findProduct(oldProductNbr);
-
-			if (product != null) {
-				register.updateProductNbr(oldProductNbr, productNbr);
-			}
+		if (oldProductNbr == null || oldProductNbr.isEmpty()) {
+			window.showNotificationInfo("Klicka först på en produkt du vill ändra");
+			return false;
 		}
+
+		Product product = register.findProduct(oldProductNbr);
 
 		// Update product
 		if (product != null) {
+
+			if (!oldProductNbr.equals(productNbr)) {
+				boolean success = register.updateProductNbr(oldProductNbr, productNbr);
+
+				if (!success) {
+					window.showNotificationError("Finns redan en produkt med produktnummer " + productNbr + ". Var god välj ett annat produktnummer");
+					return false;
+				}
+			}
+
 			product.setProductNbr(productNbr);
 			product.setName(name);
 			product.setPrice(price);
 			product.setIngredients(ingredients);
 			product.setWeight(weight);
 			product.setCost(cost);
+			product.setActive(active);
+
+			register.update(product);
 		} else {
 			window.showNotificationError("Ingen produkt med produktnummer " + productNbr + " funnen");
 			return false;
@@ -102,6 +114,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 	/**
 	 * Tests if input is valid
+	 * @return true if the input is valid
 	 */
 	private boolean isInputValid(String productNbr, String name, double price, String ingredients, double weight, double cost) {
 		if (productNbr == null || productNbr.isEmpty()) {

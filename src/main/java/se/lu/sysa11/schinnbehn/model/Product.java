@@ -9,7 +9,16 @@ public class Product {
 	private String ingredients;
 	private double weight;
 	private double cost;
+	private boolean active = true;
 	private HashMap<String, OrderLine> orderlines = new HashMap<String, OrderLine>();
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
 
 	public String getProductNbr() {
 		return productNbr;
@@ -73,9 +82,7 @@ public class Product {
 		for (OrderLine tmp : getOrderlines().values()) {
 			sum += tmp.getQuantity();
 		}
-		// for (OrderLine tmp : orderlines) {
-		// sum += tmp.getQuantity();
-		// }
 		return sum;
 	}
+
 }

@@ -49,6 +49,8 @@ public class ProductGui extends Gui<ProductController> {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextArea textArea_Ingredients;
 	private DefaultTableModel tableModel_Product;
+	private JRadioButton radio_Active;
+	private JRadioButton radio_Inactive;
 	private String oldProductNbr = null;
 
 	/**
@@ -111,16 +113,16 @@ public class ProductGui extends Gui<ProductController> {
 			}
 		});
 
-		JRadioButton rdbtnYes = new JRadioButton("Ja");
-		rdbtnYes.setSelected(true);
-		buttonGroup.add(rdbtnYes);
-		rdbtnYes.setBounds(158, 269, 43, 23);
-		panel.add(rdbtnYes);
+		radio_Active = new JRadioButton("Ja");
+		radio_Active.setSelected(true);
+		buttonGroup.add(radio_Active);
+		radio_Active.setBounds(158, 269, 43, 23);
+		panel.add(radio_Active);
 
-		JRadioButton rdbtnNo = new JRadioButton("Nej");
-		buttonGroup.add(rdbtnNo);
-		rdbtnNo.setBounds(203, 269, 61, 23);
-		panel.add(rdbtnNo);
+		radio_Inactive = new JRadioButton("Nej");
+		buttonGroup.add(radio_Inactive);
+		radio_Inactive.setBounds(203, 269, 61, 23);
+		panel.add(radio_Inactive);
 
 		JButton btnAddProduct = new JButton("L\u00E4gg till");
 		btnAddProduct.addActionListener(new ActionListener() {
@@ -163,6 +165,7 @@ public class ProductGui extends Gui<ProductController> {
 				String priceString = textField_Price.getText();
 				String weightString = textField_Weight.getText();
 				String ingredients = textArea_Ingredients.getText();
+				boolean active = radio_Active.isSelected();
 
 				double cost = 0;
 				double price = 0;
@@ -178,7 +181,7 @@ public class ProductGui extends Gui<ProductController> {
 					return;
 				}
 
-				boolean success = controller.updateProduct(oldProductNbr, productNbr, name, price, ingredients, weight, cost);
+				boolean success = controller.updateProduct(oldProductNbr, productNbr, name, price, ingredients, weight, cost, active);
 				if (success) {
 					populateTable();
 				}
@@ -200,7 +203,7 @@ public class ProductGui extends Gui<ProductController> {
 		lblName.setBounds(12, 86, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblName);
 
-		JLabel lblPrice = new JLabel("Pris:");
+		JLabel lblPrice = new JLabel("Pris (exkl. moms):");
 		lblPrice.setBounds(12, 115, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblPrice);
 
@@ -224,7 +227,7 @@ public class ProductGui extends Gui<ProductController> {
 		lblSearchProduct.setBounds(359, 24, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblSearchProduct);
 
-		String column_names[] = { "Nummer", "Namn", "Pris", "Kostnad" };
+		String column_names[] = { "Nummer", "Namn", "Pris (exkl. moms)", "Kostnad" };
 		table_Products = new JTable();
 		tableModel_Product = new DefaultTableModel(new Object[][] {}, column_names) {
 			private static final long serialVersionUID = 1L;
@@ -289,6 +292,12 @@ public class ProductGui extends Gui<ProductController> {
 			textField_Price.setText(String.valueOf(product.getPrice()));
 			textField_Weight.setText(String.valueOf(product.getWeight()));
 			textArea_Ingredients.setText(product.getIngredients());
+
+			if (product.isActive()) {
+				radio_Active.setSelected(true);
+			} else {
+				radio_Inactive.setSelected(true);
+			}
 		}
 	}
 

@@ -106,7 +106,6 @@ public class Application {
 				// Create order lines
 				for (int lineIndex = 0; lineIndex < ORDER_LINES_PER_ORDER; ++lineIndex) {
 					OrderLine orderLine = new OrderLine();
-					orderLine.setLineNbr(lineIndex + 1);
 					orderLine.setOrder(order);
 					order.addOrderLine(orderLine);
 					Product product = products.get(random.nextInt(PRODUCTS));

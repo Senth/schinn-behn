@@ -35,8 +35,8 @@ public class OrderGui extends Gui<OrderController> {
 	private static final int ORDER_TABLE_COLUMN_QUANTITY = 2;
 	private static final int ORDER_TABLE_COLUMN_SUM = 3;
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
-	 * then
+	 * Can't have panel in base class as we're not able to access WindowBuilder
+	 * correctly then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_FindOrderNbr;
@@ -147,8 +147,8 @@ public class OrderGui extends Gui<OrderController> {
 		lblSearchProduct.setBounds(12, 673, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblSearchProduct);
 
-		JLabel lblTotalSumma = new JLabel("Total summa:");
-		lblTotalSumma.setBounds(1125, 673, LABEL_WIDTH, LABEL_HEIGHT);
+		JLabel lblTotalSumma = new JLabel("Total summa (exkl. moms):");
+		lblTotalSumma.setBounds(1034, 673, 210, 25);
 		panel.add(lblTotalSumma);
 
 		textField_FindOrderNbr = new JTextField();
@@ -209,7 +209,7 @@ public class OrderGui extends Gui<OrderController> {
 		scrollPane_Products.setBounds(12, 236, 636, 424);
 		panel.add(scrollPane_Products);
 
-		String columnHeadersForProducts[] = { "Produktnamn", "Pris" };
+		String columnHeadersForProducts[] = { "Produktnamn", "Pris (exkl. moms)" };
 		tableModel_Products = new DefaultTableModel(new Object[][] {}, columnHeadersForProducts) {
 			private static final long serialVersionUID = 1L;
 
@@ -241,7 +241,7 @@ public class OrderGui extends Gui<OrderController> {
 		scrollPane_Orders.setBounds(715, 236, 636, 424);
 		panel.add(scrollPane_Orders);
 
-		String columnHeadersForOrders[] = { "Produktnamn", "Pris", "Antal", "Summa" };
+		String columnHeadersForOrders[] = { "Produktnamn", "Pris (exkl. moms)", "Antal", "Summa (exkl moms)" };
 		tableModel_Orders = new DefaultTableModel(new Object[][] {}, columnHeadersForOrders) {
 			private static final long serialVersionUID = 1L;
 
@@ -320,7 +320,7 @@ public class OrderGui extends Gui<OrderController> {
 		return panel;
 	}
 
-	private void populateTable() {
+	public void populateTable() {
 		populateTable(controller.findProducts(textField_SearchProduct.getText()));
 	}
 
@@ -332,8 +332,10 @@ public class OrderGui extends Gui<OrderController> {
 
 		// Add products
 		for (Product product : products) {
-			Object[] row = { product.getName(), product.getPrice() };
-			tableModel_Products.addRow(row);
+			if (product.isActive()) {
+				Object[] row = { product.getName(), product.getPrice() };
+				tableModel_Products.addRow(row);
+			}
 		}
 	}
 
@@ -350,8 +352,8 @@ public class OrderGui extends Gui<OrderController> {
 			textField_FindOrderNbr.setText(order.getOrderNbr());
 
 			for (OrderLine tmpOrderLine : order.getOrderline()) {
-				Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(), tmpOrderLine.getQuantity(),
-						tmpOrderLine.getLinePrice() };
+				Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
+						tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
 				tableModel_Orders.addRow(row);
 
 			}

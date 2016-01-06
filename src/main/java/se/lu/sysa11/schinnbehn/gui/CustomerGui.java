@@ -185,7 +185,7 @@ public class CustomerGui extends Gui<CustomerController> {
 		scrollPane.setBounds(459, 24, 452, 362);
 		panel.add(scrollPane);
 
-		String column_names[] = { "Datum", "Ordernummer", "Summa" };
+		String column_names[] = { "Datum", "Ordernummer", "Summa (exkl. moms)" };
 		table_Model = new DefaultTableModel(new Object[][] {}, column_names) {
 			private static final long serialVersionUID = 1L;
 

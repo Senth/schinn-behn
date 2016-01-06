@@ -38,11 +38,22 @@ public class ProductReg {
 		return true;
 	}
 
+	/**
+	 * Call this when a product has been updated. This makes the product searchable with
+	 * the new information.
+	 * @param product the product that has been updated
+	 */
+	public void update(Product product) {
+		if (product != null) {
+			searchHelper.update(product, TokenizePatterns.FROM_START, product.getName(), product.getProductNbr());
+		}
+	}
+
 	public void add(Product p) {
 		if (p != null) {
 			products.put(p.getProductNbr(), p);
 
-			searchHelper.add(p, TokenizePatterns.FROM_START, p.getProductNbr(), p.getName());
+			update(p);
 		}
 	}
 

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import se.lu.sysa11.schinnbehn.controller.CustomerController;
@@ -44,6 +45,7 @@ public class CustomerGui extends Gui<CustomerController> {
 	private JTextField textField_ShowCustomerNbr;
 	private JTable table_Orders;
 	private DefaultTableModel table_Model;
+	private JTextField textField_OrdersTotal;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -142,6 +144,7 @@ public class CustomerGui extends Gui<CustomerController> {
 			public void actionPerformed(ActionEvent e) {
 				String searchString = textField_FindCustomer.getText();
 				Customer tmpCustomer = controller.findCustomer(searchString);
+				double sum = 0;
 
 				while (table_Model.getRowCount() > 0) {
 					table_Model.removeRow(0);
@@ -158,6 +161,8 @@ public class CustomerGui extends Gui<CustomerController> {
 						int orderNbr = Integer.parseInt(tmpOrder.getOrderNbr());
 						Object[] row = { tmpOrder.getOrderDate(), orderNbr, tmpOrder.getTotalPrice() };
 						table_Model.addRow(row);
+						sum += tmpOrder.getTotalPrice();
+
 					}
 
 				} else {
@@ -167,6 +172,7 @@ public class CustomerGui extends Gui<CustomerController> {
 					textField_Email.setText("");
 					textField_ShowCustomerNbr.setText(searchString);
 				}
+				textField_OrdersTotal.setText(Double.toString(sum));
 			}
 		});
 		btnSearchCustomer.setBounds(304, 304, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -251,7 +257,19 @@ public class CustomerGui extends Gui<CustomerController> {
 		btnClearFields.setBounds(304, 216, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnClearFields);
 
+		textField_OrdersTotal = new JTextField();
+		textField_OrdersTotal.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField_OrdersTotal.setEditable(false);
+		textField_OrdersTotal.setBounds(765, 403, 146, 26);
+		panel.add(textField_OrdersTotal);
+		textField_OrdersTotal.setColumns(10);
+
+		JLabel lblTotaltexklMoms = new JLabel("Totalt (exkl. moms):");
+		lblTotaltexklMoms.setBounds(625, 406, 138, 20);
+		panel.add(lblTotaltexklMoms);
+
 		setInitialized(true);
+
 	}
 
 	@Override

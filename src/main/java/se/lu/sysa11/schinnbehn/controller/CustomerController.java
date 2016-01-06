@@ -1,6 +1,8 @@
 package se.lu.sysa11.schinnbehn.controller;
 
 
+import java.util.List;
+
 import se.lu.sysa11.schinnbehn.gui.CustomerGui;
 import se.lu.sysa11.schinnbehn.gui.Views;
 import se.lu.sysa11.schinnbehn.gui.Window;
@@ -68,9 +70,10 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 		if (!isInputValid(name, telephone, address, email)) {
 			return false;
 		}
-		// TODO update customer
+
+		// Update customer
 		Customer customer = register.findCustomer(customerNbr);
-		if (customerNbr != null) {
+		if (customer != null) {
 			customer.setName(name);
 			customer.setTelephoneNbr(telephone);
 			customer.setAddress(address);
@@ -131,5 +134,15 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 			window.showNotificationSuccess("Kund med kundnummer " + searchString + " hittad.");
 		}
 		return tmpCustomer;
+	}
+
+	/**
+	 * Find a customer by a custom search string
+	 * @param searchString what to search for. If you use more than one word they are
+	 *        combined with an 'and'.
+	 * @return found products sorted by relevance
+	 */
+	public List<Customer> findCustomers(String searchString) {
+		return register.findCustomers(searchString);
 	}
 }

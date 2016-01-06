@@ -33,8 +33,8 @@ public class OrderGui extends Gui<OrderController> {
 	private static final int ORDER_TABLE_COLUMN_QUANTITY = 2;
 	private static final int ORDER_TABLE_COLUMN_SUM = 3;
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
-	 * then
+	 * Can't have panel in base class as we're not able to access WindowBuilder
+	 * correctly then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_FindOrderNbr;
@@ -292,7 +292,7 @@ public class OrderGui extends Gui<OrderController> {
 		return panel;
 	}
 
-	private void populateTable() {
+	public void populateTable() {
 		populateTable(controller.findProducts(textField_SearchProduct.getText()));
 	}
 
@@ -304,8 +304,10 @@ public class OrderGui extends Gui<OrderController> {
 
 		// Add products
 		for (Product product : products) {
-			Object[] row = { product.getName(), product.getPrice() };
-			tableModel_Products.addRow(row);
+			if (product.isActive()) {
+				Object[] row = { product.getName(), product.getPrice() };
+				tableModel_Products.addRow(row);
+			}
 		}
 	}
 
@@ -322,8 +324,8 @@ public class OrderGui extends Gui<OrderController> {
 			textField_FindOrderNbr.setText(order.getOrderNbr());
 
 			for (OrderLine tmpOrderLine : order.getOrderline()) {
-				Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(), tmpOrderLine.getQuantity(),
-						tmpOrderLine.getLinePrice() };
+				Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
+						tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
 				tableModel_Orders.addRow(row);
 
 			}

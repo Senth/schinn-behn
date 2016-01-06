@@ -76,16 +76,12 @@ public class OrderGui extends Gui<OrderController> {
 		panel.add(btnRemoveFromOrder);
 
 		JButton btnCreateOrder = new JButton("Skapa order");
-		btnCreateOrder.setBounds(913, 712, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btnCreateOrder.setBounds(1063, 712, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnCreateOrder);
 
 		JButton btnChangeOrder = new JButton("\u00C4ndra order");
-		btnChangeOrder.setBounds(1063, 712, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btnChangeOrder.setBounds(1213, 712, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnChangeOrder);
-
-		JButton btnRemoveOrder = new JButton("Ta bort order");
-		btnRemoveOrder.setBounds(1213, 712, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel.add(btnRemoveOrder);
 
 		JButton btnSearchCustomerNbr = new JButton("S\u00F6k");
 		btnSearchCustomerNbr.addActionListener(new ActionListener() {

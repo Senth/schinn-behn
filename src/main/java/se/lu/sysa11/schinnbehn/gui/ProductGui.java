@@ -203,7 +203,7 @@ public class ProductGui extends Gui<ProductController> {
 		lblName.setBounds(12, 86, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblName);
 
-		JLabel lblPrice = new JLabel("Pris:");
+		JLabel lblPrice = new JLabel("Pris (exkl. moms):");
 		lblPrice.setBounds(12, 115, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblPrice);
 
@@ -227,7 +227,7 @@ public class ProductGui extends Gui<ProductController> {
 		lblSearchProduct.setBounds(359, 24, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblSearchProduct);
 
-		String column_names[] = { "Nummer", "Namn", "Pris", "Kostnad" };
+		String column_names[] = { "Nummer", "Namn", "Pris (exkl. moms)", "Kostnad" };
 		table_Products = new JTable();
 		tableModel_Product = new DefaultTableModel(new Object[][] {}, column_names) {
 			private static final long serialVersionUID = 1L;

@@ -25,8 +25,11 @@ public class TableCellListener implements PropertyChangeListener, Runnable {
 
 	/**
 	 * Create a TableCellListener.
-	 * @param table the table to be monitored for data changes
-	 * @param action the Action to invoke when cell data is changed
+	 *
+	 * @param table
+	 *            the table to be monitored for data changes
+	 * @param action
+	 *            the Action to invoke when cell data is changed
 	 */
 	public TableCellListener(JTable table, Action action) {
 		this.table = table;
@@ -35,12 +38,17 @@ public class TableCellListener implements PropertyChangeListener, Runnable {
 	}
 
 	/**
-	 * Create a TableCellListener with a copy of all the data relevant to the change of
-	 * data for a given cell.
-	 * @param row the row of the changed cell
-	 * @param column the column of the changed cell
-	 * @param oldValue the old data of the changed cell
-	 * @param newValue the new data of the changed cell
+	 * Create a TableCellListener with a copy of all the data relevant to the
+	 * change of data for a given cell.
+	 *
+	 * @param row
+	 *            the row of the changed cell
+	 * @param column
+	 *            the column of the changed cell
+	 * @param oldValue
+	 *            the old data of the changed cell
+	 * @param newValue
+	 *            the new data of the changed cell
 	 */
 	private TableCellListener(JTable table, int row, int column, Object oldValue, Object newValue) {
 		this.table = table;
@@ -52,6 +60,7 @@ public class TableCellListener implements PropertyChangeListener, Runnable {
 
 	/**
 	 * Get the column that was last edited
+	 *
 	 * @return the column that was edited
 	 */
 	public int getColumn() {
@@ -60,6 +69,7 @@ public class TableCellListener implements PropertyChangeListener, Runnable {
 
 	/**
 	 * Get the new value in the cell
+	 *
 	 * @return the new value in the cell
 	 */
 	public Object getNewValue() {
@@ -68,6 +78,7 @@ public class TableCellListener implements PropertyChangeListener, Runnable {
 
 	/**
 	 * Get the old value of the cell
+	 *
 	 * @return the old value of the cell
 	 */
 	public Object getOldValue() {
@@ -76,6 +87,7 @@ public class TableCellListener implements PropertyChangeListener, Runnable {
 
 	/**
 	 * Get the row that was last edited
+	 *
 	 * @return the row that was edited
 	 */
 	public int getRow() {
@@ -84,6 +96,7 @@ public class TableCellListener implements PropertyChangeListener, Runnable {
 
 	/**
 	 * Get the table of the cell that was changed
+	 *
 	 * @return the table of the cell that was changed
 	 */
 	public JTable getTable() {
@@ -141,7 +154,8 @@ public class TableCellListener implements PropertyChangeListener, Runnable {
 			// Make a copy of the data in case another cell starts editing
 			// while processing this change
 
-			TableCellListener tcl = new TableCellListener(getTable(), getRow(), getColumn(), getOldValue(), getNewValue());
+			TableCellListener tcl = new TableCellListener(getTable(), getRow(), getColumn(), getOldValue(),
+					getNewValue());
 
 			ActionEvent event = new ActionEvent(tcl, ActionEvent.ACTION_PERFORMED, "");
 			action.actionPerformed(event);

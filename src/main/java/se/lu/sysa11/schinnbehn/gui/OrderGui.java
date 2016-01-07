@@ -290,12 +290,14 @@ public class OrderGui extends Gui<OrderController> {
 
 		table_Orders.setModel(tableModel_Orders);
 		table_Orders.getColumnModel().getColumn(0).setResizable(false);
+		table_Orders.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 		Action action = new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				TableCellListener tableCellListener = (TableCellListener) e.getSource();
+
 				Integer oldQuantity = (Integer) tableCellListener.getOldValue();
 				Integer updatedQuantity = (Integer) tableCellListener.getNewValue();
 
@@ -307,6 +309,7 @@ public class OrderGui extends Gui<OrderController> {
 					tableModel_Orders.setValueAt(updatedQuantity * price, tableCellListener.getRow(),
 							ORDER_TABLE_COLUMN_SUM);
 					textField_TotalSum.setText(Double.toString(totalSum - diff));
+
 				} else {
 					tableModel_Orders.setValueAt(oldQuantity, tableCellListener.getRow(), ORDER_TABLE_COLUMN_QUANTITY);
 					window.showNotificationError("Felaktigt värde, antal måste vara större än 0.");

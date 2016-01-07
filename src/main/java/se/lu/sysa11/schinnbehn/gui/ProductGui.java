@@ -68,7 +68,7 @@ public class ProductGui extends Gui<ProductController> {
 		panel.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(359, 57, 559, 340);
+		scrollPane.setBounds(458, 57, 559, 340);
 		panel.add(scrollPane);
 
 		textField_ProductNr = new JTextField();
@@ -100,7 +100,7 @@ public class ProductGui extends Gui<ProductController> {
 		textField_Cost.setColumns(10);
 
 		textField_SearchProduct = new JTextField();
-		textField_SearchProduct.setBounds(500, 24, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_SearchProduct.setBounds(599, 24, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_SearchProduct);
 		textField_SearchProduct.setColumns(10);
 		textField_SearchProduct.getDocument().addDocumentListener(new DocumentListener() {
@@ -203,6 +203,21 @@ public class ProductGui extends Gui<ProductController> {
 		btnChangeProduct.setBounds(158, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnChangeProduct);
 
+		JButton btnClearFields = new JButton("T\u00F6m f\u00E4lten");
+		btnClearFields.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				textField_ProductNr.setText("");
+				textField_Name.setText("");
+				textField_Price.setText("");
+				textArea_Ingredients.setText("");
+				textField_Cost.setText("");
+				textField_Weight.setText("");
+			}
+		});
+		btnClearFields.setBounds(308, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel.add(btnClearFields);
+
 		JLabel lblProduct = new JLabel("Produkt");
 		lblProduct.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		lblProduct.setBounds(12, 24, LABEL_WIDTH, LABEL_HEIGHT);
@@ -237,7 +252,7 @@ public class ProductGui extends Gui<ProductController> {
 		panel.add(lblActive);
 
 		JLabel lblSearchProduct = new JLabel("Filtrera Produkt:");
-		lblSearchProduct.setBounds(359, 24, LABEL_WIDTH, LABEL_HEIGHT);
+		lblSearchProduct.setBounds(458, 24, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblSearchProduct);
 
 		String column_names[] = { "Nummer", "Namn", "Pris (exkl. moms)", "Kostnad" };

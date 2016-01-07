@@ -156,7 +156,12 @@ public class ProductGui extends Gui<ProductController> {
 				}
 
 				oldProductNbr = null;
-				controller.addProduct(productNbr, name, price, ingredients, weight, cost);
+				if (!productNbr.equals(controller.findProduct(productNbr).getProductNbr())) {
+					controller.addProduct(productNbr, name, price, ingredients, weight, cost);
+				} else {
+					window.showNotificationError("Det finns redan en produkt med produktnummer " + productNbr + ".");
+				}
+
 			}
 		});
 		btnAddProduct.setBounds(12, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -289,7 +294,7 @@ public class ProductGui extends Gui<ProductController> {
 
 	/**
 	 * Set the current active product
-	 * 
+	 *
 	 * @param product
 	 *            the product to set
 	 */

@@ -290,7 +290,6 @@ public class OrderGui extends Gui<OrderController> {
 
 		table_Orders.setModel(tableModel_Orders);
 		table_Orders.getColumnModel().getColumn(0).setResizable(false);
-		table_Orders.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 		Action action = new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 

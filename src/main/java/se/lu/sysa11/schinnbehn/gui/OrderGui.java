@@ -3,6 +3,8 @@ package se.lu.sysa11.schinnbehn.gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -85,36 +87,65 @@ public class OrderGui extends Gui<OrderController> {
 		btnAddToOrder.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int minSelection = table_Products.getSelectionModel().getMinSelectionIndex();
-				int maxSelection = table_Products.getSelectionModel().getMaxSelectionIndex();
+				int[] selectedRows = table_Products.getSelectedRows();
 
-				if (minSelection != -1) {
-					for (int i = minSelection; i <= maxSelection; i++) {
+				if (selectedRows != null) {
+
+					for (int i : selectedRows) {
 						int rowIndex = table_Products.convertRowIndexToModel(i);
 						Product tmpProduct = controller.findProduct(
 								(String) tableModel_Products.getValueAt(rowIndex, PRODCUT_TABLE_COLUMN_NUMBER));
+
 						if (!orderLines.containsKey(tmpProduct.getProductNbr())) {
 							OrderLine orderLine = new OrderLine();
 							orderLine.setProduct(tmpProduct);
 							orderLine.setQuantity(1);
 							orderLine.setProductPrice(tmpProduct.getPrice());
 							orderLines.put(tmpProduct.getProductNbr(), orderLine);
-							Object[] row = { tmpProduct.getProductNbr(), tmpProduct.getName(), tmpProduct.getPrice(), 1,
-									tmpProduct.getPrice() };
+							Object[] row = { tmpProduct.getProductNbr(), tmpProduct.getName(), tmpProduct.getPrice(),
+									orderLine.getQuantity(), tmpProduct.getPrice() };
 							tableModel_Orders.addRow(row);
-						} else {
-							window.showNotificationError("Produkten finns redan i ordern.");
+							window.showNotificationSuccess("Produkter tillagda till ordern.");
 						}
-
 					}
-					textField_TotalSum.setText(updateOrderSum());
+				} else {
+					window.showNotificationError("Produkten finns redan i ordern.");
 				}
+				textField_TotalSum.setText(updateOrderSum());
 			}
+
 		});
 		btnAddToOrder.setBounds(660, 423, 45, 25);
 		panel.add(btnAddToOrder);
 
 		JButton btnRemoveFromOrder = new JButton("<");
+		btnRemoveFromOrder.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int[] selectedRows = table_Orders.getSelectedRows();
+
+				if (selectedRows != null) {
+					ArrayList<Integer> rowsToRemove = new ArrayList<Integer>();
+
+					for (int i : selectedRows) {
+						int rowIndex = table_Orders.convertRowIndexToModel(i);
+
+						orderLines.remove(tableModel_Orders.getValueAt(rowIndex, ORDER_TABLE_COLUMN_NUMBER));
+						rowsToRemove.add(rowIndex);
+						textField_TotalSum.setText(updateOrderSum());
+
+					}
+					Collections.sort(rowsToRemove);
+					Collections.reverse(rowsToRemove);
+
+					for (int rowIndex : rowsToRemove) {
+						tableModel_Orders.removeRow(rowIndex);
+					}
+				} else {
+					window.showNotificationError("Inga rader valda.");
+				}
+			}
+		});
 		btnRemoveFromOrder.setBounds(660, 461, 45, 25);
 		panel.add(btnRemoveFromOrder);
 
@@ -425,7 +456,7 @@ public class OrderGui extends Gui<OrderController> {
 	public String updateOrderSum() {
 		double sum = 0;
 		for (OrderLine tmpOrderLine : orderLines.values()) {
-			sum += tmpOrderLine.getProductPrice() * tmpOrderLine.getQuantity();
+			sum += tmpOrderLine.getLinePrice();
 		}
 		return Double.toString(sum);
 	}

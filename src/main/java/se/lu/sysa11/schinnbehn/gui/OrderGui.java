@@ -125,7 +125,7 @@ public class OrderGui extends Gui<OrderController> {
 			public void actionPerformed(ActionEvent e) {
 				int[] selectedRows = table_Orders.getSelectedRows();
 
-				if (selectedRows != null) {
+				if (selectedRows != null && selectedRows.length > 0) {
 					ArrayList<Integer> rowsToRemove = new ArrayList<Integer>();
 
 					for (int i : selectedRows) {
@@ -171,7 +171,7 @@ public class OrderGui extends Gui<OrderController> {
 							"Order tillagd till kund med kundnummer: " + order.getMadeby().getCustomerNbr());
 				} else if (orderLines.isEmpty()) {
 					window.showNotificationError("Ordern inte tillags, hittade inga orderrader i ordern");
-				} else {
+				} else if (controller.findCustomer(textField_CustomerNbr.getText()) == null) {
 					window.showNotificationError("Ordern inte tillagd, finns ingen kund med kundnummer: "
 							+ textField_CustomerNbr.getText() + ".");
 				}

@@ -331,6 +331,8 @@ public class CustomerGui extends Gui<CustomerController> {
 			// calculate sum
 			for (Order order : customer.getOrders().values()) {
 				sum += order.getTotalPrice();
+				Object[] row = { order.getOrderNbr(), order.getOrderDate(), order.getTotalPrice() };
+				tableModel_Order.addRow(row);
 			}
 
 			textField_OrdersTotal.setText(Double.toString(sum));

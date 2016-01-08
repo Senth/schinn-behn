@@ -156,7 +156,7 @@ public class ProductGui extends Gui<ProductController> {
 				}
 
 				oldProductNbr = null;
-				if (!productNbr.equals(controller.findProduct(productNbr).getProductNbr())) {
+				if (controller.findProduct(productNbr) == null) {
 					controller.addProduct(productNbr, name, price, ingredients, weight, cost);
 				} else {
 					window.showNotificationError("Det finns redan en produkt med produktnummer " + productNbr + ".");

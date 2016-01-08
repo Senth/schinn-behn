@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -141,8 +142,7 @@ public class OrderGui extends Gui<OrderController> {
 					for (int rowIndex : rowsToRemove) {
 						tableModel_Orders.removeRow(rowIndex);
 					}
-				} else {
-					window.showNotificationError("Inga rader valda.");
+					window.showNotificationSuccess("Produkter borttagna från ordern");
 				}
 			}
 		});
@@ -150,6 +150,34 @@ public class OrderGui extends Gui<OrderController> {
 		panel.add(btnRemoveFromOrder);
 
 		JButton btnCreateOrder = new JButton("Skapa order");
+		btnCreateOrder.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (!orderLines.isEmpty() && controller.findCustomer(textField_CustomerNbr.getText()) != null) {
+					Order order = new Order();
+					HashSet<OrderLine> lines = new HashSet<OrderLine>();
+
+					order.setMadeby(controller.findCustomer(textField_CustomerNbr.getText()));
+					order.setDeliveryAdress(
+							controller.findCustomer(textField_CustomerNbr.getText()).getBillingadress());
+					order.setOrderDate("Testdate");
+
+					for (OrderLine orderLine : orderLines.values()) {
+						lines.add(orderLine);
+					}
+					order.setOrderLine(lines);
+					controller.findCustomer(textField_CustomerNbr.getText()).addOrder(order);
+					window.showNotificationSuccess(
+							"Order tillagd till kund med kundnummer: " + order.getMadeby().getCustomerNbr());
+				} else if (orderLines.isEmpty()) {
+					window.showNotificationError("Ordern inte tillags, hittade inga orderrader i ordern");
+				} else {
+					window.showNotificationError("Ordern inte tillagd, finns ingen kund med kundnummer: "
+							+ textField_CustomerNbr.getText() + ".");
+				}
+
+			}
+		});
 		btnCreateOrder.setBounds(1063, 712, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnCreateOrder);
 

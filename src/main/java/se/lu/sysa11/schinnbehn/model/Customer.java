@@ -8,15 +8,15 @@ import java.util.HashMap;
 public class Customer {
 	private String customerNbr;
 	private String name;
-	private String address;
+	private String billingAdress;
 	private String email;
 	private String telephoneNbr;
 	private HashMap<String, Order> orders = new HashMap<>();
 	private static int customerNbrCounter = 1;
 
 	/**
-	 * Default constructor, automatically sets the customer number to the next available
-	 * customer number
+	 * Default constructor, automatically sets the customer number to the next
+	 * available customer number
 	 */
 	public Customer() {
 		customerNbr = String.valueOf(customerNbrCounter);
@@ -47,12 +47,12 @@ public class Customer {
 		this.name = name;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getBillingadress() {
+		return billingAdress;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setBillingAdress(String billingAdress) {
+		this.billingAdress = billingAdress;
 	}
 
 	public String getEmail() {

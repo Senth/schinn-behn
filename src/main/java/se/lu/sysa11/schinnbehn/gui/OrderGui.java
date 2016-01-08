@@ -140,7 +140,7 @@ public class OrderGui extends Gui<OrderController> {
 
 				if (tmpCustomer != null) {
 					textField_CustomerName.setText(tmpCustomer.getName());
-					textField_DeliveryAddress.setText(tmpCustomer.getAddress());
+					textField_DeliveryAddress.setText(tmpCustomer.getBillingadress());
 					textField_FindOrderNbr.setText("");
 				} else {
 					textField_CustomerName.setText("");
@@ -356,7 +356,7 @@ public class OrderGui extends Gui<OrderController> {
 
 				} else {
 					tableModel_Orders.setValueAt(oldQuantity, tableCellListener.getRow(), ORDER_TABLE_COLUMN_QUANTITY);
-					window.showNotificationError("Felaktigt värde, antal måste vara större än 0.");
+					window.showNotificationError("Felaktigt vï¿½rde, antal mï¿½ste vara stï¿½rre ï¿½n 0.");
 				}
 
 			}
@@ -367,7 +367,6 @@ public class OrderGui extends Gui<OrderController> {
 
 		populateTable();
 
-		setOrder(controller.findOrder("1"));
 		setInitialized(true);
 	}
 

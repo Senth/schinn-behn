@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 import se.lu.sysa11.schinnbehn.controller.CustomerController;
 import se.lu.sysa11.schinnbehn.model.Customer;
+import se.lu.sysa11.schinnbehn.model.Order;
 
 /**
  * GUI for the Customer
@@ -236,6 +237,10 @@ public class CustomerGui extends Gui<CustomerController> {
 				textField_Adress.setText("");
 				textField_Email.setText("");
 				textField_ShowCustomerNbr.setText("");
+				textField_OrdersTotal.setText("");
+				while (tableModel_Order.getRowCount() > 0) {
+					tableModel_Order.removeRow(0);
+				}
 			}
 		});
 		btnClearFields.setBounds(304, 216, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -310,12 +315,32 @@ public class CustomerGui extends Gui<CustomerController> {
 	}
 
 	private void setCustomer(Customer customer) {
+		while (tableModel_Order.getRowCount() > 0) {
+			tableModel_Order.removeRow(0);
+		}
+
+		double sum = 0;
+
 		if (customer != null) {
 			textField_ShowCustomerNbr.setText(customer.getCustomerNbr());
 			textField_Name.setText(customer.getName());
 			textField_Adress.setText(customer.getAddress());
 			textField_Email.setText(customer.getEmail());
 			textField_Phone.setText(customer.getTelephoneNbr());
+
+			// calculate sum
+			for (Order order : customer.getOrders().values()) {
+				sum += order.getTotalPrice();
+			}
+
+			textField_OrdersTotal.setText(Double.toString(sum));
+		} else {
+			textField_Name.setText("");
+			textField_Phone.setText("");
+			textField_Adress.setText("");
+			textField_Email.setText("");
+			textField_ShowCustomerNbr.setText("");
+			textField_OrdersTotal.setText("");
 		}
 	}
 

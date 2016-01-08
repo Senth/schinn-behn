@@ -3,6 +3,7 @@ package se.lu.sysa11.schinnbehn.gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -35,8 +36,9 @@ public class OrderGui extends Gui<OrderController> {
 		super(window);
 	}
 
-	private static final int PRODUCT_TABLE_COLUMN_NAME = 0;
-	private static final int PRODUCT_TABLE_COLUMN_PRICE = 1;
+	private static final int PRODCUT_TABLE_COLUMN_NUMBER = 0;
+	private static final int PRODUCT_TABLE_COLUMN_NAME = 1;
+	private static final int PRODUCT_TABLE_COLUMN_PRICE = 2;
 	private static final int ORDER_TABLE_COLUMN_NAME = 0;
 	private static final int ORDER_TABLE_COLUMN_PRICE = 1;
 	private static final int ORDER_TABLE_COLUMN_QUANTITY = 2;
@@ -56,6 +58,7 @@ public class OrderGui extends Gui<OrderController> {
 	private JTextField textField_TotalSum;
 	private DefaultTableModel tableModel_Orders;
 	private DefaultTableModel tableModel_Products;
+	private HashMap<String, OrderLine> orderLines = new HashMap<String, OrderLine>();
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -71,12 +74,40 @@ public class OrderGui extends Gui<OrderController> {
 				String searchString = textField_FindOrderNbr.getText();
 				Order order = controller.findOrder(searchString);
 				setOrder(order);
+
 			}
 		});
 		btnSearchOrder.setBounds(274, 160, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnSearchOrder);
 
 		JButton btnAddToOrder = new JButton(">");
+		btnAddToOrder.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int minSelection = table_Products.getSelectionModel().getMinSelectionIndex();
+				int maxSelection = table_Products.getSelectionModel().getMaxSelectionIndex();
+
+				if (minSelection != -1) {
+					for (int i = minSelection; i <= maxSelection; i++) {
+						Product tmpProduct = controller
+								.findProduct((String) tableModel_Products.getValueAt(i, PRODCUT_TABLE_COLUMN_NUMBER));
+						if (!orderLines.containsKey(tmpProduct.getProductNbr())) {
+							OrderLine orderLine = new OrderLine();
+							orderLine.setProduct(tmpProduct);
+							orderLine.setQuantity(1);
+							orderLine.setProductPrice(tmpProduct.getPrice());
+							orderLines.put(tmpProduct.getProductNbr(), orderLine);
+							Object[] row = { tmpProduct.getName(), tmpProduct.getPrice(), 1, tmpProduct.getPrice() };
+							tableModel_Orders.addRow(row);
+						} else {
+							window.showNotificationError("Produkten finns redan i ordern.");
+						}
+
+					}
+					textField_TotalSum.setText(updateOrderSum());
+				}
+			}
+		});
 		btnAddToOrder.setBounds(660, 423, 45, 25);
 		panel.add(btnAddToOrder);
 
@@ -112,6 +143,7 @@ public class OrderGui extends Gui<OrderController> {
 					textField_DeliveryAddress.setText("");
 					textField_FindOrderNbr.setText("");
 				}
+				textField_TotalSum.setText("");
 
 			}
 		});
@@ -215,13 +247,15 @@ public class OrderGui extends Gui<OrderController> {
 		scrollPane_Products.setBounds(12, 236, 636, 424);
 		panel.add(scrollPane_Products);
 
-		String columnHeadersForProducts[] = { "Produktnamn", "Pris (exkl. moms)" };
+		String columnHeadersForProducts[] = { "Nummer", "Produktnamn", "Pris (exkl. moms)" };
 		tableModel_Products = new DefaultTableModel(new Object[][] {}, columnHeadersForProducts) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				switch (columnIndex) {
+				case PRODCUT_TABLE_COLUMN_NUMBER:
+					return String.class;
 				case PRODUCT_TABLE_COLUMN_NAME:
 					return String.class;
 				case PRODUCT_TABLE_COLUMN_PRICE:
@@ -344,7 +378,7 @@ public class OrderGui extends Gui<OrderController> {
 		// Add products
 		for (Product product : products) {
 			if (product.isActive()) {
-				Object[] row = { product.getName(), product.getPrice() };
+				Object[] row = { product.getProductNbr(), product.getName(), product.getPrice() };
 				tableModel_Products.addRow(row);
 			}
 		}
@@ -369,6 +403,19 @@ public class OrderGui extends Gui<OrderController> {
 
 			}
 		}
-		textField_TotalSum.setText(Double.toString(order.getTotalPrice()));
+		if (order != null) {
+			textField_TotalSum.setText(Double.toString(order.getTotalPrice()));
+		} else {
+			textField_TotalSum.setText("");
+		}
+
+	}
+
+	public String updateOrderSum() {
+		double sum = 0;
+		for (OrderLine tmpOrderLine : orderLines.values()) {
+			sum += tmpOrderLine.getProductPrice() * tmpOrderLine.getQuantity();
+		}
+		return Double.toString(sum);
 	}
 }

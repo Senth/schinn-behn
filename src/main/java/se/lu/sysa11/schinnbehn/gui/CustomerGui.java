@@ -172,7 +172,11 @@ public class CustomerGui extends Gui<CustomerController> {
 					textField_Email.setText("");
 					textField_ShowCustomerNbr.setText(searchString);
 				}
-				textField_OrdersTotal.setText(Double.toString(sum));
+				if (tmpCustomer != null) {
+					textField_OrdersTotal.setText(Double.toString(sum));
+				} else {
+					textField_OrdersTotal.setText("");
+				}
 			}
 		});
 		btnSearchCustomer.setBounds(304, 304, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -252,6 +256,10 @@ public class CustomerGui extends Gui<CustomerController> {
 				textField_Adress.setText("");
 				textField_Email.setText("");
 				textField_ShowCustomerNbr.setText("");
+				textField_OrdersTotal.setText("");
+				while (table_Model.getRowCount() > 0) {
+					table_Model.removeRow(0);
+				}
 			}
 		});
 		btnClearFields.setBounds(304, 216, BUTTON_WIDTH, BUTTON_HEIGHT);

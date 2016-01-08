@@ -71,6 +71,7 @@ public class OrderGui extends Gui<OrderController> {
 				String searchString = textField_FindOrderNbr.getText();
 				Order order = controller.findOrder(searchString);
 				setOrder(order);
+
 			}
 		});
 		btnSearchOrder.setBounds(274, 160, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -369,6 +370,11 @@ public class OrderGui extends Gui<OrderController> {
 
 			}
 		}
-		textField_TotalSum.setText(Double.toString(order.getTotalPrice()));
+		if (order != null) {
+			textField_TotalSum.setText(Double.toString(order.getTotalPrice()));
+		} else {
+			textField_TotalSum.setText("");
+		}
+
 	}
 }

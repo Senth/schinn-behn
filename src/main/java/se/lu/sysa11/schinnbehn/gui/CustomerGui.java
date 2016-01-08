@@ -38,7 +38,8 @@ public class CustomerGui extends Gui<CustomerController> {
 	private static final int CUSTOMER_COLUMN_ID = 0;
 	private static final int CUSTOMER_COLUMN_NAME = 1;
 	private static final int CUSTOMER_COLUMN_EMAIL = 2;
-	private static final int CUSTOMER_COLUMN_ADRESS = 3;
+	private static final int CUSTOMER_COLUMN_PHONENUMBER = 3;
+	private static final int CUSTOMER_COLUMN_ADRESS = 4;
 
 	/**
 	 * Can't have panel in base class as we're not able to access WindowBuilder
@@ -258,19 +259,7 @@ public class CustomerGui extends Gui<CustomerController> {
 		lblTotaltexklMoms.setBounds(624, 313, 138, 20);
 		panel.add(lblTotaltexklMoms);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(25, 411, 411, 254);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 0, 411, 254);
-		panel_1.add(scrollPane_1);
-
-		table_Customer = new JTable();
-		scrollPane_1.setViewportView(table_Customer);
-
-		String column_namesCustomer[] = { "Kundnummer", "Namn", "E-mail", "Address" };
+		String column_namesCustomer[] = { "Kundnummer", "Namn", "E-mail", "Telefonnummer", "Address" };
 		tableModel_Customer = new DefaultTableModel(new Object[][] {}, column_namesCustomer) {
 			private static final long serialVersionUID = 1L;
 
@@ -290,12 +279,21 @@ public class CustomerGui extends Gui<CustomerController> {
 					return String.class;
 				case CUSTOMER_COLUMN_ADRESS:
 					return String.class;
+				case CUSTOMER_COLUMN_PHONENUMBER:
+					return String.class;
 				default:
 					return String.class;
 				}
 			}
 
 		};
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(27, 413, 884, 254);
+		panel.add(scrollPane_1);
+
+		table_Customer = new JTable();
+		scrollPane_1.setViewportView(table_Customer);
 
 		table_Customer.setAutoCreateRowSorter(true);
 		table_Customer.setModel(tableModel_Customer);
@@ -362,7 +360,7 @@ public class CustomerGui extends Gui<CustomerController> {
 		// Add products
 		for (Customer customer : customers) {
 			Object[] row = { customer.getCustomerNbr(), customer.getName(), customer.getEmail(),
-					customer.getAddress() };
+					customer.getTelephoneNbr(), customer.getAddress() };
 			tableModel_Customer.addRow(row);
 		}
 	}

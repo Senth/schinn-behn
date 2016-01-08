@@ -74,6 +74,9 @@ public class OrderController extends Controller<OrderGui, OrderReg> {
 			String orderNumber = (String) data;
 			gui.setOrder(findOrder(orderNumber));
 
+		} else if (data instanceof Customer) {
+			Customer customer = (Customer) data;
+			gui.setCustomer(customer);
 		}
 		gui.populateTable();
 	}

@@ -14,7 +14,7 @@ import se.lu.sysa11.schinnbehn.model.CustomerReg;
 public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	/**
 	 * Create a custom controller with the window
-	 * 
+	 *
 	 * @param window
 	 *            application window
 	 * @param customerGui
@@ -29,7 +29,7 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 
 	/**
 	 * Create a new customer
-	 * 
+	 *
 	 * @param name
 	 *            customer/company name
 	 * @param telephone
@@ -64,7 +64,7 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 
 	/**
 	 * Update an existing customer
-	 * 
+	 *
 	 * @param customerNbr
 	 *            the customer number
 	 * @param name
@@ -126,7 +126,7 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 
 	/**
 	 * Go to the specified order
-	 * 
+	 *
 	 * @param orderNumber
 	 *            the order number to go to
 	 */
@@ -134,9 +134,14 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 		window.switchTo(Views.ORDER, orderNumber);
 	}
 
+	public void newOrder(String customerNbr) {
+		Customer customer = register.findCustomer(customerNbr);
+		window.switchTo(Views.ORDER, customer);
+	}
+
 	/**
 	 * Find existing customers
-	 * 
+	 *
 	 * @param searchString
 	 *            what to search for (currently only the customer number)
 	 * @return list of all found customer (currently the list can only contain
@@ -154,7 +159,7 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 
 	/**
 	 * Find a customer by a custom search string
-	 * 
+	 *
 	 * @param searchString
 	 *            what to search for. If you use more than one word they are
 	 *            combined with an 'and'.

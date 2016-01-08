@@ -256,7 +256,7 @@ public class CustomerGui extends Gui<CustomerController> {
 		textField_OrdersTotal.setColumns(10);
 
 		JLabel lblTotaltexklMoms = new JLabel("Totalt (exkl. moms):");
-		lblTotaltexklMoms.setBounds(624, 313, 138, 20);
+		lblTotaltexklMoms.setBounds(624, 313, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(lblTotaltexklMoms);
 
 		String column_namesCustomer[] = { "Kundnummer", "Namn", "E-mail", "Telefonnummer", "Address" };
@@ -297,6 +297,20 @@ public class CustomerGui extends Gui<CustomerController> {
 
 		table_Customer.setAutoCreateRowSorter(true);
 		table_Customer.setModel(tableModel_Customer);
+
+		JButton btnNewOrder = new JButton("Ny Order");
+		btnNewOrder.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String customerNbr = textField_ShowCustomerNbr.getText();
+				if (customerNbr != null) {
+					controller.newOrder(customerNbr);
+				}
+
+			}
+		});
+		btnNewOrder.setBounds(459, 313, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel.add(btnNewOrder);
 
 		table_Customer.addMouseListener(new TableClickListener() {
 			@Override

@@ -397,9 +397,7 @@ public class OrderGui extends Gui<OrderController> {
 
 	public void setOrder(Order order) {
 
-		while (tableModel_Orders.getRowCount() > 0) {
-			tableModel_Orders.removeRow(0);
-		}
+		clearOrderLines();
 
 		if (order != null) {
 			textField_CustomerName.setText(order.getMadeby().getName());
@@ -428,5 +426,22 @@ public class OrderGui extends Gui<OrderController> {
 			sum += tmpOrderLine.getProductPrice() * tmpOrderLine.getQuantity();
 		}
 		return Double.toString(sum);
+	}
+
+	public void setCustomer(Customer customer) {
+		if (customer != null) {
+			textField_CustomerName.setText(customer.getName());
+			textField_CustomerNbr.setText(customer.getCustomerNbr());
+			textField_DeliveryAddress.setText(customer.getBillingadress());
+			textField_FindOrderNbr.setText("");
+			textField_TotalSum.setText("");
+			clearOrderLines();
+		}
+	}
+
+	private void clearOrderLines() {
+		while (tableModel_Orders.getRowCount() > 0) {
+			tableModel_Orders.removeRow(0);
+		}
 	}
 }

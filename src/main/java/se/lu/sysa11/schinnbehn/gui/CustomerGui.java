@@ -42,8 +42,8 @@ public class CustomerGui extends Gui<CustomerController> {
 	private static final int CUSTOMER_COLUMN_ADRESS = 4;
 
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder
-	 * correctly then
+	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
+	 * then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_Name;
@@ -220,8 +220,14 @@ public class CustomerGui extends Gui<CustomerController> {
 			public void onDoubleClick(JTable table, int row) {
 				try {
 					Object value = tableModel_Order.getValueAt(row, ORDER_COLUMN_ID);
+					String orderNumber = null;
 					if (value instanceof Integer) {
-						String orderNumber = String.valueOf(value);
+						orderNumber = String.valueOf(value);
+					} else if (value instanceof String) {
+						orderNumber = (String) value;
+					}
+
+					if (orderNumber != null) {
 						controller.gotoOrder(orderNumber);
 					}
 				} catch (ArrayIndexOutOfBoundsException exception) {
@@ -373,8 +379,8 @@ public class CustomerGui extends Gui<CustomerController> {
 
 		// Add products
 		for (Customer customer : customers) {
-			Object[] row = { customer.getCustomerNbr(), customer.getName(), customer.getEmail(),
-					customer.getTelephoneNbr(), customer.getBillingadress() };
+			Object[] row = { customer.getCustomerNbr(), customer.getName(), customer.getEmail(), customer.getTelephoneNbr(),
+					customer.getBillingadress() };
 			tableModel_Customer.addRow(row);
 		}
 	}

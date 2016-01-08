@@ -78,6 +78,10 @@ public class OrderController extends Controller<OrderGui, OrderReg> {
 		gui.populateTable();
 	}
 
+	public Product findProduct(String searchString) {
+		return productRegister.findProduct(searchString);
+	}
+
 	/**
 	 * Find or rather filter products
 	 *

@@ -130,6 +130,7 @@ public class OrderGui extends Gui<OrderController> {
 				String searchString = textField_CustomerNbr.getText();
 				Customer tmpCustomer = controller.findCustomer(searchString);
 
+				orderLines.clear();
 				while (tableModel_Orders.getRowCount() > 0) {
 					tableModel_Orders.removeRow(0);
 				}
@@ -400,7 +401,7 @@ public class OrderGui extends Gui<OrderController> {
 				Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
 						tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
 				tableModel_Orders.addRow(row);
-
+				orderLines.put(tmpOrderLine.getProduct().getProductNbr(), tmpOrderLine);
 			}
 		}
 		if (order != null) {

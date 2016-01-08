@@ -325,7 +325,7 @@ public class CustomerGui extends Gui<CustomerController> {
 		if (customer != null) {
 			textField_ShowCustomerNbr.setText(customer.getCustomerNbr());
 			textField_Name.setText(customer.getName());
-			textField_Adress.setText(customer.getAddress());
+			textField_Adress.setText(customer.getBillingadress());
 			textField_Email.setText(customer.getEmail());
 			textField_Phone.setText(customer.getTelephoneNbr());
 
@@ -360,7 +360,7 @@ public class CustomerGui extends Gui<CustomerController> {
 		// Add products
 		for (Customer customer : customers) {
 			Object[] row = { customer.getCustomerNbr(), customer.getName(), customer.getEmail(),
-					customer.getTelephoneNbr(), customer.getAddress() };
+					customer.getTelephoneNbr(), customer.getBillingadress() };
 			tableModel_Customer.addRow(row);
 		}
 	}

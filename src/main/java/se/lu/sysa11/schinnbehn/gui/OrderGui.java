@@ -140,7 +140,7 @@ public class OrderGui extends Gui<OrderController> {
 
 				if (tmpCustomer != null) {
 					textField_CustomerName.setText(tmpCustomer.getName());
-					textField_DeliveryAddress.setText(tmpCustomer.getAddress());
+					textField_DeliveryAddress.setText(tmpCustomer.getBillingadress());
 					textField_FindOrderNbr.setText("");
 				} else {
 					textField_CustomerName.setText("");

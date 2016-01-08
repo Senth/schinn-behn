@@ -38,7 +38,7 @@ public class Application {
 
 	/**
 	 * Main class
-	 * 
+	 *
 	 * @param args
 	 *            not used
 	 */
@@ -94,7 +94,7 @@ public class Application {
 			customer.setEmail(loremIpsum.randomWord() + "." + loremIpsum.randomWord() + "@example.com");
 			customer.setName(loremIpsum.randomWord());
 			customer.setTelephoneNbr("000-000 00 00");
-			customer.setAddress(loremIpsum.words(2));
+			customer.setBillingAdress(loremIpsum.words(2));
 			customerReg.add(customer);
 			customers.add(customer);
 
@@ -123,7 +123,7 @@ public class Application {
 
 	/**
 	 * Helper method for rounding double values
-	 * 
+	 *
 	 * @param value
 	 *            the value to round
 	 * @return rounded to two decimals

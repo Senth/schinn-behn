@@ -37,11 +37,13 @@ public class CustomerGui extends Gui<CustomerController> {
 
 	private static final int CUSTOMER_COLUMN_ID = 0;
 	private static final int CUSTOMER_COLUMN_NAME = 1;
-	private static final int CUSTOMER_COLUMN_ADRESS = 2;
+	private static final int CUSTOMER_COLUMN_EMAIL = 2;
+	private static final int CUSTOMER_COLUMN_PHONENUMBER = 3;
+	private static final int CUSTOMER_COLUMN_ADRESS = 4;
 
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder
-	 * correctly then
+	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
+	 * then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_Name;
@@ -218,8 +220,14 @@ public class CustomerGui extends Gui<CustomerController> {
 			public void onDoubleClick(JTable table, int row) {
 				try {
 					Object value = tableModel_Order.getValueAt(row, ORDER_COLUMN_ID);
+					String orderNumber = null;
 					if (value instanceof Integer) {
-						String orderNumber = String.valueOf(value);
+						orderNumber = String.valueOf(value);
+					} else if (value instanceof String) {
+						orderNumber = (String) value;
+					}
+
+					if (orderNumber != null) {
 						controller.gotoOrder(orderNumber);
 					}
 				} catch (ArrayIndexOutOfBoundsException exception) {
@@ -257,19 +265,7 @@ public class CustomerGui extends Gui<CustomerController> {
 		lblTotaltexklMoms.setBounds(624, 313, 138, 20);
 		panel.add(lblTotaltexklMoms);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(25, 411, 411, 254);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 0, 411, 254);
-		panel_1.add(scrollPane_1);
-
-		table_Customer = new JTable();
-		scrollPane_1.setViewportView(table_Customer);
-
-		String column_namesCustomer[] = { "Kundnummer", "Namn", "Adress" };
+		String column_namesCustomer[] = { "Kundnummer", "Namn", "E-mail", "Telefonnummer", "Address" };
 		tableModel_Customer = new DefaultTableModel(new Object[][] {}, column_namesCustomer) {
 			private static final long serialVersionUID = 1L;
 
@@ -285,7 +281,11 @@ public class CustomerGui extends Gui<CustomerController> {
 					return String.class;
 				case CUSTOMER_COLUMN_NAME:
 					return String.class;
+				case CUSTOMER_COLUMN_EMAIL:
+					return String.class;
 				case CUSTOMER_COLUMN_ADRESS:
+					return String.class;
+				case CUSTOMER_COLUMN_PHONENUMBER:
 					return String.class;
 				default:
 					return String.class;
@@ -293,6 +293,13 @@ public class CustomerGui extends Gui<CustomerController> {
 			}
 
 		};
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(27, 413, 884, 254);
+		panel.add(scrollPane_1);
+
+		table_Customer = new JTable();
+		scrollPane_1.setViewportView(table_Customer);
 
 		table_Customer.setAutoCreateRowSorter(true);
 		table_Customer.setModel(tableModel_Customer);
@@ -324,14 +331,14 @@ public class CustomerGui extends Gui<CustomerController> {
 		if (customer != null) {
 			textField_ShowCustomerNbr.setText(customer.getCustomerNbr());
 			textField_Name.setText(customer.getName());
-			textField_Adress.setText(customer.getAddress());
+			textField_Adress.setText(customer.getBillingadress());
 			textField_Email.setText(customer.getEmail());
 			textField_Phone.setText(customer.getTelephoneNbr());
 
 			// calculate sum
 			for (Order order : customer.getOrders().values()) {
 				sum += order.getTotalPrice();
-				Object[] row = { order.getOrderNbr(), order.getOrderDate(), order.getTotalPrice() };
+				Object[] row = { order.getOrderDate(), order.getOrderNbr(), order.getTotalPrice() };
 				tableModel_Order.addRow(row);
 			}
 
@@ -358,7 +365,8 @@ public class CustomerGui extends Gui<CustomerController> {
 
 		// Add products
 		for (Customer customer : customers) {
-			Object[] row = { customer.getCustomerNbr(), customer.getName(), customer.getAddress() };
+			Object[] row = { customer.getCustomerNbr(), customer.getName(), customer.getEmail(), customer.getTelephoneNbr(),
+					customer.getBillingadress() };
 			tableModel_Customer.addRow(row);
 		}
 	}

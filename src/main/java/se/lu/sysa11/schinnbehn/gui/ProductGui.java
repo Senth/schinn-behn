@@ -1,5 +1,6 @@
 package se.lu.sysa11.schinnbehn.gui;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,8 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import se.lu.sysa11.schinnbehn.controller.ProductController;
 import se.lu.sysa11.schinnbehn.model.Product;
@@ -301,8 +304,13 @@ public class ProductGui extends Gui<ProductController> {
 		textArea_Ingredients.setWrapStyleWord(true);
 		textArea_Ingredients.setLineWrap(true);
 		panel.add(textArea_Ingredients);
+		panel.setFocusTraversalPolicy(new FocusTraversalOnArray(
+				new Component[] { textField_ProductNr, textField_Name, textField_Price, textField_Weight, textField_Cost, textArea_Ingredients,
+						radio_Active, radio_Inactive, btnAddProduct, btnChangeProduct, btnClearFields, textField_SearchProduct, table_Products,
+						scrollPane, lblProduct, lblProductNbr, lblName, lblPrice, lblWeight, lblCost, lblIngredients, lblActive, lblSearchProduct }));
+		panel.setFocusCycleRoot(true);
 
-		populateTable(controller.findProducts(""));
+		populateTable();
 
 		setInitialized(true);
 	}

@@ -113,6 +113,7 @@ public class OrderGui extends Gui<OrderController> {
 					textField_DeliveryAddress.setText("");
 					textField_FindOrderNbr.setText("");
 				}
+				textField_TotalSum.setText("");
 
 			}
 		});

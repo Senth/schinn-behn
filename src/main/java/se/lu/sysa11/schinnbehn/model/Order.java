@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 /**
  * dfdsf
+ * 
  * @author Jesper
  */
 public class Order {
@@ -43,8 +44,8 @@ public class Order {
 		this.orderlines = orderlines;
 	}
 
-	public void addOrderLine(OrderLine l) {
-		orderlines.add(l);
+	public void addOrderLine(OrderLine line) {
+		orderlines.add(line);
 	}
 
 	public double getTotalPrice() {

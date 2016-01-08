@@ -17,8 +17,8 @@ public class OrderReg {
 		this.orders = orders;
 	}
 
-	public void add(Order o) {
-		orders.put(o.getOrderNbr(), o);
+	public void add(Order order) {
+		orders.put(order.getOrderNbr(), order);
 	}
 
 	public Order findOrder(String orderNbr) {

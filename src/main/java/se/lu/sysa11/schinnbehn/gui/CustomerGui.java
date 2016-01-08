@@ -37,7 +37,8 @@ public class CustomerGui extends Gui<CustomerController> {
 
 	private static final int CUSTOMER_COLUMN_ID = 0;
 	private static final int CUSTOMER_COLUMN_NAME = 1;
-	private static final int CUSTOMER_COLUMN_ADRESS = 2;
+	private static final int CUSTOMER_COLUMN_EMAIL = 2;
+	private static final int CUSTOMER_COLUMN_ADRESS = 3;
 
 	/**
 	 * Can't have panel in base class as we're not able to access WindowBuilder
@@ -269,7 +270,7 @@ public class CustomerGui extends Gui<CustomerController> {
 		table_Customer = new JTable();
 		scrollPane_1.setViewportView(table_Customer);
 
-		String column_namesCustomer[] = { "Kundnummer", "Namn", "Adress" };
+		String column_namesCustomer[] = { "Kundnummer", "Namn", "E-mail", "Address" };
 		tableModel_Customer = new DefaultTableModel(new Object[][] {}, column_namesCustomer) {
 			private static final long serialVersionUID = 1L;
 
@@ -284,6 +285,8 @@ public class CustomerGui extends Gui<CustomerController> {
 				case CUSTOMER_COLUMN_ID:
 					return String.class;
 				case CUSTOMER_COLUMN_NAME:
+					return String.class;
+				case CUSTOMER_COLUMN_EMAIL:
 					return String.class;
 				case CUSTOMER_COLUMN_ADRESS:
 					return String.class;
@@ -358,7 +361,8 @@ public class CustomerGui extends Gui<CustomerController> {
 
 		// Add products
 		for (Customer customer : customers) {
-			Object[] row = { customer.getCustomerNbr(), customer.getName(), customer.getAddress() };
+			Object[] row = { customer.getCustomerNbr(), customer.getName(), customer.getEmail(),
+					customer.getAddress() };
 			tableModel_Customer.addRow(row);
 		}
 	}

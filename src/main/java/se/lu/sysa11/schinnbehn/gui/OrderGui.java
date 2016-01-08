@@ -39,10 +39,11 @@ public class OrderGui extends Gui<OrderController> {
 	private static final int PRODCUT_TABLE_COLUMN_NUMBER = 0;
 	private static final int PRODUCT_TABLE_COLUMN_NAME = 1;
 	private static final int PRODUCT_TABLE_COLUMN_PRICE = 2;
-	private static final int ORDER_TABLE_COLUMN_NAME = 0;
-	private static final int ORDER_TABLE_COLUMN_PRICE = 1;
-	private static final int ORDER_TABLE_COLUMN_QUANTITY = 2;
-	private static final int ORDER_TABLE_COLUMN_SUM = 3;
+	private static final int ORDER_TABLE_COLUMN_NUMBER = 0;
+	private static final int ORDER_TABLE_COLUMN_NAME = 1;
+	private static final int ORDER_TABLE_COLUMN_PRICE = 2;
+	private static final int ORDER_TABLE_COLUMN_QUANTITY = 3;
+	private static final int ORDER_TABLE_COLUMN_SUM = 4;
 	/**
 	 * Can't have panel in base class as we're not able to access WindowBuilder
 	 * correctly then
@@ -89,15 +90,17 @@ public class OrderGui extends Gui<OrderController> {
 
 				if (minSelection != -1) {
 					for (int i = minSelection; i <= maxSelection; i++) {
-						Product tmpProduct = controller
-								.findProduct((String) tableModel_Products.getValueAt(i, PRODCUT_TABLE_COLUMN_NUMBER));
+						int rowIndex = table_Products.convertRowIndexToModel(i);
+						Product tmpProduct = controller.findProduct(
+								(String) tableModel_Products.getValueAt(rowIndex, PRODCUT_TABLE_COLUMN_NUMBER));
 						if (!orderLines.containsKey(tmpProduct.getProductNbr())) {
 							OrderLine orderLine = new OrderLine();
 							orderLine.setProduct(tmpProduct);
 							orderLine.setQuantity(1);
 							orderLine.setProductPrice(tmpProduct.getPrice());
 							orderLines.put(tmpProduct.getProductNbr(), orderLine);
-							Object[] row = { tmpProduct.getName(), tmpProduct.getPrice(), 1, tmpProduct.getPrice() };
+							Object[] row = { tmpProduct.getProductNbr(), tmpProduct.getName(), tmpProduct.getPrice(), 1,
+									tmpProduct.getPrice() };
 							tableModel_Orders.addRow(row);
 						} else {
 							window.showNotificationError("Produkten finns redan i ordern.");
@@ -282,13 +285,16 @@ public class OrderGui extends Gui<OrderController> {
 		scrollPane_Orders.setBounds(715, 236, 636, 424);
 		panel.add(scrollPane_Orders);
 
-		String columnHeadersForOrders[] = { "Produktnamn", "Pris (exkl. moms)", "Antal", "Summa (exkl moms)" };
+		String columnHeadersForOrders[] = { "Nummer", "Produktnamn", "Pris (exkl. moms)", "Antal",
+				"Summa (exkl moms)" };
 		tableModel_Orders = new DefaultTableModel(new Object[][] {}, columnHeadersForOrders) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				switch (columnIndex) {
+				case ORDER_TABLE_COLUMN_NUMBER:
+					return String.class;
 				case ORDER_TABLE_COLUMN_NAME:
 					return String.class;
 				case ORDER_TABLE_COLUMN_PRICE:
@@ -336,6 +342,10 @@ public class OrderGui extends Gui<OrderController> {
 				Integer updatedQuantity = (Integer) tableCellListener.getNewValue();
 
 				if (updatedQuantity != null && updatedQuantity > 0) {
+					String productNbr = (String) tableModel_Orders.getValueAt(tableCellListener.getRow(),
+							ORDER_TABLE_COLUMN_NUMBER);
+					OrderLine orderLine = orderLines.get(productNbr);
+					orderLine.setQuantity(updatedQuantity);
 					double price = (Double) tableModel_Orders.getValueAt(tableCellListener.getRow(),
 							ORDER_TABLE_COLUMN_PRICE);
 					double totalSum = Double.parseDouble(textField_TotalSum.getText());
@@ -398,8 +408,8 @@ public class OrderGui extends Gui<OrderController> {
 			textField_FindOrderNbr.setText(order.getOrderNbr());
 
 			for (OrderLine tmpOrderLine : order.getOrderline()) {
-				Object[] row = { tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
-						tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
+				Object[] row = { tmpOrderLine.getProduct().getProductNbr(), tmpOrderLine.getProduct().getName(),
+						tmpOrderLine.getProductPrice(), tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
 				tableModel_Orders.addRow(row);
 				orderLines.put(tmpOrderLine.getProduct().getProductNbr(), tmpOrderLine);
 			}

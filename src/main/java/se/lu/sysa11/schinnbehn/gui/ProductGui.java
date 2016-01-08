@@ -302,7 +302,7 @@ public class ProductGui extends Gui<ProductController> {
 		textArea_Ingredients.setLineWrap(true);
 		panel.add(textArea_Ingredients);
 
-		populateTable(controller.findProducts(""));
+		populateTable();
 
 		setInitialized(true);
 	}

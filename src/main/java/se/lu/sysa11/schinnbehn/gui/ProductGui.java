@@ -89,12 +89,12 @@ public class ProductGui extends Gui<ProductController> {
 		panel.add(textField_Price);
 		textField_Price.setColumns(10);
 
-		textField_Weight = new JTextField();
+		textField_Weight = new JFormattedTextField(decimalFormat);
 		textField_Weight.setBounds(158, 144, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Weight);
 		textField_Weight.setColumns(10);
 
-		textField_Cost = new JTextField();
+		textField_Cost = new JFormattedTextField(decimalFormat);
 		textField_Cost.setBounds(158, 173, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Cost);
 		textField_Cost.setColumns(10);
@@ -157,7 +157,7 @@ public class ProductGui extends Gui<ProductController> {
 
 				oldProductNbr = null;
 				if (controller.findProduct(productNbr) == null) {
-					controller.addProduct(productNbr, name, price, ingredients, weight, cost);
+					oldProductNbr = controller.addProduct(productNbr, name, price, ingredients, weight, cost);
 				} else {
 					window.showNotificationError("Det finns redan en produkt med produktnummer " + productNbr + ".");
 				}

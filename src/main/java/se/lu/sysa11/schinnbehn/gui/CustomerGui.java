@@ -3,6 +3,7 @@ package se.lu.sysa11.schinnbehn.gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -11,11 +12,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import se.lu.sysa11.schinnbehn.controller.CustomerController;
 import se.lu.sysa11.schinnbehn.model.Customer;
-import se.lu.sysa11.schinnbehn.model.Order;
 
 /**
  * GUI for the Customer
@@ -119,6 +121,22 @@ public class CustomerGui extends Gui<CustomerController> {
 		textField_FindCustomer.setBounds(133, 378, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_FindCustomer);
 		textField_FindCustomer.setColumns(10);
+		textField_FindCustomer.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				populateTable();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				populateTable();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				populateTable();
+			}
+		});
 
 		textField_ShowCustomerNbr = new JTextField();
 		textField_ShowCustomerNbr.setEditable(false);
@@ -143,46 +161,6 @@ public class CustomerGui extends Gui<CustomerController> {
 		});
 		btnAddCustomer.setBounds(12, 216, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnAddCustomer);
-
-		JButton btnSearchCustomer = new JButton("S\u00F6k");
-		btnSearchCustomer.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String searchString = textField_FindCustomer.getText();
-				Customer tmpCustomer = controller.findCustomer(searchString);
-				double sum = 0;
-
-				while (tableModel_Order.getRowCount() > 0) {
-					tableModel_Order.removeRow(0);
-				}
-
-				if (tmpCustomer != null) {
-					textField_Name.setText(tmpCustomer.getName());
-					textField_Phone.setText(tmpCustomer.getTelephoneNbr());
-					textField_Adress.setText(tmpCustomer.getAddress());
-					textField_Email.setText(tmpCustomer.getEmail());
-					textField_ShowCustomerNbr.setText(tmpCustomer.getCustomerNbr());
-
-					for (Order tmpOrder : tmpCustomer.getOrders().values()) {
-						int orderNbr = Integer.parseInt(tmpOrder.getOrderNbr());
-						Object[] row = { tmpOrder.getOrderDate(), orderNbr, tmpOrder.getTotalPrice() };
-						tableModel_Order.addRow(row);
-						sum += tmpOrder.getTotalPrice();
-
-					}
-
-				} else {
-					textField_Name.setText("");
-					textField_Phone.setText("");
-					textField_Adress.setText("");
-					textField_Email.setText("");
-					textField_ShowCustomerNbr.setText(searchString);
-				}
-				textField_OrdersTotal.setText(Double.toString(sum));
-			}
-		});
-		btnSearchCustomer.setBounds(304, 379, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel.add(btnSearchCustomer);
 
 		JButton btnUpdateCustomer = new JButton("Uppdatera kund");
 		btnUpdateCustomer.addActionListener(new ActionListener() {
@@ -286,8 +264,6 @@ public class CustomerGui extends Gui<CustomerController> {
 		table_Customer = new JTable();
 		scrollPane_1.setViewportView(table_Customer);
 
-		setInitialized(true);
-
 		String column_namesCustomer[] = { "Kundnummer", "Namn", "Adress" };
 		tableModel_Customer = new DefaultTableModel(new Object[][] {}, column_namesCustomer) {
 			private static final long serialVersionUID = 1L;
@@ -300,12 +276,12 @@ public class CustomerGui extends Gui<CustomerController> {
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				switch (columnIndex) {
-				case ORDER_COLUMN_DATE:
+				case CUSTOMER_COLUMN_ID:
 					return String.class;
-				case ORDER_COLUMN_ID:
-					return Integer.class;
-				case ORDER_COLUMN_SUM:
-					return Double.class;
+				case CUSTOMER_COLUMN_NAME:
+					return String.class;
+				case CUSTOMER_COLUMN_ADRESS:
+					return String.class;
 				default:
 					return String.class;
 				}
@@ -316,6 +292,48 @@ public class CustomerGui extends Gui<CustomerController> {
 		table_Customer.setAutoCreateRowSorter(true);
 		table_Customer.setModel(tableModel_Customer);
 
+		table_Customer.addMouseListener(new TableClickListener() {
+			@Override
+			public void onClick(JTable table, int row) {
+				String customerNumber = (String) tableModel_Customer.getValueAt(row, CUSTOMER_COLUMN_ID);
+				if (customerNumber != null) {
+					setCustomer(controller.findCustomer(customerNumber));
+				}
+			}
+
+		});
+
+		populateTable();
+
+		setInitialized(true);
+
+	}
+
+	private void setCustomer(Customer customer) {
+		if (customer != null) {
+			textField_ShowCustomerNbr.setText(customer.getCustomerNbr());
+			textField_Name.setText(customer.getName());
+			textField_Adress.setText(customer.getAddress());
+			textField_Email.setText(customer.getEmail());
+			textField_Phone.setText(customer.getTelephoneNbr());
+		}
+	}
+
+	private void populateTable() {
+		populateTable(controller.findCustomers(textField_FindCustomer.getText()));
+	}
+
+	private void populateTable(List<Customer> customers) {
+		// Remove rows
+		while (tableModel_Customer.getRowCount() > 0) {
+			tableModel_Customer.removeRow(0);
+		}
+
+		// Add products
+		for (Customer customer : customers) {
+			Object[] row = { customer.getCustomerNbr(), customer.getName(), customer.getAddress() };
+			tableModel_Customer.addRow(row);
+		}
 	}
 
 	@Override

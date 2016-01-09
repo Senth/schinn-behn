@@ -112,4 +112,8 @@ public class OrderController extends Controller<OrderGui, OrderReg> {
 		return tmpCustomer;
 
 	}
+
+	public void addOrder(Order order) {
+		register.add(order);
+	}
 }

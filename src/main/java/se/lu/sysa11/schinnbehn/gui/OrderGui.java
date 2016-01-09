@@ -167,6 +167,7 @@ public class OrderGui extends Gui<OrderController> {
 					}
 					order.setOrderLine(lines);
 					controller.findCustomer(textField_CustomerNbr.getText()).addOrder(order);
+					controller.addOrder(order);
 					window.showNotificationSuccess(
 							"Order tillagd till kund med kundnummer: " + order.getMadeby().getCustomerNbr());
 				} else if (orderLines.isEmpty()) {

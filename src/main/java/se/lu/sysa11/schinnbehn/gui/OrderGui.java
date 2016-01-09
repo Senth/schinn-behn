@@ -90,7 +90,7 @@ public class OrderGui extends Gui<OrderController> {
 			public void actionPerformed(ActionEvent e) {
 				int[] selectedRows = table_Products.getSelectedRows();
 
-				if (selectedRows != null) {
+				if (selectedRows.length > 0 && selectedRows != null) {
 
 					for (int i : selectedRows) {
 						int rowIndex = table_Products.convertRowIndexToModel(i);
@@ -109,8 +109,8 @@ public class OrderGui extends Gui<OrderController> {
 							window.showNotificationSuccess("Produkter tillagda till ordern.");
 						}
 					}
-				} else {
-					window.showNotificationError("Produkten finns redan i ordern.");
+				} else if (selectedRows.length == 0) {
+					window.showNotificationError("Inga produkter markerade.");
 				}
 				textField_TotalSum.setText(updateOrderSum());
 			}

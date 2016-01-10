@@ -107,6 +107,8 @@ public class OrderGui extends Gui<OrderController> {
 									orderLine.getQuantity(), tmpProduct.getPrice() };
 							tableModel_Orders.addRow(row);
 							window.showNotificationSuccess("Produkter tillagda till ordern.");
+						} else if (orderLines.containsKey(tmpProduct.getProductNbr())) {
+							window.showNotificationError("Produkten finns redan i ordern.");
 						}
 					}
 				} else if (selectedRows.length == 0) {
@@ -158,8 +160,7 @@ public class OrderGui extends Gui<OrderController> {
 					HashSet<OrderLine> lines = new HashSet<OrderLine>();
 
 					order.setMadeby(controller.findCustomer(textField_CustomerNbr.getText()));
-					order.setDeliveryAdress(
-							controller.findCustomer(textField_CustomerNbr.getText()).getBillingadress());
+					order.setDeliveryAdress(textField_DeliveryAddress.getText());
 					order.setOrderDate("Testdate");
 
 					for (OrderLine orderLine : orderLines.values()) {
@@ -169,9 +170,11 @@ public class OrderGui extends Gui<OrderController> {
 					controller.findCustomer(textField_CustomerNbr.getText()).addOrder(order);
 					controller.addOrder(order);
 					window.showNotificationSuccess(
-							"Order tillagd till kund med kundnummer: " + order.getMadeby().getCustomerNbr());
+"Order med ordernummer " + order.getOrderNbr()
+							+ " tillagd till kund med kundnummer: " + order.getMadeby().getCustomerNbr());
+					orderLines.clear();
 				} else if (orderLines.isEmpty()) {
-					window.showNotificationError("Ordern inte tillags, hittade inga orderrader i ordern");
+					window.showNotificationError("Ordern inte tillagd, hittade inga orderrader i ordern");
 				} else if (controller.findCustomer(textField_CustomerNbr.getText()) == null) {
 					window.showNotificationError("Ordern inte tillagd, finns ingen kund med kundnummer: "
 							+ textField_CustomerNbr.getText() + ".");

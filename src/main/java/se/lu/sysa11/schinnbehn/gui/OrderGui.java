@@ -130,6 +130,8 @@ public class OrderGui extends Gui<OrderController> {
 						tableModel_Orders.removeRow(rowIndex);
 					}
 					window.showNotificationSuccess("Produkter borttagna fr�n ordern");
+				} else if (selectedRows != null) {
+					window.showNotificationError("Inga orderrader markerade.");
 				}
 			}
 		});

@@ -209,9 +209,12 @@ public class OrderGui extends Gui<OrderController> {
 					for (OrderLine tmpOrderLine : orderLines.values()) {
 						tmpOrder.addOrderLine(tmpOrderLine);
 					}
+					window.showNotificationSuccess("Order med ordernummer: " + tmpOrder.getOrderNbr() + " ändrad.");
 
 				} else if (tmpOrder == null) {
 					window.showNotificationError("Inget ordernummer ifyllt.");
+				} else if (textField_DeliveryAddress.getText().isEmpty()) {
+					window.showNotificationError("Ingen leveransadress ifylld.");
 				}
 			}
 		});

@@ -89,8 +89,6 @@ public class OrderGui extends Gui<OrderController> {
 					textField_CurrentOrder.setText("");
 				}
 				setOrder(order);
-
-
 			}
 		});
 		btnSearchOrder.setBounds(LEFT_COLUMN_3_POS, 160, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -313,19 +311,16 @@ public class OrderGui extends Gui<OrderController> {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				populateTable();
-
 			}
 
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				populateTable();
-
 			}
 
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				populateTable();
-
 			}
 		});
 
@@ -372,6 +367,7 @@ public class OrderGui extends Gui<OrderController> {
 			@Override
 			public void onDoubleClick(JTable table, int row) {
 				addProductToOrder(row);
+				updateOrderSum();
 			}
 		});
 		scrollPane_Products.setViewportView(table_Products);
@@ -528,6 +524,7 @@ public class OrderGui extends Gui<OrderController> {
 
 		clearTable(tableModel_Orders);
 		orderLines.clear();
+
 		if (order != null) {
 			textField_CustomerName.setText(order.getMadeby().getName());
 			textField_CustomerNbr.setText(order.getMadeby().getCustomerNbr());
@@ -541,12 +538,12 @@ public class OrderGui extends Gui<OrderController> {
 				orderLines.put(tmpOrderLine.getProduct().getProductNbr(), tmpOrderLine);
 			}
 		}
-		if (order != null) {
-			textField_TotalSum.setText(Double.toString(order.getTotalPrice()));
-		} else {
-			textField_TotalSum.setText("");
-		}
-
+		updateOrderSum();
+		// if (order != null) {
+		// textField_TotalSum.setText(Double.toString(order.getTotalPrice()));
+		// } else {
+		// textField_TotalSum.setText("");
+		// }
 	}
 
 	public void updateOrderSum() {

@@ -42,7 +42,6 @@ public class OrderLine {
 	}
 
 	public double getLinePrice() {
-
 		return productPrice * quantity;
 	}
 

@@ -27,23 +27,23 @@ public class TestDataPopulater {
 	private static final int QUANTITY_MAX = 100;
 	private static final int INGREDIENTS_PER_PRODUCT = 5;
 
-	private static final String[] COMPANY_NAMES = { "Ica Maxi Löddeköpinge", "IKEA Restauranger AB",
-			"Söderlunds Delikatesser KB", "Västerbergs Kött AB", "Östermans Chark och pålägg AB",
+	private static final String[] COMPANY_NAMES = { "Ica Maxi LÃ¶ddekÃ¶pinge", "IKEA Restauranger AB", "SÃ¶derlunds Delikatesser KB",
+			"VÃ¤sterbergs KÃ¶tt AB", "Ã–stermans Chark och pÃ¥lÃ¤gg AB",
 			"Norrby Mat och Frukt" };
 
-	private static final String[] PRODUCT_NAMES = { "Julskinka", "Kokt Julskinka av Whiskygris", "Kokt påskskinka",
+	private static final String[] PRODUCT_NAMES = { "Julskinka", "Kokt Julskinka av Whiskygris", "Kokt pÃ¥skskinka",
 			"Offerlamm", "Prinskorv", "Kungskorv (en sorts falukorv)", "Kalkonprinskorv", "Sylta", "Kalvsylta",
-			"Rullsylta", "Kallsylta", "Slarvsylta", "Köttkorv", "Fläskkorv", "Kokt Köttkorv", "Hederlig Nötkorv",
-			"Gammeldags Kokt Köttkorv", "Leverpastej", "Ingas Gräddleverpastej", "Karl-Orvars Leverpastej Original",
-			"Knäckebrödhults Äkta Leverpastej", "Aladåb", "Fläskkorv", "Falsk Fläskkorv", "Leverkorv", "Vitlökskorv",
+ "Rullsylta", "Kallsylta", "Slarvsylta", "KÃ¶ttkorv", "FlÃ¤skkorv",
+			"Kokt KÃ¶ttkorv", "Hederlig NÃ¶tkorv", "Gammeldags Kokt KÃ¶ttkorv", "Leverpastej", "Ingas GrÃ¤ddleverpastej",
+			"Karl-Orvars Leverpastej Original", "KnÃ¤ckebrÃ¶dhults Ã„kta Leverpastej", "AladÃ¶b", "FlÃ¤skkorv", "Falsk FlÃ¤skkorv", "Leverkorv",
+			"VitlÃ¶kskorv",
 			"Hackkyckling", "Hackkorv", "Smulkorv", "Grynkorv", "Vegetarisk Grynkorv", "Julkorv", "Hjulkorv",
-			"Petters hårdkokta Nyårskorv", "Blodkorv", "Lammhults Blodkorv", "Gammeldags Blodkorv", "Rödbetskorv",
-			"Lökkorv", "Lommakorv", "Kryddskinka", "Smörgåsskinka Lyx", "Rostbiff", "Mariannelunds Rostbiff Original",
+			"Petters hÃ¥rdkokta NyÃ¥rskorv", "Blodkorv", "Lammhults Blodkorv", "Gammeldags Blodkorv", "RÃ¶dbetskorv", "LÃ¶kkorv", "Lommakorv",
+			"Kryddskinka", "SmÃ¶rgÃ¥sskinka Lyx", "Rostbiff", "Mariannelunds Rostbiff Original",
 			"Rostbiff Original", "Rostbiff sous vide" };
 
-	private static final String[] ADDRESSES = {
-
-	};
+	private static final String[] ADDRESSES = { "Gyllenkroks AllÃ© 19, 22223 Lund", "MalmÃ¶gatan 2, 25566 LÃ¶ddekÃ¶pinge",
+			"Pilgatan 11, 33332 SmÃ¥landsstenar", "GyllenstjÃ¤rnasvÃ¤g 14A, 27354 Karlskrona" };
 
 	private static final String[] INGREDIENTS = { "salt", "peppar", "gÃ©le", "E302", "gurkmeja", "mejram" };
 
@@ -56,7 +56,6 @@ public class TestDataPopulater {
 		LoremIpsum loremIpsum = new LoremIpsum();
 		Random random = new Random(12);
 
-		// Products
 		List<Product> products = new ArrayList<>();
 		for (int i = 0; i < PRODUCT_NAMES.length; ++i) {
 			Product product = new Product();
@@ -99,18 +98,18 @@ public class TestDataPopulater {
 
 			// Telephone number
 			String number = "076-";
-			number += " ";
-			number += " ";
-			number += " ";
+			number += (random.nextInt(899) + 100) + " ";
+			number += (random.nextInt(89) + 10) + " ";
+			number += (random.nextInt(89) + 10);
 			customer.setTelephoneNbr(number);
 
-			customer.setBillingAdress(loremIpsum.words(2));
+			customer.setBillingAdress(ADDRESSES[random.nextInt(ADDRESSES.length)]);
 			customerReg.add(customer);
 			customers.add(customer);
 
 			// Orders
 			int orderCount = random.nextInt(ORDERS_PER_CUSTOMERS) + 1;
-			for (int orderIndex = 0; orderIndex < ORDERS_PER_CUSTOMERS; ++orderIndex) {
+			for (int orderIndex = 0; orderIndex < orderCount; ++orderIndex) {
 				Order order = new Order();
 				order.setDeliveryAdress(loremIpsum.words(2));
 				order.setMadeby(customer);

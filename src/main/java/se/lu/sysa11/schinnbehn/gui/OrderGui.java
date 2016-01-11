@@ -81,7 +81,7 @@ public class OrderGui extends Gui<OrderController> {
 
 			}
 		});
-		btnSearchOrder.setBounds(274, 160, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btnSearchOrder.setBounds(LEFT_COLUMN_3_POS, 160, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnSearchOrder);
 
 		JButton btnAddToOrder = new JButton(">");
@@ -205,33 +205,33 @@ public class OrderGui extends Gui<OrderController> {
 
 			}
 		});
-		btnSearchCustomerNbr.setBounds(274, 73, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btnSearchCustomerNbr.setBounds(LEFT_COLUMN_3_POS, 73, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnSearchCustomerNbr);
 
 		JLabel lblSearchOrder = new JLabel("Order");
 		lblSearchOrder.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblSearchOrder.setBounds(12, 35, LABEL_WIDTH, LABEL_HEIGHT);
+		lblSearchOrder.setBounds(LEFT_COLUMN_1_POS, 35, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblSearchOrder);
 
 		JLabel lblFindOrderNbr = new JLabel("Ordernr:");
-		lblFindOrderNbr.setBounds(12, 160, LABEL_WIDTH, LABEL_HEIGHT);
+		lblFindOrderNbr.setBounds(LEFT_COLUMN_1_POS, 160, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblFindOrderNbr);
 
 		JLabel lblDeliveryAddress = new JLabel("Leveransaddress:");
-		lblDeliveryAddress.setBounds(12, 131, LABEL_WIDTH, LABEL_HEIGHT);
+		lblDeliveryAddress.setBounds(LEFT_COLUMN_1_POS, 131, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblDeliveryAddress);
 
 		JLabel lblCustomerName = new JLabel("Kundnamn:");
-		lblCustomerName.setBounds(12, 102, LABEL_WIDTH, LABEL_HEIGHT);
+		lblCustomerName.setBounds(LEFT_COLUMN_1_POS, 102, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblCustomerName);
 
 		JLabel lblCustomerNbr = new JLabel("Kundnr:");
-		lblCustomerNbr.setBounds(12, 73, LABEL_WIDTH, LABEL_HEIGHT);
+		lblCustomerNbr.setBounds(LEFT_COLUMN_1_POS, 73, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblCustomerNbr);
 
 		JLabel lblAddProducts = new JLabel("L\u00E4gg till produkter");
 		lblAddProducts.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAddProducts.setBounds(12, 198, LABEL_WIDTH, LABEL_HEIGHT);
+		lblAddProducts.setBounds(LEFT_COLUMN_1_POS, 198, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblAddProducts);
 
 		JLabel lblOrder = new JLabel("Orderrader");
@@ -239,8 +239,8 @@ public class OrderGui extends Gui<OrderController> {
 		lblOrder.setBounds(715, 198, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblOrder);
 
-		JLabel lblSearchProduct = new JLabel("S\u00F6k produkt:");
-		lblSearchProduct.setBounds(12, 673, LABEL_WIDTH, LABEL_HEIGHT);
+		JLabel lblSearchProduct = new JLabel("Filtrera produkt:");
+		lblSearchProduct.setBounds(LEFT_COLUMN_1_POS, 673, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblSearchProduct);
 
 		JLabel lblTotalSumma = new JLabel("Total summa (exkl. moms):");
@@ -248,29 +248,29 @@ public class OrderGui extends Gui<OrderController> {
 		panel.add(lblTotalSumma);
 
 		textField_FindOrderNbr = new JTextField();
-		textField_FindOrderNbr.setBounds(124, 160, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_FindOrderNbr.setBounds(LEFT_COLUMN_2_POS, 160, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_FindOrderNbr);
 		textField_FindOrderNbr.setColumns(10);
 
 		textField_DeliveryAddress = new JTextField();
-		textField_DeliveryAddress.setBounds(124, 131, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_DeliveryAddress.setBounds(LEFT_COLUMN_2_POS, 131, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_DeliveryAddress);
 		textField_DeliveryAddress.setColumns(10);
 
 		textField_CustomerNbr = new JTextField();
 		textField_CustomerNbr.setText("");
-		textField_CustomerNbr.setBounds(124, 73, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_CustomerNbr.setBounds(LEFT_COLUMN_2_POS, 73, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_CustomerNbr);
 		textField_CustomerNbr.setColumns(10);
 
 		textField_CustomerName = new JTextField();
 		textField_CustomerName.setEditable(false);
-		textField_CustomerName.setBounds(124, 102, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_CustomerName.setBounds(LEFT_COLUMN_2_POS, 102, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_CustomerName);
 		textField_CustomerName.setColumns(10);
 
 		textField_SearchProduct = new JTextField();
-		textField_SearchProduct.setBounds(12, 712, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_SearchProduct.setBounds(LEFT_COLUMN_2_POS, 673, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_SearchProduct);
 		textField_SearchProduct.setColumns(10);
 		textField_SearchProduct.getDocument().addDocumentListener(new DocumentListener() {
@@ -302,7 +302,7 @@ public class OrderGui extends Gui<OrderController> {
 		textField_TotalSum.setColumns(10);
 
 		JScrollPane scrollPane_Products = new JScrollPane();
-		scrollPane_Products.setBounds(12, 236, 636, 424);
+		scrollPane_Products.setBounds(LEFT_COLUMN_1_POS, 236, 636, 424);
 		panel.add(scrollPane_Products);
 
 		String columnHeadersForProducts[] = { "Nummer", "Produktnamn", "Pris (exkl. moms)" };

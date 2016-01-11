@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 public abstract class Gui<ControllerType> {
 	/** Controller for the GUI class */
 	protected ControllerType controller;
+	/** Application window, send notification to this */
 	protected Window window;
 	/** if the GUI has been initialized */
 	private boolean initialized = false;
@@ -20,6 +21,9 @@ public abstract class Gui<ControllerType> {
 	protected static final int TEXTFIELD_WIDTH = 138;
 	protected static final int BUTTON_HEIGHT = 25;
 	protected static final int BUTTON_WIDTH = 138;
+	protected static final int LEFT_COLUMN_1_POS = 12;
+	protected static final int LEFT_COLUMN_2_POS = 158;
+	protected static final int LEFT_COLUMN_3_POS = 304;
 
 	public Gui(Window window) {
 		this.window = window;

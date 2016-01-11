@@ -3,7 +3,10 @@ package se.lu.sysa11.schinnbehn.gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -64,6 +67,8 @@ public class OrderGui extends Gui<OrderController> {
 	private DefaultTableModel tableModel_Products;
 	private HashMap<String, OrderLine> orderLines = new HashMap<String, OrderLine>();
 	private JTextField textField_CurrentOrder;
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private Calendar cal = Calendar.getInstance();
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -104,7 +109,7 @@ public class OrderGui extends Gui<OrderController> {
 				} else if (selectedRows.length == 0) {
 					window.showNotificationError("Inga produkter markerade.");
 				}
-				textField_TotalSum.setText(updateOrderSum());
+				updateOrderSum();
 			}
 
 		});
@@ -125,7 +130,7 @@ public class OrderGui extends Gui<OrderController> {
 
 						orderLines.remove(tableModel_Orders.getValueAt(rowIndex, ORDER_TABLE_COLUMN_NUMBER));
 						rowsToRemove.add(rowIndex);
-						textField_TotalSum.setText(updateOrderSum());
+						updateOrderSum();
 
 					}
 					Collections.sort(rowsToRemove);
@@ -154,7 +159,7 @@ public class OrderGui extends Gui<OrderController> {
 
 					order.setMadeby(controller.findCustomer(textField_CustomerNbr.getText()));
 					order.setDeliveryAdress(textField_DeliveryAddress.getText());
-					order.setOrderDate("Testdate");
+					order.setOrderDate(dateFormat.format(cal.getTime()));
 
 					for (OrderLine orderLine : orderLines.values()) {
 						lines.add(orderLine);
@@ -167,6 +172,7 @@ public class OrderGui extends Gui<OrderController> {
 							+ " tillagd till kund med kundnummer: " + order.getMadeby().getCustomerNbr());
 					orderLines.clear();
 					clearTable(tableModel_Orders);
+					updateOrderSum();
 				} else if (orderLines.isEmpty()) {
 					window.showNotificationError("Ordern inte tillagd, hittade inga orderrader i ordern");
 				} else if (controller.findCustomer(textField_CustomerNbr.getText()) == null) {
@@ -519,7 +525,7 @@ public class OrderGui extends Gui<OrderController> {
 	public void setOrder(Order order) {
 
 		clearTable(tableModel_Orders);
-
+		orderLines.clear();
 		if (order != null) {
 			textField_CustomerName.setText(order.getMadeby().getName());
 			textField_CustomerNbr.setText(order.getMadeby().getCustomerNbr());
@@ -541,12 +547,12 @@ public class OrderGui extends Gui<OrderController> {
 
 	}
 
-	public String updateOrderSum() {
+	public void updateOrderSum() {
 		double sum = 0;
 		for (OrderLine tmpOrderLine : orderLines.values()) {
 			sum += tmpOrderLine.getLinePrice();
 		}
-		return Double.toString(sum);
+		textField_TotalSum.setText(Double.toString(sum));
 	}
 
 	public void setCustomer(Customer customer) {
@@ -557,6 +563,7 @@ public class OrderGui extends Gui<OrderController> {
 			textField_FindOrderNbr.setText("");
 			textField_TotalSum.setText("");
 			clearTable(tableModel_Orders);
+			orderLines.clear();
 		}
 	}
 }

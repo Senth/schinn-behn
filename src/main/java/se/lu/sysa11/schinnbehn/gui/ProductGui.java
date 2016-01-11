@@ -145,24 +145,29 @@ public class ProductGui extends Gui<ProductController> {
 				String weightString = textField_Weight.getText();
 				String ingredients = textArea_Ingredients.getText();
 
+				if (isInputValid(productNbr, name, priceString, ingredients, weightString, costString)) {
+
 				double price = 0;
 				double weight = 0;
 				double cost = 0;
+
+
 				try {
 					price = Double.parseDouble(priceString);
 					weight = Double.parseDouble(weightString);
 					cost = Double.parseDouble(costString);
 
 				} catch (NumberFormatException exception) {
-					// TODO
 					return;
 				}
 
 				oldProductNbr = null;
-				if (controller.findProduct(productNbr) == null) {
+
+					if(controller.findProduct(productNbr) == null) {
 					oldProductNbr = controller.addProduct(productNbr, name, price, ingredients, weight, cost);
 				} else {
 					window.showNotificationError("Det finns redan en produkt med produktnummer " + productNbr + ".");
+				}
 				}
 
 			}
@@ -182,6 +187,8 @@ public class ProductGui extends Gui<ProductController> {
 				String ingredients = textArea_Ingredients.getText();
 				boolean active = radio_Active.isSelected();
 
+				if (isInputValid(productNbr, name, priceString, ingredients, weightString, costString)) {
+
 				double cost = 0;
 				double price = 0;
 				double weight = 0;
@@ -196,11 +203,13 @@ public class ProductGui extends Gui<ProductController> {
 					return;
 				}
 
+
 				boolean success = controller.updateProduct(oldProductNbr, productNbr, name, price, ingredients, weight,
 						cost, active);
 				if (success) {
 					populateTable();
 				}
+			}
 			}
 		});
 		btnChangeProduct.setBounds(158, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -362,5 +371,41 @@ public class ProductGui extends Gui<ProductController> {
 	@Override
 	public JPanel getContent() {
 		return panel;
+	}
+
+	private boolean isInputValid(String productNbr, String name, String price, String ingredients, String weight,
+			String cost) {
+		if (productNbr == null || productNbr.isEmpty()) {
+			window.showNotificationError("Produktnummer är tomt");
+
+			return false;
+		}
+		if (name == null || name.isEmpty()) {
+			window.showNotificationError("Produktnamnet är tomt");
+
+			return false;
+		}
+		if (price == null || price.isEmpty() || Double.parseDouble(price) <= 0) {
+			window.showNotificationError("Ogilitgt pris");
+
+			return false;
+		}
+		if (weight == null || weight.isEmpty() || Double.parseDouble(weight) <= 0) {
+			window.showNotificationError("Ogiltig vikt");
+
+			return false;
+		}
+		if (cost == null || cost.isEmpty() || Double.parseDouble(cost) <= 0) {
+			window.showNotificationError("Ogilig kostnad");
+
+			return false;
+		}
+		if (ingredients == null || ingredients.isEmpty()) {
+			window.showNotificationError("Ingridienser finns ej");
+
+			return false;
+		}
+
+		return true;
 	}
 }

@@ -94,22 +94,7 @@ public class OrderGui extends Gui<OrderController> {
 
 					for (int i : selectedRows) {
 						int rowIndex = table_Products.convertRowIndexToModel(i);
-						Product tmpProduct = controller.findProduct(
-								(String) tableModel_Products.getValueAt(rowIndex, PRODCUT_TABLE_COLUMN_NUMBER));
-
-						if (!orderLines.containsKey(tmpProduct.getProductNbr())) {
-							OrderLine orderLine = new OrderLine();
-							orderLine.setProduct(tmpProduct);
-							orderLine.setQuantity(1);
-							orderLine.setProductPrice(tmpProduct.getPrice());
-							orderLines.put(tmpProduct.getProductNbr(), orderLine);
-							Object[] row = { tmpProduct.getProductNbr(), tmpProduct.getName(), tmpProduct.getPrice(),
-									orderLine.getQuantity(), tmpProduct.getPrice() };
-							tableModel_Orders.addRow(row);
-							window.showNotificationSuccess("Produkter tillagda till ordern.");
-						} else if (orderLines.containsKey(tmpProduct.getProductNbr())) {
-							window.showNotificationError("Produkten finns redan i ordern.");
-						}
+						addProductToOrder(rowIndex);
 					}
 				} else if (selectedRows.length == 0) {
 					window.showNotificationError("Inga produkter markerade.");
@@ -144,7 +129,7 @@ public class OrderGui extends Gui<OrderController> {
 					for (int rowIndex : rowsToRemove) {
 						tableModel_Orders.removeRow(rowIndex);
 					}
-					window.showNotificationSuccess("Produkter borttagna fr�n ordern");
+					window.showNotificationSuccess("Produkter borttagna fr�n ordern");
 				}
 			}
 		});
@@ -342,6 +327,12 @@ public class OrderGui extends Gui<OrderController> {
 		table_Products.setAutoCreateRowSorter(true);
 		table_Products.setModel(tableModel_Products);
 		table_Products.getColumnModel().getColumn(0).setResizable(false);
+		table_Products.addMouseListener(new TableClickListener() {
+			@Override
+			public void onDoubleClick(JTable table, int row) {
+				addProductToOrder(row);
+			}
+		});
 		scrollPane_Products.setViewportView(table_Products);
 
 		JScrollPane scrollPane_Orders = new JScrollPane();
@@ -409,17 +400,19 @@ public class OrderGui extends Gui<OrderController> {
 							ORDER_TABLE_COLUMN_NUMBER);
 					OrderLine orderLine = orderLines.get(productNbr);
 					orderLine.setQuantity(updatedQuantity);
-					double price = (Double) tableModel_Orders.getValueAt(tableCellListener.getRow(),
-							ORDER_TABLE_COLUMN_PRICE);
-					double totalSum = Double.parseDouble(textField_TotalSum.getText());
-					double diff = (oldQuantity * price) - (updatedQuantity * price);
-					tableModel_Orders.setValueAt(updatedQuantity * price, tableCellListener.getRow(),
-							ORDER_TABLE_COLUMN_SUM);
-					textField_TotalSum.setText(Double.toString(totalSum - diff));
+					try {
+						double price = (Double) tableModel_Orders.getValueAt(tableCellListener.getRow(), ORDER_TABLE_COLUMN_PRICE);
+						double totalSum = Double.parseDouble(textField_TotalSum.getText());
+						double diff = (oldQuantity * price) - (updatedQuantity * price);
+						tableModel_Orders.setValueAt(updatedQuantity * price, tableCellListener.getRow(), ORDER_TABLE_COLUMN_SUM);
+						textField_TotalSum.setText(Double.toString(totalSum - diff));
+					} catch (NumberFormatException exception) {
+						// Do nothing
+					}
 
 				} else {
 					tableModel_Orders.setValueAt(oldQuantity, tableCellListener.getRow(), ORDER_TABLE_COLUMN_QUANTITY);
-					window.showNotificationError("Felaktigt v�rde, antal m�ste vara st�rre �n 0.");
+					window.showNotificationError("Felaktigt värde, antal måste vara större än 0.");
 				}
 
 			}
@@ -431,6 +424,28 @@ public class OrderGui extends Gui<OrderController> {
 		populateTable();
 
 		setInitialized(true);
+	}
+
+	/**
+	 * Add the product from the specified row to the orderline
+	 * @param productRow index of the product row
+	 */
+	private void addProductToOrder(int productRow) {
+		Product tmpProduct = controller.findProduct((String) tableModel_Products.getValueAt(productRow, PRODCUT_TABLE_COLUMN_NUMBER));
+
+		if (!orderLines.containsKey(tmpProduct.getProductNbr())) {
+			OrderLine orderLine = new OrderLine();
+			orderLine.setProduct(tmpProduct);
+			orderLine.setQuantity(1);
+			orderLine.setProductPrice(tmpProduct.getPrice());
+			orderLines.put(tmpProduct.getProductNbr(), orderLine);
+			Object[] row = { tmpProduct.getProductNbr(), tmpProduct.getName(), tmpProduct.getPrice(), orderLine.getQuantity(),
+					tmpProduct.getPrice() };
+			tableModel_Orders.addRow(row);
+			window.showNotificationSuccess("Produkter tillagda till ordern.");
+		} else if (orderLines.containsKey(tmpProduct.getProductNbr())) {
+			window.showNotificationError("Produkten finns redan i ordern.");
+		}
 	}
 
 	@Override

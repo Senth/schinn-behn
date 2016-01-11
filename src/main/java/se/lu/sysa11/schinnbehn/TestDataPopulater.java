@@ -27,14 +27,23 @@ public class TestDataPopulater {
 	private static final int QUANTITY_MAX = 100;
 	private static final int INGREDIENTS_PER_PRODUCT = 5;
 
-	private static final String[] COMPANY_NAMES = { "Ica", };
+	private static final String[] COMPANY_NAMES = { "Ica Maxi Löddeköpinge", "IKEA Restauranger AB",
+			"Söderlunds Delikatesser KB", "Västerbergs Kött AB", "Östermans Chark och pålägg AB",
+			"Norrby Mat och Frukt" };
 
-	private static final String[] PRODUCT_NAMES = {
+	private static final String[] PRODUCT_NAMES = { "Julskinka", "Kokt Julskinka av Whiskygris", "Kokt påskskinka",
+			"Offerlamm", "Prinskorv", "Kungskorv (en sorts falukorv)", "Kalkonprinskorv", "Sylta", "Kalvsylta",
+			"Rullsylta", "Kallsylta", "Slarvsylta", "Köttkorv", "Fläskkorv", "Kokt Köttkorv", "Hederlig Nötkorv",
+			"Gammeldags Kokt Köttkorv", "Leverpastej", "Ingas Gräddleverpastej", "Karl-Orvars Leverpastej Original",
+			"Knäckebrödhults Äkta Leverpastej", "Aladåb", "Fläskkorv", "Falsk Fläskkorv", "Leverkorv", "Vitlökskorv",
+			"Hackkyckling", "Hackkorv", "Smulkorv", "Grynkorv", "Vegetarisk Grynkorv", "Julkorv", "Hjulkorv",
+			"Petters hårdkokta Nyårskorv", "Blodkorv", "Lammhults Blodkorv", "Gammeldags Blodkorv", "Rödbetskorv",
+			"Lökkorv", "Lommakorv", "Kryddskinka", "Smörgåsskinka Lyx", "Rostbiff", "Mariannelunds Rostbiff Original",
+			"Rostbiff Original", "Rostbiff sous vide" };
+
+	private static final String[] ADDRESSES = {
 
 	};
-
-	private static final String[] ADDRESSES = { "Gyllenkroks AllÃ© 19, 22223 Lund", "MalmÃ¶gatan 2, 25566 LÃ¶ddekÃ¶pinge",
-			"Pilgatan 11, 33332 SmÃ¥landsstenar", "GyllenstjÃ¤rnasvÃ¤g 14A, 27354 Karlskrona" };
 
 	private static final String[] INGREDIENTS = { "salt", "peppar", "gÃ©le", "E302", "gurkmeja", "mejram" };
 
@@ -90,12 +99,12 @@ public class TestDataPopulater {
 
 			// Telephone number
 			String number = "076-";
-			number += (random.nextInt(899) + 100) + " ";
-			number += (random.nextInt(89) + 10) + " ";
-			number += (random.nextInt(89) + 10);
+			number += " ";
+			number += " ";
+			number += " ";
 			customer.setTelephoneNbr(number);
 
-			customer.setBillingAdress(ADDRESSES[random.nextInt(ADDRESSES.length)]);
+			customer.setBillingAdress(loremIpsum.words(2));
 			customerReg.add(customer);
 			customers.add(customer);
 

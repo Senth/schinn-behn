@@ -129,7 +129,7 @@ public class OrderGui extends Gui<OrderController> {
 					for (int rowIndex : rowsToRemove) {
 						tableModel_Orders.removeRow(rowIndex);
 					}
-					window.showNotificationSuccess("Produkter borttagna fr�n ordern");
+					window.showNotificationSuccess("Produkter borttagna från ordern");
 				} else if (selectedRows != null) {
 					window.showNotificationError("Inga orderrader markerade.");
 				}

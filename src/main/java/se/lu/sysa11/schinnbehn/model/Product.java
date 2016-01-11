@@ -1,7 +1,5 @@
 package se.lu.sysa11.schinnbehn.model;
 
-import java.util.HashMap;
-
 public class Product {
 	private String productNbr;
 	private double price;
@@ -10,7 +8,6 @@ public class Product {
 	private double weight;
 	private double cost;
 	private boolean active = true;
-	private HashMap<String, OrderLine> orderlines = new HashMap<String, OrderLine>();
 
 	public void setActive(boolean active) {
 		this.active = active;
@@ -68,12 +65,6 @@ public class Product {
 		this.cost = cost;
 	}
 
-	public HashMap<String, OrderLine> getOrderlines() {
-		return orderlines;
-	}
 
-	public void setOrderlines(HashMap<String, OrderLine> orderlines) {
-		this.orderlines = orderlines;
-	}
 
 }

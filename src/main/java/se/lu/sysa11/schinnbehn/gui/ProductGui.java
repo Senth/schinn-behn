@@ -125,6 +125,12 @@ public class ProductGui extends Gui<ProductController> {
 			}
 		});
 
+		textArea_Ingredients = new JTextArea();
+		textArea_Ingredients.setBounds(LEFT_COLUMN_2_POS, 202, TEXTFIELD_WIDTH, 59);
+		textArea_Ingredients.setWrapStyleWord(true);
+		textArea_Ingredients.setLineWrap(true);
+		panel.add(textArea_Ingredients);
+
 		radio_Active = new JRadioButton("Ja");
 		radio_Active.setSelected(true);
 		buttonGroup.add(radio_Active);
@@ -313,11 +319,6 @@ public class ProductGui extends Gui<ProductController> {
 			}
 		});
 
-		textArea_Ingredients = new JTextArea();
-		textArea_Ingredients.setBounds(LEFT_COLUMN_2_POS, 202, TEXTFIELD_WIDTH, 59);
-		textArea_Ingredients.setWrapStyleWord(true);
-		textArea_Ingredients.setLineWrap(true);
-		panel.add(textArea_Ingredients);
 		panel.setFocusTraversalPolicy(new FocusTraversalOnArray(
 				new Component[] { textField_ProductNr, textField_Name, textField_Price, textField_Weight, textField_Cost, textArea_Ingredients,
 						radio_Active, radio_Inactive, btnAddProduct, btnChangeProduct, btnClearFields, textField_SearchProduct, table_Products,
@@ -361,12 +362,8 @@ public class ProductGui extends Gui<ProductController> {
 	}
 
 	private void populateTable(List<Product> products) {
-		// Remove rows
-		while (tableModel_Product.getRowCount() > 0) {
-			tableModel_Product.removeRow(0);
-		}
+		clearTable(tableModel_Product);
 
-		// Add products
 		for (Product product : products) {
 			Object[] row = { product.getProductNbr(), product.getName(), product.getPrice(), product.getCost() };
 			tableModel_Product.addRow(row);

@@ -47,7 +47,6 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 			return null;
 		}
 
-		// Add customer
 		Customer customer = new Customer();
 		customer.setName(name);
 		customer.setTelephoneNbr(telephone);
@@ -56,7 +55,6 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 
 		register.add(customer);
 
-		// send notification
 		window.showNotificationSuccess("Kund tillagd");
 
 		return customer.getCustomerNbr();
@@ -80,26 +78,23 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	 */
 	public boolean updateCustomer(String customerNbr, String name, String telephone, String address, String email) {
 
-		// check if valid
+
 		if (!isInputValid(name, telephone, address, email)) {
 			return false;
 		}
 
-		// Update customer
 		Customer customer = register.findCustomer(customerNbr);
 		if (customer != null) {
 			customer.setName(name);
 			customer.setTelephoneNbr(telephone);
 			customer.setBillingAdress(address);
 			customer.setEmail(email);
-
 		} else {
 			window.showNotificationError("Ingen kund med kundnummer " + customerNbr + " funnen");
 
 			return false;
 		}
 
-		// send notification
 		window.showNotificationSuccess("Kund uppdaterad");
 
 		return true;

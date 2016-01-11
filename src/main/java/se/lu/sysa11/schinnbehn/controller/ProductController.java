@@ -44,7 +44,6 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 	public String addProduct(String productNbr, String name, double price, String ingredients, double weight,
 			double cost) {
 
-		// Add product
 		Product product = new Product();
 		product.setProductNbr(productNbr);
 		product.setName(name);
@@ -55,7 +54,6 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 		product.setActive(true);
 		register.add(product);
 
-		// send notification
 		window.showNotificationSuccess("Produkt tillagd");
 
 		return product.getProductNbr();
@@ -120,7 +118,6 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 			return false;
 		}
 
-		// send notification
 		window.showNotificationSuccess("Produkt uppdaterad");
 
 		return true;

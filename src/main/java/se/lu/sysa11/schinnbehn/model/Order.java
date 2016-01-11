@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 /**
  * dfdsf
- * 
+ *
  * @author Jesper
  */
 public class Order {
@@ -74,6 +74,10 @@ public class Order {
 
 	public void removeOrderLine(OrderLine line) {
 		orderlines.remove(line);
+	}
+
+	public void clearOrderLines() {
+		orderlines.clear();
 	}
 
 }

@@ -26,7 +26,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 	/**
 	 * Add a new product
-	 * 
+	 *
 	 * @param productNbr
 	 *            number/serial of the product
 	 * @param name
@@ -43,9 +43,6 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 	 */
 	public String addProduct(String productNbr, String name, double price, String ingredients, double weight,
 			double cost) {
-		if (!isInputValid(productNbr, name, price, ingredients, weight, cost)) {
-			return null;
-		}
 
 		// Add product
 		Product product = new Product();
@@ -66,7 +63,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 	/**
 	 * Update an existing product
-	 * 
+	 *
 	 * @param oldProductNbr
 	 *            the old product number of the product
 	 * @param productNbr
@@ -87,10 +84,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 	 */
 	public boolean updateProduct(String oldProductNbr, String productNbr, String name, double price, String ingredients,
 			double weight, double cost, boolean active) {
-		// check if valid
-		if (!isInputValid(productNbr, name, price, ingredients, weight, cost)) {
-			return false;
-		}
+
 
 		if (oldProductNbr == null || oldProductNbr.isEmpty()) {
 			window.showNotificationInfo("Klicka f\u00F6rst p\u00E5 en produkt du vill \u00E4ndra");
@@ -133,49 +127,8 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 	}
 
 	/**
-	 * Tests if input is valid
-	 * 
-	 * @return true if the input is valid
-	 */
-	private boolean isInputValid(String productNbr, String name, double price, String ingredients, double weight,
-			double cost) {
-		if (productNbr == null || productNbr.isEmpty()) {
-			window.showNotificationError("Produktnummer \u00E4r tomt");
-
-			return false;
-		}
-		if (name == null || name.isEmpty()) {
-			window.showNotificationError("Produktnamnet \u00E4r tomt");
-
-			return false;
-		}
-		if (price <= 0) {
-			window.showNotificationError("Ogilitgt pris");
-
-			return false;
-		}
-		if (weight <= 0) {
-			window.showNotificationError("Ogiltig vikt");
-
-			return false;
-		}
-		if (cost <= 0) {
-			window.showNotificationError("Ogilig kostnad");
-
-			return false;
-		}
-		if (ingredients == null || ingredients.isEmpty()) {
-			window.showNotificationError("Ingridienser finns ej");
-
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
 	 * Find existing products
-	 * 
+	 *
 	 * @param searchString
 	 *            what to search for (currently only the product number)
 	 * @return list of all found products (currently the list only contains
@@ -187,7 +140,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 	/**
 	 * Find a product by search string.
-	 * 
+	 *
 	 * @param searchString
 	 *            what to search for. If you use more than one word they are
 	 *            combined with an and.

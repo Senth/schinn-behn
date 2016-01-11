@@ -1,5 +1,6 @@
 package se.lu.sysa11.schinnbehn.gui;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -63,8 +64,8 @@ public class CustomerGui extends Gui<CustomerController> {
 	 */
 	@Override
 	public void initialize() {
-
 		panel.setLayout(null);
+		panel.setPreferredSize(new Dimension(1000, 800));
 
 		JLabel lblNewCustomer = new JLabel("Ny Kund");
 		lblNewCustomer.setFont(new Font("Tahoma", Font.BOLD, 14));

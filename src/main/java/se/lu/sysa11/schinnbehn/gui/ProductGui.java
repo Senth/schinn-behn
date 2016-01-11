@@ -1,6 +1,7 @@
 package se.lu.sysa11.schinnbehn.gui;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,6 +70,7 @@ public class ProductGui extends Gui<ProductController> {
 	@Override
 	public void initialize() {
 		panel.setLayout(null);
+		panel.setPreferredSize(new Dimension(1000, 500));
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(458, 57, 559, 340);

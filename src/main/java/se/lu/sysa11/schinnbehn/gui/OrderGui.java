@@ -1,5 +1,6 @@
 package se.lu.sysa11.schinnbehn.gui;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -76,6 +77,7 @@ public class OrderGui extends Gui<OrderController> {
 	@Override
 	public void initialize() {
 		panel.setLayout(null);
+		panel.setPreferredSize(new Dimension(1300, 800));
 
 		JButton btnSearchOrder = new JButton("S\u00F6k");
 		btnSearchOrder.addActionListener(new ActionListener() {

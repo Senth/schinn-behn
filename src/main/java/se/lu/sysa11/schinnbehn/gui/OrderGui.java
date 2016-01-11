@@ -140,7 +140,8 @@ public class OrderGui extends Gui<OrderController> {
 		btnCreateOrder.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (!orderLines.isEmpty() && controller.findCustomer(textField_CustomerNbr.getText()) != null) {
+				if (!orderLines.isEmpty() && controller.findCustomer(textField_CustomerNbr.getText()) != null
+						&& !textField_DeliveryAddress.getText().isEmpty()) {
 					Order order = new Order();
 					HashSet<OrderLine> lines = new HashSet<OrderLine>();
 
@@ -158,11 +159,14 @@ public class OrderGui extends Gui<OrderController> {
 "Order med ordernummer " + order.getOrderNbr()
 							+ " tillagd till kund med kundnummer: " + order.getMadeby().getCustomerNbr());
 					orderLines.clear();
+					clearTable(tableModel_Orders);
 				} else if (orderLines.isEmpty()) {
 					window.showNotificationError("Ordern inte tillagd, hittade inga orderrader i ordern");
 				} else if (controller.findCustomer(textField_CustomerNbr.getText()) == null) {
 					window.showNotificationError("Ordern inte tillagd, finns ingen kund med kundnummer: "
 							+ textField_CustomerNbr.getText() + ".");
+				} else if (textField_DeliveryAddress.getText().isEmpty()) {
+					window.showNotificationError("Ingen leveransadress ifylld.");
 				}
 
 			}
@@ -474,7 +478,7 @@ public class OrderGui extends Gui<OrderController> {
 
 	public void setOrder(Order order) {
 
-		clearOrderLines();
+		clearTable(tableModel_Orders);
 
 		if (order != null) {
 			textField_CustomerName.setText(order.getMadeby().getName());
@@ -512,13 +516,9 @@ public class OrderGui extends Gui<OrderController> {
 			textField_DeliveryAddress.setText(customer.getBillingadress());
 			textField_FindOrderNbr.setText("");
 			textField_TotalSum.setText("");
-			clearOrderLines();
+			clearTable(tableModel_Orders);
 		}
 	}
 
-	private void clearOrderLines() {
-		while (tableModel_Orders.getRowCount() > 0) {
-			tableModel_Orders.removeRow(0);
-		}
-	}
+
 }

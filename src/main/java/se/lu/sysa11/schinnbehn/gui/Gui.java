@@ -1,6 +1,7 @@
 package se.lu.sysa11.schinnbehn.gui;
 
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * @param <ControllerType>
@@ -38,7 +39,7 @@ public abstract class Gui<ControllerType> {
 
 	/**
 	 * Set if the GUI has been initialized or not
-	 * 
+	 *
 	 * @param initialized
 	 *            set to true when the GUI has been initialized
 	 */
@@ -53,10 +54,16 @@ public abstract class Gui<ControllerType> {
 
 	/**
 	 * Set the controller for the GUI
-	 * 
+	 *
 	 * @param controller
 	 */
 	public void setController(ControllerType controller) {
 		this.controller = controller;
+	}
+
+	protected void clearTable(DefaultTableModel tableModel) {
+		while (tableModel.getRowCount() > 0) {
+			tableModel.removeRow(0);
+		}
 	}
 }

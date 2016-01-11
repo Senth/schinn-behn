@@ -165,6 +165,9 @@ public class ProductGui extends Gui<ProductController> {
 
 					if(controller.findProduct(productNbr) == null) {
 					oldProductNbr = controller.addProduct(productNbr, name, price, ingredients, weight, cost);
+						if (oldProductNbr != null) {
+							populateTable();
+						}
 				} else {
 					window.showNotificationError("Det finns redan en produkt med produktnummer " + productNbr + ".");
 				}
@@ -175,7 +178,7 @@ public class ProductGui extends Gui<ProductController> {
 		btnAddProduct.setBounds(LEFT_COLUMN_1_POS, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnAddProduct);
 
-		JButton btnChangeProduct = new JButton("\u00E4ndra");
+		JButton btnChangeProduct = new JButton("Ändra");
 		btnChangeProduct.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

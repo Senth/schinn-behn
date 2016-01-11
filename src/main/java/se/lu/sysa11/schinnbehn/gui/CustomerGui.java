@@ -159,6 +159,7 @@ public class CustomerGui extends Gui<CustomerController> {
 
 				if (customerNbr != null) {
 					textField_ShowCustomerNbr.setText(customerNbr);
+					populateTable();
 				}
 			}
 		});
@@ -175,7 +176,10 @@ public class CustomerGui extends Gui<CustomerController> {
 				String address = textField_Adress.getText();
 				String email = textField_Email.getText();
 
-				controller.updateCustomer(customerNbr, name, telephone, address, email);
+				boolean success = controller.updateCustomer(customerNbr, name, telephone, address, email);
+				if (success) {
+					populateTable();
+				}
 			}
 		});
 		btnUpdateCustomer.setBounds(LEFT_COLUMN_2_POS, 216, BUTTON_WIDTH, BUTTON_HEIGHT);

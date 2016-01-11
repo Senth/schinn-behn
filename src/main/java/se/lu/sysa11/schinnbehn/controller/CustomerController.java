@@ -116,8 +116,14 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 
 			return false;
 		}
+
+		if (address == null || address.isEmpty()) {
+			window.showNotificationError("Ogiltig adress");
+
+			return false;
+		}
 		if (email == null || email.isEmpty()) {
-			window.showNotificationError("Ogiltig address");
+			window.showNotificationError("Ogiltig emailadress");
 
 			return false;
 		}

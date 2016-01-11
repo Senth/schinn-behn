@@ -196,7 +196,7 @@ public class OrderGui extends Gui<OrderController> {
 					}
 					window.showNotificationSuccess("Order med ordernummer: " + tmpOrder.getOrderNbr() + " ändrad.");
 
-				} else if (tmpOrder == null) {
+				} else if (tmpOrder == null || textField_CurrentOrder.getText().isEmpty()) {
 					window.showNotificationError("Inget ordernummer ifyllt.");
 				} else if (textField_DeliveryAddress.getText().isEmpty()) {
 					window.showNotificationError("Ingen leveransadress ifylld.");

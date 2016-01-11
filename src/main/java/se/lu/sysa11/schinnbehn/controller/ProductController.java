@@ -87,7 +87,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 
 		if (oldProductNbr == null || oldProductNbr.isEmpty()) {
-			window.showNotificationInfo("Klicka först på en produkt du vill ändra");
+			window.showNotificationInfo("Klicka f\u00F6rst p\u00E5 en produkt du vill \u00E4ndra");
 			return false;
 		}
 
@@ -101,7 +101,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 				if (!success) {
 					window.showNotificationError("Finns redan en produkt med produktnummer " + productNbr
-							+ ". Var god välj ett annat produktnummer");
+							+ ". Var god v\u00E4lj ett annat produktnummer");
 					return false;
 				}
 			}
@@ -125,13 +125,6 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 		return true;
 	}
-
-	/**
-	 * Tests if input is valid
-	 *
-	 * @return true if the input is valid
-	 */
-
 
 	/**
 	 * Find existing products

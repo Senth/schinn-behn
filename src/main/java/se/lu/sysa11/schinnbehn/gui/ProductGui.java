@@ -75,12 +75,12 @@ public class ProductGui extends Gui<ProductController> {
 		panel.add(scrollPane);
 
 		textField_ProductNr = new JTextField();
-		textField_ProductNr.setBounds(158, 57, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_ProductNr.setBounds(LEFT_COLUMN_2_POS, 57, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_ProductNr);
 		textField_ProductNr.setColumns(10);
 
 		textField_Name = new JTextField();
-		textField_Name.setBounds(158, 86, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_Name.setBounds(LEFT_COLUMN_2_POS, 86, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Name);
 		textField_Name.setColumns(10);
 
@@ -88,17 +88,17 @@ public class ProductGui extends Gui<ProductController> {
 		DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
 		decimalFormat.setGroupingUsed(false);
 		textField_Price = new JFormattedTextField(decimalFormat);
-		textField_Price.setBounds(158, 115, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_Price.setBounds(LEFT_COLUMN_2_POS, 115, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Price);
 		textField_Price.setColumns(10);
 
 		textField_Weight = new JFormattedTextField(decimalFormat);
-		textField_Weight.setBounds(158, 144, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_Weight.setBounds(LEFT_COLUMN_2_POS, 144, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Weight);
 		textField_Weight.setColumns(10);
 
 		textField_Cost = new JFormattedTextField(decimalFormat);
-		textField_Cost.setBounds(158, 173, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		textField_Cost.setBounds(LEFT_COLUMN_2_POS, 173, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_Cost);
 		textField_Cost.setColumns(10);
 
@@ -126,7 +126,7 @@ public class ProductGui extends Gui<ProductController> {
 		radio_Active = new JRadioButton("Ja");
 		radio_Active.setSelected(true);
 		buttonGroup.add(radio_Active);
-		radio_Active.setBounds(158, 269, 43, 23);
+		radio_Active.setBounds(LEFT_COLUMN_2_POS, 269, 43, 23);
 		panel.add(radio_Active);
 
 		radio_Inactive = new JRadioButton("Nej");
@@ -172,10 +172,10 @@ public class ProductGui extends Gui<ProductController> {
 
 			}
 		});
-		btnAddProduct.setBounds(12, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btnAddProduct.setBounds(LEFT_COLUMN_1_POS, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnAddProduct);
 
-		JButton btnChangeProduct = new JButton("Ändra");
+		JButton btnChangeProduct = new JButton("\u00E4ndra");
 		btnChangeProduct.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -212,7 +212,7 @@ public class ProductGui extends Gui<ProductController> {
 			}
 			}
 		});
-		btnChangeProduct.setBounds(158, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
+		btnChangeProduct.setBounds(LEFT_COLUMN_2_POS, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnChangeProduct);
 
 		JButton btnClearFields = new JButton("T\u00F6m f\u00E4lten");
@@ -232,35 +232,35 @@ public class ProductGui extends Gui<ProductController> {
 
 		JLabel lblProduct = new JLabel("Produkt");
 		lblProduct.setFont(new Font("Lucida Grande", Font.BOLD, 14));
-		lblProduct.setBounds(12, 24, LABEL_WIDTH, LABEL_HEIGHT);
+		lblProduct.setBounds(LEFT_COLUMN_1_POS, 24, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblProduct);
 
 		JLabel lblProductNbr = new JLabel("ProduktNr:");
-		lblProductNbr.setBounds(12, 57, LABEL_WIDTH, LABEL_HEIGHT);
+		lblProductNbr.setBounds(LEFT_COLUMN_1_POS, 57, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblProductNbr);
 
 		JLabel lblName = new JLabel("Namn:");
-		lblName.setBounds(12, 86, LABEL_WIDTH, LABEL_HEIGHT);
+		lblName.setBounds(LEFT_COLUMN_1_POS, 86, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblName);
 
 		JLabel lblPrice = new JLabel("Pris (exkl. moms):");
-		lblPrice.setBounds(12, 115, LABEL_WIDTH, LABEL_HEIGHT);
+		lblPrice.setBounds(LEFT_COLUMN_1_POS, 115, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblPrice);
 
 		JLabel lblWeight = new JLabel("Vikt:");
-		lblWeight.setBounds(12, 144, LABEL_WIDTH, LABEL_HEIGHT);
+		lblWeight.setBounds(LEFT_COLUMN_1_POS, 144, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblWeight);
 
 		JLabel lblCost = new JLabel("Kostnad:");
-		lblCost.setBounds(12, 173, LABEL_WIDTH, LABEL_HEIGHT);
+		lblCost.setBounds(LEFT_COLUMN_1_POS, 173, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblCost);
 
 		JLabel lblIngredients = new JLabel("Ingredienser:");
-		lblIngredients.setBounds(12, 202, LABEL_WIDTH, LABEL_HEIGHT);
+		lblIngredients.setBounds(LEFT_COLUMN_1_POS, 202, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblIngredients);
 
 		JLabel lblActive = new JLabel("Aktiv i sortiment:");
-		lblActive.setBounds(12, 269, LABEL_WIDTH, LABEL_HEIGHT);
+		lblActive.setBounds(LEFT_COLUMN_1_POS, 269, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblActive);
 
 		JLabel lblSearchProduct = new JLabel("Filtrera Produkt:");
@@ -309,7 +309,7 @@ public class ProductGui extends Gui<ProductController> {
 		});
 
 		textArea_Ingredients = new JTextArea();
-		textArea_Ingredients.setBounds(158, 202, TEXTFIELD_WIDTH, 59);
+		textArea_Ingredients.setBounds(LEFT_COLUMN_2_POS, 202, TEXTFIELD_WIDTH, 59);
 		textArea_Ingredients.setWrapStyleWord(true);
 		textArea_Ingredients.setLineWrap(true);
 		panel.add(textArea_Ingredients);

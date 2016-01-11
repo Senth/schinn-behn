@@ -18,7 +18,7 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	 * @param window
 	 *            application window
 	 * @param customerGui
-	 *            the customer view/GUIö
+	 *            the customer view/GUI\u00F6
 	 * @param customerReg
 	 *            the customer model/register
 	 */

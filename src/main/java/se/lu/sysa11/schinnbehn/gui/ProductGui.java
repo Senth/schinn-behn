@@ -175,7 +175,7 @@ public class ProductGui extends Gui<ProductController> {
 		btnAddProduct.setBounds(LEFT_COLUMN_1_POS, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnAddProduct);
 
-		JButton btnChangeProduct = new JButton("\u00E4ndra");
+		JButton btnChangeProduct = new JButton("Ändra");
 		btnChangeProduct.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

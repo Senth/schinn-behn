@@ -2,18 +2,20 @@ package se.lu.sysa11.schinnbehn.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
@@ -24,12 +26,10 @@ import se.lu.sysa11.schinnbehn.controller.Controller;
  * {@link #switchTo(Views)} or {@link #switchTo(Views, Object)}
  */
 public class Window {
-	private static final int MENU_BUTTONS_MAX = 10;
-
 	private JFrame frame;
 	private JScrollPane content = new JScrollPane();
 	private HashMap<Views, Controller<?, ?>> controllers = new HashMap<>();
-	private HashMap<Views, JRadioButtonMenuItem> viewButtons = new HashMap<>();
+	private HashMap<Views, AbstractButton> viewButtons = new HashMap<>();
 	private JPanel menu = new JPanel();
 	private JLabel notificationLabel = new JLabel("Meddelanden");
 
@@ -52,13 +52,13 @@ public class Window {
 
 
 		// Menu
-		GridLayout menuLayout = new GridLayout(MENU_BUTTONS_MAX, 1);
+		FlowLayout menuLayout = new FlowLayout();
 		menu.setLayout(menuLayout);
+		menu.setPreferredSize(new Dimension(150, 1000));
 		frame.getContentPane().add(menu, BorderLayout.WEST);
 
 		ButtonGroup group = new ButtonGroup();
-		JRadioButtonMenuItem btnCustomer = new JRadioButtonMenuItem("Kund");
-		group.add(btnCustomer);
+		AbstractButton btnCustomer = new JButton("Kund", new ImageIcon("assets/customer.png"));
 		btnCustomer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -67,8 +67,7 @@ public class Window {
 		});
 		menu.add(btnCustomer);
 		viewButtons.put(Views.CUSTOMER, btnCustomer);
-		JRadioButtonMenuItem btnOrder = new JRadioButtonMenuItem("Order");
-		group.add(btnOrder);
+		AbstractButton btnOrder = new JButton("Order", new ImageIcon("assets/order.png"));
 		btnOrder.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -77,8 +76,7 @@ public class Window {
 		});
 		menu.add(btnOrder);
 		viewButtons.put(Views.ORDER, btnOrder);
-		JRadioButtonMenuItem btnProduct = new JRadioButtonMenuItem("Produkt");
-		group.add(btnProduct);
+		AbstractButton btnProduct = new JButton("Produkt", new ImageIcon("assets/products.png"));
 		btnProduct.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -87,6 +85,13 @@ public class Window {
 		});
 		menu.add(btnProduct);
 		viewButtons.put(Views.PRODUCT, btnProduct);
+
+		// Set common things for all buttons
+		for (AbstractButton button : viewButtons.values()) {
+			button.setHorizontalTextPosition(AbstractButton.CENTER);
+			button.setVerticalTextPosition(AbstractButton.BOTTOM);
+			group.add(button);
+		}
 
 
 		// Content
@@ -142,7 +147,7 @@ public class Window {
 			content.revalidate();
 			content.repaint();
 
-			JRadioButtonMenuItem button = viewButtons.get(view);
+			AbstractButton button = viewButtons.get(view);
 			if (button != null && !button.isSelected()) {
 				button.setSelected(true);
 			}

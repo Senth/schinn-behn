@@ -63,6 +63,7 @@ public class OrderGui extends Gui<OrderController> {
 	private DefaultTableModel tableModel_Orders;
 	private DefaultTableModel tableModel_Products;
 	private HashMap<String, OrderLine> orderLines = new HashMap<String, OrderLine>();
+	private JTextField textField_CurrentOrder;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -77,7 +78,11 @@ public class OrderGui extends Gui<OrderController> {
 			public void actionPerformed(ActionEvent e) {
 				String searchString = textField_FindOrderNbr.getText();
 				Order order = controller.findOrder(searchString);
+				if (order == null) {
+					textField_CurrentOrder.setText("");
+				}
 				setOrder(order);
+
 
 			}
 		});
@@ -192,6 +197,24 @@ public class OrderGui extends Gui<OrderController> {
 		panel.add(btnCreateOrder);
 
 		JButton btnChangeOrder = new JButton("\u00C4ndra order");
+		btnChangeOrder.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Order tmpOrder = controller.findOrder(textField_CurrentOrder.getText());
+
+				if (tmpOrder != null && !textField_DeliveryAddress.getText().isEmpty()) {
+					tmpOrder.clearOrderLines();
+					tmpOrder.setDeliveryAdress(textField_DeliveryAddress.getText());
+
+					for (OrderLine tmpOrderLine : orderLines.values()) {
+						tmpOrder.addOrderLine(tmpOrderLine);
+					}
+
+				} else if (tmpOrder == null) {
+					window.showNotificationError("Inget ordernummer ifyllt.");
+				}
+			}
+		});
 		btnChangeOrder.setBounds(1213, 712, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnChangeOrder);
 
@@ -202,6 +225,7 @@ public class OrderGui extends Gui<OrderController> {
 				String searchString = textField_CustomerNbr.getText();
 				Customer tmpCustomer = controller.findCustomer(searchString);
 
+				textField_CurrentOrder.setText("");
 				orderLines.clear();
 				while (tableModel_Orders.getRowCount() > 0) {
 					tableModel_Orders.removeRow(0);
@@ -434,6 +458,17 @@ public class OrderGui extends Gui<OrderController> {
 		new TableCellListener(table_Orders, action);
 		scrollPane_Orders.setViewportView(table_Orders);
 
+		JLabel lblCurrentOrder = new JLabel("Aktuellt ordernummer:");
+		lblCurrentOrder.setBounds(1057, 199, LABEL_WIDTH, LABEL_HEIGHT);
+		panel.add(lblCurrentOrder);
+
+		textField_CurrentOrder = new JTextField();
+		textField_CurrentOrder.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField_CurrentOrder.setEditable(false);
+		textField_CurrentOrder.setBounds(1213, 199, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		panel.add(textField_CurrentOrder);
+		textField_CurrentOrder.setColumns(10);
+
 		populateTable();
 
 		setInitialized(true);
@@ -472,7 +507,7 @@ public class OrderGui extends Gui<OrderController> {
 			textField_CustomerNbr.setText(order.getMadeby().getCustomerNbr());
 			textField_DeliveryAddress.setText(order.getDeliveryAdress());
 			textField_FindOrderNbr.setText(order.getOrderNbr());
-
+			textField_CurrentOrder.setText(order.getOrderNbr());
 			for (OrderLine tmpOrderLine : order.getOrderline()) {
 				Object[] row = { tmpOrderLine.getProduct().getProductNbr(), tmpOrderLine.getProduct().getName(),
 						tmpOrderLine.getProductPrice(), tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
@@ -506,6 +541,4 @@ public class OrderGui extends Gui<OrderController> {
 			clearTable(tableModel_Orders);
 		}
 	}
-
-
 }

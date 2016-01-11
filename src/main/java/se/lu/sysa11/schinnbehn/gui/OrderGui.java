@@ -159,7 +159,7 @@ public class OrderGui extends Gui<OrderController> {
 					for (OrderLine orderLine : orderLines.values()) {
 						lines.add(orderLine);
 					}
-					order.setOrderLine(lines);
+					order.setOrderLines(lines);
 					controller.findCustomer(textField_CustomerNbr.getText()).addOrder(order);
 					controller.addOrder(order);
 					window.showNotificationSuccess(
@@ -526,7 +526,7 @@ public class OrderGui extends Gui<OrderController> {
 			textField_DeliveryAddress.setText(order.getDeliveryAdress());
 			textField_FindOrderNbr.setText(order.getOrderNbr());
 			textField_CurrentOrder.setText(order.getOrderNbr());
-			for (OrderLine tmpOrderLine : order.getOrderline()) {
+			for (OrderLine tmpOrderLine : order.getOrderLines()) {
 				Object[] row = { tmpOrderLine.getProduct().getProductNbr(), tmpOrderLine.getProduct().getName(),
 						tmpOrderLine.getProductPrice(), tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
 				tableModel_Orders.addRow(row);

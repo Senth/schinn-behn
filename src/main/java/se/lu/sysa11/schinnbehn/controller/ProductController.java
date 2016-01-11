@@ -93,7 +93,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 		}
 
 		if (oldProductNbr == null || oldProductNbr.isEmpty()) {
-			window.showNotificationInfo("Klicka först på en produkt du vill ändra");
+			window.showNotificationInfo("Klicka f\u00F6rst p\u00E5 en produkt du vill \u00E4ndra");
 			return false;
 		}
 
@@ -107,7 +107,7 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 				if (!success) {
 					window.showNotificationError("Finns redan en produkt med produktnummer " + productNbr
-							+ ". Var god välj ett annat produktnummer");
+							+ ". Var god v\u00E4lj ett annat produktnummer");
 					return false;
 				}
 			}
@@ -140,12 +140,12 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 	private boolean isInputValid(String productNbr, String name, double price, String ingredients, double weight,
 			double cost) {
 		if (productNbr == null || productNbr.isEmpty()) {
-			window.showNotificationError("Produktnummer är tomt");
+			window.showNotificationError("Produktnummer \u00E4r tomt");
 
 			return false;
 		}
 		if (name == null || name.isEmpty()) {
-			window.showNotificationError("Produktnamnet är tomt");
+			window.showNotificationError("Produktnamnet \u00E4r tomt");
 
 			return false;
 		}

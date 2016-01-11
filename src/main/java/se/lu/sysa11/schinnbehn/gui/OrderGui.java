@@ -77,7 +77,7 @@ public class OrderGui extends Gui<OrderController> {
 	@Override
 	public void initialize() {
 		panel.setLayout(null);
-		panel.setPreferredSize(new Dimension(1300, 800));
+		panel.setPreferredSize(new Dimension(1500, 800));
 
 		JButton btnSearchOrder = new JButton("S\u00F6k");
 		btnSearchOrder.addActionListener(new ActionListener() {

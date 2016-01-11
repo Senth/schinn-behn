@@ -33,13 +33,10 @@ public class TestDataPopulater {
 
 	};
 
-	private static final String[] ADDRESSES = {
+	private static final String[] ADDRESSES = { "Gyllenkroks Allé 19, 22223 Lund", "Malmögatan 2, 25566 Löddeköpinge",
+			"Pilgatan 11, 33332 Smålandsstenar", "Gyllenstjärnasväg 14A, 27354 Karlskrona" };
 
-	};
-
-	private static final String[] INGREDIENTS = {
- "salt", "peppar", "géle", "E302", "gurkmeja", "mejram"
-	};
+	private static final String[] INGREDIENTS = { "salt", "peppar", "géle", "E302", "gurkmeja", "mejram" };
 
 	private static final int ORDER_LINES_PER_ORDER = PRODUCT_NAMES.length / 2;
 
@@ -93,12 +90,12 @@ public class TestDataPopulater {
 
 			// Telephone number
 			String number = "076-";
-			number += " ";
-			number += " ";
-			number += " ";
+			number += (random.nextInt(899) + 100) + " ";
+			number += (random.nextInt(89) + 10) + " ";
+			number += (random.nextInt(89) + 10);
 			customer.setTelephoneNbr(number);
 
-			customer.setBillingAdress(loremIpsum.words(2));
+			customer.setBillingAdress(ADDRESSES[random.nextInt(ADDRESSES.length)]);
 			customerReg.add(customer);
 			customers.add(customer);
 

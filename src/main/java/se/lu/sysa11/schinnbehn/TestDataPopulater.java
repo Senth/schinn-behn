@@ -100,6 +100,7 @@ public class TestDataPopulater {
 			customers.add(customer);
 
 			// Orders
+			int orderCount = random.nextInt(ORDERS_PER_CUSTOMERS) + 1;
 			for (int orderIndex = 0; orderIndex < ORDERS_PER_CUSTOMERS; ++orderIndex) {
 				Order order = new Order();
 				order.setDeliveryAdress(loremIpsum.words(2));
@@ -108,7 +109,8 @@ public class TestDataPopulater {
 
 				// Create order lines
 				HashSet<String> addedProducts = new HashSet<>();
-				for (int lineIndex = 0; lineIndex < ORDER_LINES_PER_ORDER; ++lineIndex) {
+				int orderLineCount = random.nextInt(PRODUCT_NAMES.length) + 1;
+				for (int lineIndex = 0; lineIndex < orderLineCount; ++lineIndex) {
 					OrderLine orderLine = new OrderLine();
 					orderLine.setOrder(order);
 					order.addOrderLine(orderLine);

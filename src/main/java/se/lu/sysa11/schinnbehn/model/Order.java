@@ -11,7 +11,7 @@ public class Order {
 	private String orderNbr;
 	private String deliveryAdress;
 	private Customer madeby;
-	private HashSet<OrderLine> orderlines = new HashSet<OrderLine>();
+	private HashSet<OrderLine> orderLines = new HashSet<OrderLine>();
 	private static int orderNbrCounter = 1;
 	private String orderDate = "2016-01-04";
 
@@ -36,21 +36,21 @@ public class Order {
 		this.deliveryAdress = deliveryAdress;
 	}
 
-	public HashSet<OrderLine> getOrderline() {
-		return orderlines;
+	public HashSet<OrderLine> getOrderLines() {
+		return orderLines;
 	}
 
-	public void setOrderLine(HashSet<OrderLine> orderlines) {
-		this.orderlines = orderlines;
+	public void setOrderLines(HashSet<OrderLine> orderlines) {
+		this.orderLines = orderlines;
 	}
 
 	public void addOrderLine(OrderLine line) {
-		orderlines.add(line);
+		orderLines.add(line);
 	}
 
 	public double getTotalPrice() {
 		double sum = 0;
-		for (OrderLine orderLine : orderlines) {
+		for (OrderLine orderLine : orderLines) {
 			sum += orderLine.getLinePrice();
 		}
 		return sum;
@@ -72,12 +72,8 @@ public class Order {
 		this.orderDate = orderDate;
 	}
 
-	public void removeOrderLine(OrderLine line) {
-		orderlines.remove(line);
-	}
-
 	public void clearOrderLines() {
-		orderlines.clear();
+		orderLines.clear();
 	}
 
 }

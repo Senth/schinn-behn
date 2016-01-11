@@ -178,7 +178,7 @@ public class ProductGui extends Gui<ProductController> {
 		btnAddProduct.setBounds(LEFT_COLUMN_1_POS, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnAddProduct);
 
-		JButton btnChangeProduct = new JButton("Ändra");
+		JButton btnChangeProduct = new JButton("\u00C4ndra");
 		btnChangeProduct.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -379,12 +379,12 @@ public class ProductGui extends Gui<ProductController> {
 	private boolean isInputValid(String productNbr, String name, String price, String ingredients, String weight,
 			String cost) {
 		if (productNbr == null || productNbr.isEmpty()) {
-			window.showNotificationError("Produktnummer är tomt");
+			window.showNotificationError("Produktnummer \u00E4r tomt");
 
 			return false;
 		}
 		if (name == null || name.isEmpty()) {
-			window.showNotificationError("Produktnamnet är tomt");
+			window.showNotificationError("Produktnamnet \u00E4r tomt");
 
 			return false;
 		}

@@ -1,6 +1,6 @@
 I Slutet av dagen
-1. Högerklicka på projekt -> Team.
-2. Pull = Ta ner senaste versionen från servern
+1. H\u00F6gerklicka p\u00E5 projekt -> Team.
+2. Pull = Ta ner senaste versionen fr\u00E5n servern
 3. Add to index
 4. Commit = En ny sparpunkt
 5. Push = Ladda upp till servern

@@ -139,7 +139,7 @@ public class OrderGui extends Gui<OrderController> {
 					for (int rowIndex : rowsToRemove) {
 						tableModel_Orders.removeRow(rowIndex);
 					}
-					window.showNotificationSuccess("Produkter borttagna från ordern");
+					window.showNotificationSuccess("Produkter borttagna fr\u00E5n ordern");
 				} else if (selectedRows == null || selectedRows.length == 0) {
 					window.showNotificationError("Inga orderrader markerade.");
 				}
@@ -164,7 +164,7 @@ public class OrderGui extends Gui<OrderController> {
 					for (OrderLine orderLine : orderLines.values()) {
 						lines.add(orderLine);
 					}
-					order.setOrderLine(lines);
+					order.setOrderLines(lines);
 					controller.findCustomer(textField_CustomerNbr.getText()).addOrder(order);
 					controller.addOrder(order);
 					window.showNotificationSuccess(
@@ -200,7 +200,7 @@ public class OrderGui extends Gui<OrderController> {
 					for (OrderLine tmpOrderLine : orderLines.values()) {
 						tmpOrder.addOrderLine(tmpOrderLine);
 					}
-					window.showNotificationSuccess("Order med ordernummer: " + tmpOrder.getOrderNbr() + " �ndrad.");
+					window.showNotificationSuccess("Order med ordernummer: " + tmpOrder.getOrderNbr() + " �ndrad.");
 
 				} else if (tmpOrder == null || textField_CurrentOrder.getText().isEmpty()) {
 					window.showNotificationError("Inget ordernummer ifyllt.");
@@ -451,7 +451,7 @@ public class OrderGui extends Gui<OrderController> {
 
 				} else {
 					tableModel_Orders.setValueAt(oldQuantity, tableCellListener.getRow(), ORDER_TABLE_COLUMN_QUANTITY);
-					window.showNotificationError("Felaktigt värde, antal måste vara större än 0.");
+					window.showNotificationError("Felaktigt v\u00E4rde, antal m\u00E5ste vara st\u00F6rre \u00E4n 0.");
 				}
 
 			}
@@ -532,7 +532,7 @@ public class OrderGui extends Gui<OrderController> {
 			textField_DeliveryAddress.setText(order.getDeliveryAdress());
 			textField_FindOrderNbr.setText(order.getOrderNbr());
 			textField_CurrentOrder.setText(order.getOrderNbr());
-			for (OrderLine tmpOrderLine : order.getOrderline()) {
+			for (OrderLine tmpOrderLine : order.getOrderLines()) {
 				Object[] row = { tmpOrderLine.getProduct().getProductNbr(), tmpOrderLine.getProduct().getName(),
 						tmpOrderLine.getProductPrice(), tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
 				tableModel_Orders.addRow(row);

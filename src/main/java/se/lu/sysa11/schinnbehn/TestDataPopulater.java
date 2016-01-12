@@ -43,7 +43,7 @@ public class TestDataPopulater {
 			"Gammeldags Blodkorv", "R\u00F6dbetskorv", "L\u00F6kkorv", "Lommakorv", "Kryddskinka", "Sm\u00F6rg\u00E5sskinka Lyx", "Rostbiff",
 			"Mariannelunds Rostbiff Original", "Rostbiff Original", "Rostbiff sous vide" };
 
-	private static final String[] ADDRESSES = { "Malm\u00F6gatan 2, 25566 L\u00F6ddek\u00F6pinge", "Gyllenkroks Allé 19, 22223 Lund",
+	private static final String[] ADDRESSES = { "Malm\u00F6gatan 2, 25566 L\u00F6ddek\u00F6pinge", "Gyllenkroks All\u00E8 19, 22223 Lund",
 			"Pilgatan 11, 33332 Sm\u00E5landsstenar", "Gyllenstj\u00E4rnasv\u00E4g 14A, 27354 Karlskrona", "Gatv\u00E4gen 7, 972 53 Luleå",
 			"Marumsgatan 3, 532 32 Skara" };
 

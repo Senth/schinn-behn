@@ -110,6 +110,11 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 		return true;
 	}
 
+	@Override
+	protected void onActivate(Object data) {
+		gui.populateOrderTable();
+	}
+
 	/**
 	 * Go to the specified order
 	 * @param orderNumber the order number to go to

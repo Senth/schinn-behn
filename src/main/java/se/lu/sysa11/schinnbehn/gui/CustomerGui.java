@@ -132,17 +132,17 @@ public class CustomerGui extends Gui<CustomerController> {
 		textField_FindCustomer.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				populateTable();
+				populateCustomerTable();
 			}
 
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				populateTable();
+				populateCustomerTable();
 			}
 
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				populateTable();
+				populateCustomerTable();
 			}
 		});
 
@@ -171,7 +171,7 @@ public class CustomerGui extends Gui<CustomerController> {
 
 				if (customerNbr != null) {
 					textField_ShowCustomerNbr.setText(customerNbr);
-					populateTable();
+					populateCustomerTable();
 				}
 			}
 		});
@@ -190,7 +190,7 @@ public class CustomerGui extends Gui<CustomerController> {
 
 				boolean success = controller.updateCustomer(customerNbr, name, telephone, address, email);
 				if (success) {
-					populateTable();
+					populateCustomerTable();
 				}
 			}
 		});
@@ -328,13 +328,39 @@ public class CustomerGui extends Gui<CustomerController> {
 			}
 
 		});
-		populateTable();
+		populateCustomerTable();
 		setInitialized(true);
+	}
+
+	/**
+	 * Update customer orders
+	 */
+	public void populateOrderTable() {
+		String customerNumber = textField_ShowCustomerNbr.getText();
+		Customer customer = controller.findCustomer(customerNumber);
+		populateOrderTable(customer);
+	}
+
+	/**
+	 * Update customer orders
+	 */
+	public void populateOrderTable(Customer customer) {
+		if (customer != null) {
+			clearTable(tableModel_Order);
+
+			double sum = 0;
+			for (Order order : customer.getOrders().values()) {
+				sum += order.getTotalPrice();
+				Object[] row = { order.getOrderDate(), order.getOrderNbr(), order.getTotalPrice() };
+				tableModel_Order.addRow(row);
+			}
+
+			textField_OrdersTotal.setText(Double.toString(sum));
+		}
 	}
 
 	private void setCustomer(Customer customer) {
 		clearTable(tableModel_Order);
-		double sum = 0;
 
 		if (customer != null) {
 			textField_ShowCustomerNbr.setText(customer.getCustomerNbr());
@@ -343,13 +369,7 @@ public class CustomerGui extends Gui<CustomerController> {
 			textField_Email.setText(customer.getEmail());
 			textField_Phone.setText(customer.getTelephoneNbr());
 
-			for (Order order : customer.getOrders().values()) {
-				sum += order.getTotalPrice();
-				Object[] row = { order.getOrderDate(), order.getOrderNbr(), order.getTotalPrice() };
-				tableModel_Order.addRow(row);
-			}
-
-			textField_OrdersTotal.setText(Double.toString(sum));
+			populateOrderTable(customer);
 		} else {
 			textField_Name.setText("");
 			textField_Phone.setText("");
@@ -360,11 +380,11 @@ public class CustomerGui extends Gui<CustomerController> {
 		}
 	}
 
-	private void populateTable() {
-		populateTable(controller.findCustomers(textField_FindCustomer.getText()));
+	private void populateCustomerTable() {
+		populateCustomerTable(controller.findCustomers(textField_FindCustomer.getText()));
 	}
 
-	private void populateTable(List<Customer> customers) {
+	private void populateCustomerTable(List<Customer> customers) {
 		clearTable(tableModel_Customer);
 
 		for (Customer customer : customers) {

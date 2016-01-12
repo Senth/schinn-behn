@@ -10,7 +10,6 @@ import java.util.Random;
 
 import com.spiddekauga.utils.Maths;
 
-import net._01001111.text.LoremIpsum;
 import se.lu.sysa11.schinnbehn.model.Customer;
 import se.lu.sysa11.schinnbehn.model.CustomerReg;
 import se.lu.sysa11.schinnbehn.model.Order;
@@ -54,7 +53,6 @@ public class TestDataPopulater {
 	 * Populate the program with test data
 	 */
 	public static void populateRegisters(CustomerReg customerReg, ProductReg productReg, OrderReg orderReg) {
-		LoremIpsum loremIpsum = new LoremIpsum();
 		Random random = new Random(12);
 
 		List<Product> products = new ArrayList<>();
@@ -118,7 +116,7 @@ public class TestDataPopulater {
 			int orderCount = random.nextInt(ORDERS_PER_CUSTOMERS) + 1;
 			for (int orderIndex = 0; orderIndex < orderCount; ++orderIndex) {
 				Order order = new Order();
-				order.setDeliveryAdress(loremIpsum.words(2));
+				order.setDeliveryAdress(customer.getBillingadress());
 				order.setMadeby(customer);
 
 				long randomizedTime = (long) (random.nextDouble() * CURRENT_DATE.getTime());

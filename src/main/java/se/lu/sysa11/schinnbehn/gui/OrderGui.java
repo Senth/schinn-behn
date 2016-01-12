@@ -370,7 +370,6 @@ public class OrderGui extends Gui<OrderController> {
 		scrollPane_Products.setViewportView(table_Products);
 		table_Products.setAutoCreateRowSorter(true);
 		table_Products.setModel(tableModel_Products);
-		table_Products.getColumnModel().getColumn(0).setResizable(false);
 		table_Products.addMouseListener(new TableClickListener() {
 			@Override
 			public void onDoubleClick(JTable table, int row) {
@@ -427,7 +426,6 @@ public class OrderGui extends Gui<OrderController> {
 		scrollPane_Orders.setViewportView(table_Orders);
 		table_Orders.setAutoCreateRowSorter(true);
 		table_Orders.setModel(tableModel_Orders);
-		table_Orders.getColumnModel().getColumn(0).setResizable(false);
 		Action action = new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 

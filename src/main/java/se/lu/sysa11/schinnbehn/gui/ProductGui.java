@@ -306,7 +306,6 @@ public class ProductGui extends Gui<ProductController> {
 		};
 		table_Products.setAutoCreateRowSorter(true);
 		table_Products.setModel(tableModel_Product);
-		table_Products.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane.setViewportView(table_Products);
 		table_Products.addMouseListener(new TableClickListener() {
 			@Override

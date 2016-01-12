@@ -45,7 +45,8 @@ public class ProductReg {
 	 */
 	public void update(Product product) {
 		if (product != null) {
-			searchHelper.update(product, TokenizePatterns.FROM_START, product.getName(), product.getProductNbr());
+			searchHelper.update(product, TokenizePatterns.FROM_START, product.getProductNbr(), product.getIngredients());
+			searchHelper.add(product, TokenizePatterns.ALL, product.getName());
 
 			// Add active/deactive state afterwards
 			if (product.isActive()) {

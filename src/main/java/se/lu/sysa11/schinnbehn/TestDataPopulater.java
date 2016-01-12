@@ -43,10 +43,12 @@ public class TestDataPopulater {
 			"Gammeldags Blodkorv", "R\u00F6dbetskorv", "L\u00F6kkorv", "Lommakorv", "Kryddskinka", "Sm\u00F6rg\u00E5sskinka Lyx", "Rostbiff",
 			"Mariannelunds Rostbiff Original", "Rostbiff Original", "Rostbiff sous vide" };
 
-	private static final String[] ADDRESSES = { "Gyllenkroks Allé 19, 22223 Lund", "Malm\u00F6gatan 2, 25566 L\u00F6ddek\u00F6pinge",
-			"Pilgatan 11, 33332 Sm\u00E5landsstenar", "Gyllenstj\u00E4rnasv\u00E4g 14A, 27354 Karlskrona" };
+	private static final String[] ADDRESSES = { "Malm\u00F6gatan 2, 25566 L\u00F6ddek\u00F6pinge", "Gyllenkroks Allé 19, 22223 Lund",
+			"Pilgatan 11, 33332 Sm\u00E5landsstenar", "Gyllenstj\u00E4rnasv\u00E4g 14A, 27354 Karlskrona", "Gatv\u00E4gen 7, 972 53 Luleå",
+			"Marumsgatan 3, 532 32 Skara" };
 
-	private static final String[] INGREDIENTS = { "salt", "peppar", "géle", "E302", "gurkmeja", "mejram" };
+	private static final String[] INGREDIENTS = { "salt", "peppar", "E302", "gurkmeja", "mejram", "druvsocker", "kummin", "E301", "maltodextrin",
+			"vitl\u00F6k", "gelatin", "glukossirap" };
 
 	private static final int ORDER_LINES_PER_ORDER = PRODUCT_NAMES.length / 2;
 
@@ -76,10 +78,10 @@ public class TestDataPopulater {
 					}
 				}
 
-				ingredients.append(INGREDIENTS[ingredientsIndex]);
+				ingredients.append(INGREDIENTS[ingredientsIndex]).append(", ");
 			}
 			product.setIngredients(ingredients.toString());
-			product.setPrice(random.nextInt(PRODUCT_PRICE_MAX) + 1);
+			product.setPrice(random.nextInt(PRODUCT_PRICE_MAX) + 10);
 			product.setCost(round(product.getPrice() * random.nextDouble()));
 			product.setProductNbr(String.valueOf(i));
 			product.setWeight(round(random.nextDouble() * PRODUCT_WEIGHT_MAX));
@@ -88,6 +90,7 @@ public class TestDataPopulater {
 		}
 
 		// Customers
+		int addressIndex = 0;
 		List<Customer> customers = new ArrayList<>();
 		for (int customerIndex = 0; customerIndex < COMPANY_NAMES.length; ++customerIndex) {
 			Customer customer = new Customer();
@@ -104,9 +107,14 @@ public class TestDataPopulater {
 			number += (random.nextInt(89) + 10);
 			customer.setTelephoneNbr(number);
 
-			customer.setBillingAdress(ADDRESSES[random.nextInt(ADDRESSES.length)]);
+			customer.setBillingAdress(ADDRESSES[addressIndex]);
 			customerReg.add(customer);
 			customers.add(customer);
+
+			addressIndex++;
+			if (addressIndex >= ADDRESSES.length) {
+				addressIndex = 0;
+			}
 
 			// Orders
 			int orderCount = random.nextInt(ORDERS_PER_CUSTOMERS) + 1;

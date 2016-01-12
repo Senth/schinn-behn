@@ -260,7 +260,6 @@ public class CustomerGui extends Gui<CustomerController> {
 		scrollPane_Orders.setViewportView(table_Orders);
 		table_Orders.setAutoCreateRowSorter(true);
 		table_Orders.setModel(tableModel_Order);
-		table_Orders.getColumnModel().getColumn(0).setResizable(false);
 		table_Orders.addMouseListener(new TableClickListener() {
 			@Override
 			public void onDoubleClick(JTable table, int row) {

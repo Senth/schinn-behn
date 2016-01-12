@@ -1,7 +1,9 @@
 package se.lu.sysa11.schinnbehn;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -26,6 +28,8 @@ public class TestDataPopulater {
 	private static final double PRODUCT_WEIGHT_MAX = 50;
 	private static final int QUANTITY_MAX = 100;
 	private static final int INGREDIENTS_PER_PRODUCT = 5;
+	private static final Date CURRENT_DATE = new Date();
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
 	private static final String[] COMPANY_NAMES = { "Ica Maxi L\u00F6ddek\u00F6pinge", "IKEA Restauranger AB", "S\u00F6derlunds Delikatesser KB",
 			"V\u00E4sterbergs K\u00F6tt AB", "\u00D6stermans Chark och p\u00E5l\u00E4gg AB",
@@ -114,6 +118,10 @@ public class TestDataPopulater {
 				Order order = new Order();
 				order.setDeliveryAdress(loremIpsum.words(2));
 				order.setMadeby(customer);
+
+				long randomizedTime = (long) (random.nextDouble() * CURRENT_DATE.getTime());
+				Date orderDate = new Date(randomizedTime);
+				order.setOrderDate(DATE_FORMAT.format(orderDate));
 				customer.addOrder(order);
 
 				// Create order lines

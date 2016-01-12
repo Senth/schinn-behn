@@ -44,7 +44,6 @@ public abstract class Controller<GuiType extends Gui<?>, RegisterType> {
 		if (!gui.isInitialized()) {
 			gui.initialize();
 		}
-
 		onActivate(data);
 	}
 

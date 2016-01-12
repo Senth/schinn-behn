@@ -221,9 +221,7 @@ public class OrderGui extends Gui<OrderController> {
 
 				textField_CurrentOrder.setText("");
 				orderLines.clear();
-				while (tableModel_Orders.getRowCount() > 0) {
-					tableModel_Orders.removeRow(0);
-				}
+				clearTable(tableModel_Orders);
 
 				if (tmpCustomer != null) {
 					textField_CustomerName.setText(tmpCustomer.getName());
@@ -280,6 +278,10 @@ public class OrderGui extends Gui<OrderController> {
 		lblTotalSumma.setBounds(1034, 673, 210, 25);
 		panel.add(lblTotalSumma);
 
+		JLabel lblCurrentOrder = new JLabel("Aktuellt ordernummer:");
+		lblCurrentOrder.setBounds(1057, 199, LABEL_WIDTH, LABEL_HEIGHT);
+		panel.add(lblCurrentOrder);
+
 		textField_FindOrderNbr = new JTextField();
 		textField_FindOrderNbr.setBounds(LEFT_COLUMN_2_POS, 160, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
 		panel.add(textField_FindOrderNbr);
@@ -331,6 +333,13 @@ public class OrderGui extends Gui<OrderController> {
 		panel.add(textField_TotalSum);
 		textField_TotalSum.setColumns(10);
 
+		textField_CurrentOrder = new JTextField();
+		textField_CurrentOrder.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField_CurrentOrder.setEditable(false);
+		textField_CurrentOrder.setBounds(1213, 199, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		panel.add(textField_CurrentOrder);
+		textField_CurrentOrder.setColumns(10);
+
 		JScrollPane scrollPane_Products = new JScrollPane();
 		scrollPane_Products.setBounds(LEFT_COLUMN_1_POS, 236, 636, 424);
 		panel.add(scrollPane_Products);
@@ -360,6 +369,7 @@ public class OrderGui extends Gui<OrderController> {
 		};
 
 		table_Products = new JTable();
+		scrollPane_Products.setViewportView(table_Products);
 		table_Products.setAutoCreateRowSorter(true);
 		table_Products.setModel(tableModel_Products);
 		table_Products.getColumnModel().getColumn(0).setResizable(false);
@@ -370,7 +380,6 @@ public class OrderGui extends Gui<OrderController> {
 				updateOrderSum();
 			}
 		});
-		scrollPane_Products.setViewportView(table_Products);
 
 		JScrollPane scrollPane_Orders = new JScrollPane();
 		scrollPane_Orders.setBounds(715, 236, 636, 424);
@@ -418,8 +427,8 @@ public class OrderGui extends Gui<OrderController> {
 		};
 
 		table_Orders = new JTable();
+		scrollPane_Orders.setViewportView(table_Orders);
 		table_Orders.setAutoCreateRowSorter(true);
-
 		table_Orders.setModel(tableModel_Orders);
 		table_Orders.getColumnModel().getColumn(0).setResizable(false);
 		Action action = new AbstractAction() {
@@ -456,18 +465,6 @@ public class OrderGui extends Gui<OrderController> {
 		};
 
 		new TableCellListener(table_Orders, action);
-		scrollPane_Orders.setViewportView(table_Orders);
-
-		JLabel lblCurrentOrder = new JLabel("Aktuellt ordernummer:");
-		lblCurrentOrder.setBounds(1057, 199, LABEL_WIDTH, LABEL_HEIGHT);
-		panel.add(lblCurrentOrder);
-
-		textField_CurrentOrder = new JTextField();
-		textField_CurrentOrder.setHorizontalAlignment(SwingConstants.RIGHT);
-		textField_CurrentOrder.setEditable(false);
-		textField_CurrentOrder.setBounds(1213, 199, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		panel.add(textField_CurrentOrder);
-		textField_CurrentOrder.setColumns(10);
 
 		populateTable();
 
@@ -506,12 +503,8 @@ public class OrderGui extends Gui<OrderController> {
 	}
 
 	private void populateTable(List<Product> products) {
-		// Remove rows
-		while (tableModel_Products.getRowCount() > 0) {
-			tableModel_Products.removeRow(0);
-		}
+		clearTable(tableModel_Products);
 
-		// Add products
 		for (Product product : products) {
 			if (product.isActive()) {
 				Object[] row = { product.getProductNbr(), product.getName(), product.getPrice() };

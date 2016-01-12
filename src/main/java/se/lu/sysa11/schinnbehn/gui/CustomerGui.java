@@ -80,9 +80,9 @@ public class CustomerGui extends Gui<CustomerController> {
 		lblPhoneNumber.setBounds(LEFT_COLUMN_1_POS, 86, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblPhoneNumber);
 
-		JLabel lblAdress = new JLabel("Adress:");
-		lblAdress.setBounds(LEFT_COLUMN_1_POS, 115, LABEL_WIDTH, LABEL_HEIGHT);
-		panel.add(lblAdress);
+		JLabel lblAddress = new JLabel("Adress:");
+		lblAddress.setBounds(LEFT_COLUMN_1_POS, 115, LABEL_WIDTH, LABEL_HEIGHT);
+		panel.add(lblAddress);
 
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setBounds(LEFT_COLUMN_1_POS, 145, LABEL_WIDTH, LABEL_HEIGHT);
@@ -97,9 +97,13 @@ public class CustomerGui extends Gui<CustomerController> {
 		lblFindCustomer.setBounds(LEFT_COLUMN_1_POS, 341, LABEL_WIDTH, LABEL_HEIGHT);
 		panel.add(lblFindCustomer);
 
-		JLabel lblKundnr = new JLabel("Filtrera kund:");
-		lblKundnr.setBounds(LEFT_COLUMN_1_POS, 378, LABEL_WIDTH, LABEL_HEIGHT);
-		panel.add(lblKundnr);
+		JLabel lblCustomerNbr = new JLabel("Filtrera kund:");
+		lblCustomerNbr.setBounds(LEFT_COLUMN_1_POS, 378, LABEL_WIDTH, LABEL_HEIGHT);
+		panel.add(lblCustomerNbr);
+
+		JLabel lblTotalNoTax = new JLabel("Totalt (exkl. moms):");
+		lblTotalNoTax.setBounds(624, 313, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
+		panel.add(lblTotalNoTax);
 
 		textField_Name = new JTextField();
 		textField_Name.setBounds(LEFT_COLUMN_2_POS, 57, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
@@ -148,6 +152,13 @@ public class CustomerGui extends Gui<CustomerController> {
 		panel.add(textField_ShowCustomerNbr);
 		textField_ShowCustomerNbr.setColumns(10);
 
+		textField_OrdersTotal = new JTextField();
+		textField_OrdersTotal.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField_OrdersTotal.setEditable(false);
+		textField_OrdersTotal.setBounds(763, 313, 146, 26);
+		panel.add(textField_OrdersTotal);
+		textField_OrdersTotal.setColumns(10);
+
 		JButton btnAddCustomer = new JButton("L\u00E4gg till kund");
 		btnAddCustomer.addActionListener(new ActionListener() {
 			@Override
@@ -186,9 +197,39 @@ public class CustomerGui extends Gui<CustomerController> {
 		btnUpdateCustomer.setBounds(LEFT_COLUMN_2_POS, 216, BUTTON_WIDTH, BUTTON_HEIGHT);
 		panel.add(btnUpdateCustomer);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(459, 24, 452, 277);
-		panel.add(scrollPane);
+		JButton btnClearFields = new JButton("T\u00F6m f\u00E4lten");
+		btnClearFields.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				textField_Name.setText("");
+				textField_Phone.setText("");
+				textField_Adress.setText("");
+				textField_Email.setText("");
+				textField_ShowCustomerNbr.setText("");
+				textField_OrdersTotal.setText("");
+				clearTable(tableModel_Order);
+			}
+		});
+		btnClearFields.setBounds(304, 216, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel.add(btnClearFields);
+
+		JButton btnNewOrder = new JButton("Ny Order");
+		btnNewOrder.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String customerNbr = textField_ShowCustomerNbr.getText();
+				if (customerNbr != null) {
+					controller.newOrder(customerNbr);
+				}
+
+			}
+		});
+		btnNewOrder.setBounds(459, 313, BUTTON_WIDTH, BUTTON_HEIGHT);
+		panel.add(btnNewOrder);
+
+		JScrollPane scrollPane_Orders = new JScrollPane();
+		scrollPane_Orders.setBounds(459, 24, 452, 277);
+		panel.add(scrollPane_Orders);
 
 		String column_names[] = { "Datum", "Ordernummer", "Summa (exkl. moms)" };
 		tableModel_Order = new DefaultTableModel(new Object[][] {}, column_names) {
@@ -216,10 +257,10 @@ public class CustomerGui extends Gui<CustomerController> {
 		};
 
 		table_Orders = new JTable();
+		scrollPane_Orders.setViewportView(table_Orders);
 		table_Orders.setAutoCreateRowSorter(true);
 		table_Orders.setModel(tableModel_Order);
 		table_Orders.getColumnModel().getColumn(0).setResizable(false);
-		scrollPane.setViewportView(table_Orders);
 		table_Orders.addMouseListener(new TableClickListener() {
 			@Override
 			public void onDoubleClick(JTable table, int row) {
@@ -240,35 +281,6 @@ public class CustomerGui extends Gui<CustomerController> {
 				}
 			}
 		});
-
-		JButton btnClearFields = new JButton("T\u00F6m f\u00E4lten");
-		btnClearFields.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				textField_Name.setText("");
-				textField_Phone.setText("");
-				textField_Adress.setText("");
-				textField_Email.setText("");
-				textField_ShowCustomerNbr.setText("");
-				textField_OrdersTotal.setText("");
-				while (tableModel_Order.getRowCount() > 0) {
-					tableModel_Order.removeRow(0);
-				}
-			}
-		});
-		btnClearFields.setBounds(304, 216, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel.add(btnClearFields);
-
-		textField_OrdersTotal = new JTextField();
-		textField_OrdersTotal.setHorizontalAlignment(SwingConstants.RIGHT);
-		textField_OrdersTotal.setEditable(false);
-		textField_OrdersTotal.setBounds(763, 313, 146, 26);
-		panel.add(textField_OrdersTotal);
-		textField_OrdersTotal.setColumns(10);
-
-		JLabel lblTotaltexklMoms = new JLabel("Totalt (exkl. moms):");
-		lblTotaltexklMoms.setBounds(624, 313, TEXTFIELD_WIDTH, TEXTFIELD_HEIGHT);
-		panel.add(lblTotaltexklMoms);
 
 		String column_namesCustomer[] = { "Kundnummer", "Namn", "E-mail", "Telefonnummer", "Address" };
 		tableModel_Customer = new DefaultTableModel(new Object[][] {}, column_namesCustomer) {
@@ -299,30 +311,14 @@ public class CustomerGui extends Gui<CustomerController> {
 
 		};
 
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(LEFT_COLUMN_1_POS, 413, 884, 254);
-		panel.add(scrollPane_1);
+		JScrollPane scrollPane_Products = new JScrollPane();
+		scrollPane_Products.setBounds(LEFT_COLUMN_1_POS, 413, 884, 254);
+		panel.add(scrollPane_Products);
 
 		table_Customer = new JTable();
-		scrollPane_1.setViewportView(table_Customer);
-
+		scrollPane_Products.setViewportView(table_Customer);
 		table_Customer.setAutoCreateRowSorter(true);
 		table_Customer.setModel(tableModel_Customer);
-
-		JButton btnNewOrder = new JButton("Ny Order");
-		btnNewOrder.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String customerNbr = textField_ShowCustomerNbr.getText();
-				if (customerNbr != null) {
-					controller.newOrder(customerNbr);
-				}
-
-			}
-		});
-		btnNewOrder.setBounds(459, 313, BUTTON_WIDTH, BUTTON_HEIGHT);
-		panel.add(btnNewOrder);
-
 		table_Customer.addMouseListener(new TableClickListener() {
 			@Override
 			public void onClick(JTable table, int row) {
@@ -333,18 +329,12 @@ public class CustomerGui extends Gui<CustomerController> {
 			}
 
 		});
-
 		populateTable();
-
 		setInitialized(true);
-
 	}
 
 	private void setCustomer(Customer customer) {
-		while (tableModel_Order.getRowCount() > 0) {
-			tableModel_Order.removeRow(0);
-		}
-
+		clearTable(tableModel_Order);
 		double sum = 0;
 
 		if (customer != null) {
@@ -354,7 +344,6 @@ public class CustomerGui extends Gui<CustomerController> {
 			textField_Email.setText(customer.getEmail());
 			textField_Phone.setText(customer.getTelephoneNbr());
 
-			// calculate sum
 			for (Order order : customer.getOrders().values()) {
 				sum += order.getTotalPrice();
 				Object[] row = { order.getOrderDate(), order.getOrderNbr(), order.getTotalPrice() };
@@ -377,12 +366,8 @@ public class CustomerGui extends Gui<CustomerController> {
 	}
 
 	private void populateTable(List<Customer> customers) {
-		// Remove rows
-		while (tableModel_Customer.getRowCount() > 0) {
-			tableModel_Customer.removeRow(0);
-		}
+		clearTable(tableModel_Customer);
 
-		// Add products
 		for (Customer customer : customers) {
 			Object[] row = { customer.getCustomerNbr(), customer.getName(), customer.getEmail(), customer.getTelephoneNbr(),
 					customer.getBillingadress() };

@@ -43,7 +43,7 @@ public class OrderGui extends Gui<OrderController> {
 		super(window);
 	}
 
-	private static final int PRODCUT_TABLE_COLUMN_NUMBER = 0;
+	private static final int PRODUCT_TABLE_COLUMN_NUMBER = 0;
 	private static final int PRODUCT_TABLE_COLUMN_NAME = 1;
 	private static final int PRODUCT_TABLE_COLUMN_PRICE = 2;
 	private static final int ORDER_TABLE_COLUMN_NUMBER = 0;
@@ -349,7 +349,7 @@ public class OrderGui extends Gui<OrderController> {
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				switch (columnIndex) {
-				case PRODCUT_TABLE_COLUMN_NUMBER:
+				case PRODUCT_TABLE_COLUMN_NUMBER:
 					return String.class;
 				case PRODUCT_TABLE_COLUMN_NAME:
 					return String.class;
@@ -470,7 +470,8 @@ public class OrderGui extends Gui<OrderController> {
 	 * @param productRow index of the product row
 	 */
 	private void addProductToOrder(int productRow) {
-		Product tmpProduct = controller.findProduct((String) tableModel_Products.getValueAt(productRow, PRODCUT_TABLE_COLUMN_NUMBER));
+		Product tmpProduct = controller
+				.findProduct((String) tableModel_Products.getValueAt(productRow, PRODUCT_TABLE_COLUMN_NUMBER));
 
 		if (!orderLines.containsKey(tmpProduct.getProductNbr())) {
 			OrderLine orderLine = new OrderLine();

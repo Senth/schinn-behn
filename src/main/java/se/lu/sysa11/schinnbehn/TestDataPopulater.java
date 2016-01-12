@@ -44,13 +44,11 @@ public class TestDataPopulater {
 			"Mariannelunds Rostbiff Original", "Rostbiff Original", "Rostbiff sous vide" };
 
 	private static final String[] ADDRESSES = { "Malm\u00F6gatan 2, 25566 L\u00F6ddek\u00F6pinge", "Gyllenkroks All\u00E8 19, 22223 Lund",
-			"Pilgatan 11, 33332 Sm\u00E5landsstenar", "Gyllenstj\u00E4rnasv\u00E4g 14A, 27354 Karlskrona", "Gatv\u00E4gen 7, 972 53 Luleå",
+			"Pilgatan 11, 33332 Sm\u00E5landsstenar", "Gyllenstj\u00E4rnasv\u00E4g 14A, 27354 Karlskrona", "Gatv\u00E4gen 7, 972 53 Lule\u00E5",
 			"Marumsgatan 3, 532 32 Skara" };
 
 	private static final String[] INGREDIENTS = { "salt", "peppar", "E302", "gurkmeja", "mejram", "druvsocker", "kummin", "E301", "maltodextrin",
 			"vitl\u00F6k", "gelatin", "glukossirap" };
-
-	private static final int ORDER_LINES_PER_ORDER = PRODUCT_NAMES.length / 2;
 
 	/**
 	 * Populate the program with test data

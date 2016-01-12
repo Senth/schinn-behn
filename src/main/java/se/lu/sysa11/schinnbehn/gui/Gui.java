@@ -4,8 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * @param <ControllerType>
- *            The Controller class
+ * @param <ControllerType> The Controller class
  */
 public abstract class Gui<ControllerType> {
 	/** Controller for the GUI class */
@@ -43,9 +42,7 @@ public abstract class Gui<ControllerType> {
 
 	/**
 	 * Set if the GUI has been initialized or not
-	 *
-	 * @param initialized
-	 *            set to true when the GUI has been initialized
+	 * @param initialized set to true when the GUI has been initialized
 	 */
 	public void setInitialized(boolean initialized) {
 		this.initialized = initialized;
@@ -58,7 +55,6 @@ public abstract class Gui<ControllerType> {
 
 	/**
 	 * Set the controller for the GUI
-	 *
 	 * @param controller
 	 */
 	public void setController(ControllerType controller) {

@@ -4,7 +4,6 @@ import java.util.HashSet;
 
 /**
  * dfdsf
- *
  * @author Jesper
  */
 public class Order {

@@ -14,13 +14,9 @@ import se.lu.sysa11.schinnbehn.model.CustomerReg;
 public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 	/**
 	 * Create a custom controller with the window
-	 *
-	 * @param window
-	 *            application window
-	 * @param customerGui
-	 *            the customer view/GUI\u00F6
-	 * @param customerReg
-	 *            the customer model/register
+	 * @param window application window
+	 * @param customerGui the customer view/GUI\u00F6
+	 * @param customerReg the customer model/register
 	 */
 	public CustomerController(Window window, CustomerGui customerGui, CustomerReg customerReg) {
 		super(window, customerGui, customerReg);
@@ -29,17 +25,12 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 
 	/**
 	 * Create a new customer
-	 *
-	 * @param name
-	 *            customer/company name
-	 * @param telephone
-	 *            company telephone number
-	 * @param address
-	 *            company address
-	 * @param email
-	 *            company email address
-	 * @return customerNbr if the customer was added successfully. Null if one
-	 *         or more of the parameters are wrong or empty
+	 * @param name customer/company name
+	 * @param telephone company telephone number
+	 * @param address company address
+	 * @param email company email address
+	 * @return customerNbr if the customer was added successfully. Null if one or more of
+	 *         the parameters are wrong or empty
 	 */
 	public String addCustomer(String name, String telephone, String address, String email) {
 
@@ -62,19 +53,13 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 
 	/**
 	 * Update an existing customer
-	 *
-	 * @param customerNbr
-	 *            the customer number
-	 * @param name
-	 *            customer/company name
-	 * @param telephone
-	 *            company telephone number
-	 * @param address
-	 *            company address
-	 * @param email
-	 *            company email address
-	 * @return true if the customer was changed successfully. False if one or
-	 *         more of the parameters are wrong or empty.
+	 * @param customerNbr the customer number
+	 * @param name customer/company name
+	 * @param telephone company telephone number
+	 * @param address company address
+	 * @param email company email address
+	 * @return true if the customer was changed successfully. False if one or more of the
+	 *         parameters are wrong or empty.
 	 */
 	public boolean updateCustomer(String customerNbr, String name, String telephone, String address, String email) {
 
@@ -127,9 +112,7 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 
 	/**
 	 * Go to the specified order
-	 *
-	 * @param orderNumber
-	 *            the order number to go to
+	 * @param orderNumber the order number to go to
 	 */
 	public void gotoOrder(String orderNumber) {
 		window.switchTo(Views.ORDER, orderNumber);
@@ -142,11 +125,9 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 
 	/**
 	 * Find existing customers
-	 *
-	 * @param searchString
-	 *            what to search for (currently only the customer number)
-	 * @return list of all found customer (currently the list can only contain
-	 *         one or zero)
+	 * @param searchString what to search for (currently only the customer number)
+	 * @return list of all found customer (currently the list can only contain one or
+	 *         zero)
 	 */
 	public Customer findCustomer(String searchString) {
 		Customer tmpCustomer = register.findCustomer(searchString);
@@ -160,10 +141,8 @@ public class CustomerController extends Controller<CustomerGui, CustomerReg> {
 
 	/**
 	 * Find a customer by a custom search string
-	 *
-	 * @param searchString
-	 *            what to search for. If you use more than one word they are
-	 *            combined with an 'and'.
+	 * @param searchString what to search for. If you use more than one word they are
+	 *        combined with an 'and'.
 	 * @return found products sorted by relevance
 	 */
 	public List<Customer> findCustomers(String searchString) {

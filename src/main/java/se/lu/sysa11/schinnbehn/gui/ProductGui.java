@@ -46,8 +46,8 @@ public class ProductGui extends Gui<ProductController> {
 	private static final int COLUMN_COST = 3;
 
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder
-	 * correctly then
+	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
+	 * then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_ProductNr;
@@ -155,30 +155,30 @@ public class ProductGui extends Gui<ProductController> {
 
 				if (isInputValid(productNbr, name, priceString, ingredients, weightString, costString)) {
 
-				double price = 0;
-				double weight = 0;
-				double cost = 0;
+					double price = 0;
+					double weight = 0;
+					double cost = 0;
 
 
-				try {
-					price = Double.parseDouble(priceString);
-					weight = Double.parseDouble(weightString);
-					cost = Double.parseDouble(costString);
+					try {
+						price = Double.parseDouble(priceString);
+						weight = Double.parseDouble(weightString);
+						cost = Double.parseDouble(costString);
 
-				} catch (NumberFormatException exception) {
-					return;
-				}
+					} catch (NumberFormatException exception) {
+						return;
+					}
 
-				oldProductNbr = null;
+					oldProductNbr = null;
 
-					if(controller.findProduct(productNbr) == null) {
-					oldProductNbr = controller.addProduct(productNbr, name, price, ingredients, weight, cost);
+					if (controller.findProduct(productNbr) == null) {
+						oldProductNbr = controller.addProduct(productNbr, name, price, ingredients, weight, cost);
 						if (oldProductNbr != null) {
 							populateTable();
 						}
-				} else {
-					window.showNotificationError("Det finns redan en produkt med produktnummer " + productNbr + ".");
-				}
+					} else {
+						window.showNotificationError("Det finns redan en produkt med produktnummer " + productNbr + ".");
+					}
 				}
 
 			}
@@ -200,27 +200,26 @@ public class ProductGui extends Gui<ProductController> {
 
 				if (isInputValid(productNbr, name, priceString, ingredients, weightString, costString)) {
 
-				double cost = 0;
-				double price = 0;
-				double weight = 0;
+					double cost = 0;
+					double price = 0;
+					double weight = 0;
 
-				try {
-					price = Double.parseDouble(priceString);
-					weight = Double.parseDouble(weightString);
-					cost = Double.parseDouble(costString);
+					try {
+						price = Double.parseDouble(priceString);
+						weight = Double.parseDouble(weightString);
+						cost = Double.parseDouble(costString);
 
-				} catch (NumberFormatException exception) {
-					// TODO
-					return;
+					} catch (NumberFormatException exception) {
+						// TODO
+						return;
+					}
+
+
+					boolean success = controller.updateProduct(oldProductNbr, productNbr, name, price, ingredients, weight, cost, active);
+					if (success) {
+						populateTable();
+					}
 				}
-
-
-				boolean success = controller.updateProduct(oldProductNbr, productNbr, name, price, ingredients, weight,
-						cost, active);
-				if (success) {
-					populateTable();
-				}
-			}
 			}
 		});
 		btnChangeProduct.setBounds(LEFT_COLUMN_2_POS, 307, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -332,9 +331,7 @@ public class ProductGui extends Gui<ProductController> {
 
 	/**
 	 * Set the current active product
-	 *
-	 * @param product
-	 *            the product to set
+	 * @param product the product to set
 	 */
 	private void setProduct(Product product) {
 		if (product != null) {
@@ -375,8 +372,7 @@ public class ProductGui extends Gui<ProductController> {
 		return panel;
 	}
 
-	private boolean isInputValid(String productNbr, String name, String price, String ingredients, String weight,
-			String cost) {
+	private boolean isInputValid(String productNbr, String name, String price, String ingredients, String weight, String cost) {
 		if (productNbr == null || productNbr.isEmpty()) {
 			window.showNotificationError("Produktnummer \u00E4r tomt");
 

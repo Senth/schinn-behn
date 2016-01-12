@@ -32,20 +32,16 @@ public class TestDataPopulater {
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
 	private static final String[] COMPANY_NAMES = { "Ica Maxi L\u00F6ddek\u00F6pinge", "IKEA Restauranger AB", "S\u00F6derlunds Delikatesser KB",
-			"V\u00E4sterbergs K\u00F6tt AB", "\u00D6stermans Chark och p\u00E5l\u00E4gg AB",
-			"Norrby Mat och Frukt" };
+			"V\u00E4sterbergs K\u00F6tt AB", "\u00D6stermans Chark och p\u00E5l\u00E4gg AB", "Norrby Mat och Frukt" };
 
-	private static final String[] PRODUCT_NAMES = { "Julskinka", "Kokt Julskinka av Whiskygris", "Kokt p\u00E5skskinka",
-			"Offerlamm", "Prinskorv", "Kungskorv (en sorts falukorv)", "Kalkonprinskorv", "Sylta", "Kalvsylta",
- "Rullsylta", "Kallsylta", "Slarvsylta", "K\u00F6ttkorv",
+	private static final String[] PRODUCT_NAMES = { "Julskinka", "Kokt Julskinka av Whiskygris", "Kokt p\u00E5skskinka", "Offerlamm", "Prinskorv",
+			"Kungskorv (en sorts falukorv)", "Kalkonprinskorv", "Sylta", "Kalvsylta", "Rullsylta", "Kallsylta", "Slarvsylta", "K\u00F6ttkorv",
 			"Fl\u00E4skkorv", "Kokt K\u00F6ttkorv", "Hederlig N\u00F6tkorv", "Gammeldags Kokt K\u00F6ttkorv", "Leverpastej",
 			"Ingas Gr\u00E4ddleverpastej", "Karl-Orvars Leverpastej Original", "Kn\u00E4ckebr\u00F6dhults \u00C4kta Leverpastej", "Alad\u00F6b",
-			"Fl\u00E4skkorv", "Falsk Fl\u00E4skkorv", "Leverkorv", "Vitl\u00F6kskorv",
-			"Hackkyckling", "Hackkorv", "Smulkorv", "Grynkorv", "Vegetarisk Grynkorv", "Julkorv", "Hjulkorv",
- "Petters h\u00E5rdkokta Ny\u00E5rskorv", "Blodkorv", "Lammhults Blodkorv",
+			"Fl\u00E4skkorv", "Falsk Fl\u00E4skkorv", "Leverkorv", "Vitl\u00F6kskorv", "Hackkyckling", "Hackkorv", "Smulkorv", "Grynkorv",
+			"Vegetarisk Grynkorv", "Julkorv", "Hjulkorv", "Petters h\u00E5rdkokta Ny\u00E5rskorv", "Blodkorv", "Lammhults Blodkorv",
 			"Gammeldags Blodkorv", "R\u00F6dbetskorv", "L\u00F6kkorv", "Lommakorv", "Kryddskinka", "Sm\u00F6rg\u00E5sskinka Lyx", "Rostbiff",
-			"Mariannelunds Rostbiff Original",
-			"Rostbiff Original", "Rostbiff sous vide" };
+			"Mariannelunds Rostbiff Original", "Rostbiff Original", "Rostbiff sous vide" };
 
 	private static final String[] ADDRESSES = { "Gyllenkroks Allé 19, 22223 Lund", "Malm\u00F6gatan 2, 25566 L\u00F6ddek\u00F6pinge",
 			"Pilgatan 11, 33332 Sm\u00E5landsstenar", "Gyllenstj\u00E4rnasv\u00E4g 14A, 27354 Karlskrona" };

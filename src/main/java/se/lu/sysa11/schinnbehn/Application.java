@@ -18,9 +18,7 @@ import se.lu.sysa11.schinnbehn.model.ProductReg;
 public class Application {
 	/**
 	 * Main class
-	 *
-	 * @param args
-	 *            not used
+	 * @param args not used
 	 */
 	public static void main(String[] args) {
 		// Window

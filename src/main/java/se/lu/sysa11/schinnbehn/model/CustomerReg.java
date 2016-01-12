@@ -22,15 +22,14 @@ public class CustomerReg {
 	}
 
 	/**
-	 * Call this when a customer has been updated. This makes the customer
-	 * searchable with the new information
-	 * 
+	 * Call this when a customer has been updated. This makes the customer searchable with
+	 * the new information
 	 * @param customer
 	 */
 	public void update(Customer customer) {
 		if (customer != null) {
-			searchHelper.update(customer, TokenizePatterns.FROM_START, customer.getCustomerNbr(), customer.getName(),
-					customer.getTelephoneNbr(), customer.getEmail());
+			searchHelper.update(customer, TokenizePatterns.FROM_START, customer.getCustomerNbr(), customer.getName(), customer.getTelephoneNbr(),
+					customer.getEmail());
 		}
 	}
 
@@ -48,10 +47,8 @@ public class CustomerReg {
 
 	/**
 	 * Find a customer by a custom search string
-	 * 
-	 * @param searchString
-	 *            what to search for. If you use more than one word they are
-	 *            combined with an 'and'.
+	 * @param searchString what to search for. If you use more than one word they are
+	 *        combined with an 'and'.
 	 * @return found products sorted by relevance
 	 */
 	public List<Customer> findCustomers(String searchString) {

@@ -15,8 +15,8 @@ public class Customer {
 	private static int customerNbrCounter = 1;
 
 	/**
-	 * Default constructor, automatically sets the customer number to the next
-	 * available customer number
+	 * Default constructor, automatically sets the customer number to the next available
+	 * customer number
 	 */
 	public Customer() {
 		customerNbr = String.valueOf(customerNbrCounter);

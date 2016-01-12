@@ -52,8 +52,8 @@ public class OrderGui extends Gui<OrderController> {
 	private static final int ORDER_TABLE_COLUMN_QUANTITY = 3;
 	private static final int ORDER_TABLE_COLUMN_SUM = 4;
 	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder
-	 * correctly then
+	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
+	 * then
 	 */
 	private JPanel panel = new JPanel();
 	private JTextField textField_FindOrderNbr;
@@ -167,17 +167,15 @@ public class OrderGui extends Gui<OrderController> {
 					order.setOrderLines(lines);
 					controller.findCustomer(textField_CustomerNbr.getText()).addOrder(order);
 					controller.addOrder(order);
-					window.showNotificationSuccess(
-"Order med ordernummer " + order.getOrderNbr()
-							+ " tillagd till kund med kundnummer: " + order.getMadeby().getCustomerNbr());
+					window.showNotificationSuccess("Order med ordernummer " + order.getOrderNbr() + " tillagd till kund med kundnummer: "
+							+ order.getMadeby().getCustomerNbr());
 					orderLines.clear();
 					clearTable(tableModel_Orders);
 					updateOrderSum();
 				} else if (orderLines.isEmpty()) {
 					window.showNotificationError("Ordern inte tillagd, hittade inga orderrader i ordern");
 				} else if (controller.findCustomer(textField_CustomerNbr.getText()) == null) {
-					window.showNotificationError("Ordern inte tillagd, finns ingen kund med kundnummer: "
-							+ textField_CustomerNbr.getText() + ".");
+					window.showNotificationError("Ordern inte tillagd, finns ingen kund med kundnummer: " + textField_CustomerNbr.getText() + ".");
 				} else if (textField_DeliveryAddress.getText().isEmpty()) {
 					window.showNotificationError("Ingen leveransadress ifylld.");
 				}
@@ -385,8 +383,7 @@ public class OrderGui extends Gui<OrderController> {
 		scrollPane_Orders.setBounds(715, 236, 636, 424);
 		panel.add(scrollPane_Orders);
 
-		String columnHeadersForOrders[] = { "Nummer", "Produktnamn", "Pris (exkl. moms)", "Antal",
-				"Summa (exkl moms)" };
+		String columnHeadersForOrders[] = { "Nummer", "Produktnamn", "Pris (exkl. moms)", "Antal", "Summa (exkl moms)" };
 		tableModel_Orders = new DefaultTableModel(new Object[][] {}, columnHeadersForOrders) {
 			private static final long serialVersionUID = 1L;
 
@@ -442,8 +439,7 @@ public class OrderGui extends Gui<OrderController> {
 				Integer updatedQuantity = (Integer) tableCellListener.getNewValue();
 
 				if (updatedQuantity != null && updatedQuantity > 0) {
-					String productNbr = (String) tableModel_Orders.getValueAt(tableCellListener.getRow(),
-							ORDER_TABLE_COLUMN_NUMBER);
+					String productNbr = (String) tableModel_Orders.getValueAt(tableCellListener.getRow(), ORDER_TABLE_COLUMN_NUMBER);
 					OrderLine orderLine = orderLines.get(productNbr);
 					orderLine.setQuantity(updatedQuantity);
 					try {
@@ -525,8 +521,8 @@ public class OrderGui extends Gui<OrderController> {
 			textField_FindOrderNbr.setText(order.getOrderNbr());
 			textField_CurrentOrder.setText(order.getOrderNbr());
 			for (OrderLine tmpOrderLine : order.getOrderLines()) {
-				Object[] row = { tmpOrderLine.getProduct().getProductNbr(), tmpOrderLine.getProduct().getName(),
-						tmpOrderLine.getProductPrice(), tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
+				Object[] row = { tmpOrderLine.getProduct().getProductNbr(), tmpOrderLine.getProduct().getName(), tmpOrderLine.getProductPrice(),
+						tmpOrderLine.getQuantity(), tmpOrderLine.getLinePrice() };
 				tableModel_Orders.addRow(row);
 				orderLines.put(tmpOrderLine.getProduct().getProductNbr(), tmpOrderLine);
 			}

@@ -12,12 +12,9 @@ import se.lu.sysa11.schinnbehn.model.ProductReg;
  */
 public class ProductController extends Controller<ProductGui, ProductReg> {
 	/**
-	 * @param window
-	 *            the application window
-	 * @param productGui
-	 *            GUI/view of the product controller
-	 * @param productReg
-	 *            Register/model of the product controller
+	 * @param window the application window
+	 * @param productGui GUI/view of the product controller
+	 * @param productReg Register/model of the product controller
 	 */
 	public ProductController(Window window, ProductGui productGui, ProductReg productReg) {
 		super(window, productGui, productReg);
@@ -26,23 +23,15 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 	/**
 	 * Add a new product
-	 *
-	 * @param productNbr
-	 *            number/serial of the product
-	 * @param name
-	 *            product name
-	 * @param price
-	 *            current price of the product
-	 * @param ingredients
-	 *            ingredients of the product
-	 * @param weight
-	 *            weight of the product
-	 * @param cost
-	 *            how much it costs to buy or produce the product
+	 * @param productNbr number/serial of the product
+	 * @param name product name
+	 * @param price current price of the product
+	 * @param ingredients ingredients of the product
+	 * @param weight weight of the product
+	 * @param cost how much it costs to buy or produce the product
 	 * @return true if successfully added product
 	 */
-	public String addProduct(String productNbr, String name, double price, String ingredients, double weight,
-			double cost) {
+	public String addProduct(String productNbr, String name, double price, String ingredients, double weight, double cost) {
 
 		Product product = new Product();
 		product.setProductNbr(productNbr);
@@ -61,27 +50,18 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 	/**
 	 * Update an existing product
-	 *
-	 * @param oldProductNbr
-	 *            the old product number of the product
-	 * @param productNbr
-	 *            new number/serial of the product
-	 * @param name
-	 *            product name
-	 * @param price
-	 *            current price of the product
-	 * @param ingredients
-	 *            ingredients of the product
-	 * @param weight
-	 *            weight of the product
-	 * @param cost
-	 *            how much it costs to buy or produce the product
-	 * @param active
-	 *            if the product is active in the assortment
+	 * @param oldProductNbr the old product number of the product
+	 * @param productNbr new number/serial of the product
+	 * @param name product name
+	 * @param price current price of the product
+	 * @param ingredients ingredients of the product
+	 * @param weight weight of the product
+	 * @param cost how much it costs to buy or produce the product
+	 * @param active if the product is active in the assortment
 	 * @return true if successfully added product
 	 */
-	public boolean updateProduct(String oldProductNbr, String productNbr, String name, double price, String ingredients,
-			double weight, double cost, boolean active) {
+	public boolean updateProduct(String oldProductNbr, String productNbr, String name, double price, String ingredients, double weight, double cost,
+			boolean active) {
 
 
 		if (oldProductNbr == null || oldProductNbr.isEmpty()) {
@@ -98,8 +78,8 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 				boolean success = register.updateProductNbr(oldProductNbr, productNbr);
 
 				if (!success) {
-					window.showNotificationError("Finns redan en produkt med produktnummer " + productNbr
-							+ ". Var god v\u00E4lj ett annat produktnummer");
+					window.showNotificationError(
+							"Finns redan en produkt med produktnummer " + productNbr + ". Var god v\u00E4lj ett annat produktnummer");
 					return false;
 				}
 			}
@@ -125,11 +105,9 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 	/**
 	 * Find existing products
-	 *
-	 * @param searchString
-	 *            what to search for (currently only the product number)
-	 * @return list of all found products (currently the list only contains
-	 *         either one or zero)
+	 * @param searchString what to search for (currently only the product number)
+	 * @return list of all found products (currently the list only contains either one or
+	 *         zero)
 	 */
 	public Product findProduct(String searchString) {
 		return register.findProduct(searchString);
@@ -137,10 +115,8 @@ public class ProductController extends Controller<ProductGui, ProductReg> {
 
 	/**
 	 * Find a product by search string.
-	 *
-	 * @param searchString
-	 *            what to search for. If you use more than one word they are
-	 *            combined with an and.
+	 * @param searchString what to search for. If you use more than one word they are
+	 *        combined with an and.
 	 * @return found products sorted by relevance
 	 */
 	public List<Product> findProducts(String searchString) {

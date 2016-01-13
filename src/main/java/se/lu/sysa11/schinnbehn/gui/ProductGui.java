@@ -29,13 +29,9 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import se.lu.sysa11.schinnbehn.controller.ProductController;
 import se.lu.sysa11.schinnbehn.model.Product;
 
-/**
- * Display products
- */
+
 public class ProductGui extends Gui<ProductController> {
-	/**
-	 * @param window
-	 */
+	
 	public ProductGui(Window window) {
 		super(window);
 	}
@@ -45,10 +41,7 @@ public class ProductGui extends Gui<ProductController> {
 	private static final int COLUMN_PRICE = 2;
 	private static final int COLUMN_COST = 3;
 
-	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
-	 * then
-	 */
+	
 	private JPanel panel = new JPanel();
 	private JTextField textField_ProductNr;
 	private JTextField textField_Name;
@@ -64,9 +57,7 @@ public class ProductGui extends Gui<ProductController> {
 	private JRadioButton radio_Inactive;
 	private String oldProductNbr = null;
 
-	/**
-	 * @wbp.parser.entryPoint
-	 */
+	
 	@Override
 	public void initialize() {
 		panel.setLayout(null);
@@ -328,10 +319,7 @@ public class ProductGui extends Gui<ProductController> {
 		setInitialized(true);
 	}
 
-	/**
-	 * Set the current active product
-	 * @param product the product to set
-	 */
+	
 	private void setProduct(Product product) {
 		if (product != null) {
 			oldProductNbr = product.getProductNbr();
@@ -350,9 +338,7 @@ public class ProductGui extends Gui<ProductController> {
 		}
 	}
 
-	/**
-	 * Populate table with all products that matches the search string
-	 */
+	
 	private void populateTable() {
 		populateTable(controller.findProducts(textField_SearchProduct.getText()));
 	}

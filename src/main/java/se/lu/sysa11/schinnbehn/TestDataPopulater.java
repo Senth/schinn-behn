@@ -18,9 +18,7 @@ import se.lu.sysa11.schinnbehn.model.OrderReg;
 import se.lu.sysa11.schinnbehn.model.Product;
 import se.lu.sysa11.schinnbehn.model.ProductReg;
 
-/**
- * Populate the program with test data
- */
+
 public class TestDataPopulater {
 	private static final int ORDERS_PER_CUSTOMERS = 50;
 	private static final int PRODUCT_PRICE_MAX = 50;
@@ -49,9 +47,7 @@ public class TestDataPopulater {
 	private static final String[] INGREDIENTS = { "salt", "peppar", "E302", "gurkmeja", "mejram", "druvsocker", "kummin", "E301", "maltodextrin",
 			"vitl\u00F6k", "gelatin", "glukossirap" };
 
-	/**
-	 * Populate the program with test data
-	 */
+	
 	public static void populateRegisters(CustomerReg customerReg, ProductReg productReg, OrderReg orderReg) {
 		Random random = new Random(12);
 
@@ -151,11 +147,7 @@ public class TestDataPopulater {
 		}
 	}
 
-	/**
-	 * Helper method for rounding double values
-	 * @param value the value to round
-	 * @return rounded to two decimals
-	 */
+	
 	private static double round(double value) {
 		return Maths.round(value, 2, BigDecimal.ROUND_HALF_UP);
 	}

@@ -6,9 +6,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JTable;
 
-/**
- * Listens to single and double clicks in a table
- */
+
 public abstract class TableClickListener extends MouseAdapter {
 	@Override
 	public void mousePressed(MouseEvent mouseEvent) {
@@ -28,20 +26,12 @@ public abstract class TableClickListener extends MouseAdapter {
 		}
 	}
 
-	/**
-	 * Called when for a single click
-	 * @param table the table that was clicked
-	 * @param row which row was clicked
-	 */
+	
 	public void onClick(JTable table, int row) {
 		// Does nothing
 	}
 
-	/**
-	 * Called when for a double click
-	 * @param table the table that was clicked
-	 * @param row which row was clicked
-	 */
+	
 	public void onDoubleClick(JTable table, int row) {
 		// Does nothing
 	}

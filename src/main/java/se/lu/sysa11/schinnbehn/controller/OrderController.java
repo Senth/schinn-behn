@@ -11,20 +11,12 @@ import se.lu.sysa11.schinnbehn.model.OrderReg;
 import se.lu.sysa11.schinnbehn.model.Product;
 import se.lu.sysa11.schinnbehn.model.ProductReg;
 
-/**
- * The order controller
- */
+
 public class OrderController extends Controller<OrderGui, OrderReg> {
 	private ProductReg productRegister;
 	private CustomerReg customerRegister;
 
-	/**
-	 * @param window the application window
-	 * @param orderGui GUI/view of the product controller
-	 * @param orderRegister Register/model of the product controller
-	 * @param productRegister for finding products
-	 * @param customerRegister for finding customers
-	 */
+	
 	public OrderController(Window window, OrderGui orderGui, OrderReg orderRegister, ProductReg productRegister, CustomerReg customerRegister) {
 		super(window, orderGui, orderRegister);
 		this.productRegister = productRegister;
@@ -60,20 +52,12 @@ public class OrderController extends Controller<OrderGui, OrderReg> {
 		return productRegister.findProduct(searchString);
 	}
 
-	/**
-	 * Find or rather filter products
-	 * @param searchString
-	 * @return the found products
-	 */
+	
 	public List<Product> findProducts(String searchString) {
 		return productRegister.findProducts(searchString);
 	}
 
-	/**
-	 * Find a customer
-	 * @param searchString
-	 * @return found customer, null if not found
-	 */
+	
 	public Customer findCustomer(String searchString) {
 		Customer tmpCustomer = customerRegister.findCustomer(searchString);
 

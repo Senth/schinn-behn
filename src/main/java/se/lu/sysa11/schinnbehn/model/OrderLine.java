@@ -1,8 +1,6 @@
 package se.lu.sysa11.schinnbehn.model;
 
-/**
- * Order line
- */
+
 public class OrderLine {
 	private int quantity;
 	private Product product;

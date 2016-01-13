@@ -21,10 +21,7 @@ import javax.swing.border.Border;
 
 import se.lu.sysa11.schinnbehn.controller.Controller;
 
-/**
- * Main window for the application. Switch between content by calling
- * {@link #switchTo(Views)} or {@link #switchTo(Views, Object)}
- */
+
 public class Window {
 	private JFrame frame;
 	private JScrollPane content = new JScrollPane();
@@ -33,16 +30,12 @@ public class Window {
 	private JPanel menu = new JPanel();
 	private JLabel notificationLabel = new JLabel("Meddelanden");
 
-	/**
-	 * Create the application.
-	 */
+	
 	public Window() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -115,29 +108,17 @@ public class Window {
 		frame.setVisible(true);
 	}
 
-	/**
-	 * Add a new Controller to the window
-	 * @param view identifier used for switching to this GUI
-	 * @param controller the controller to switch to when {@link #switchTo(Views)} is
-	 *        called
-	 */
+	
 	public void addController(Views view, Controller<?, ?> controller) {
 		controllers.put(view, controller);
 	}
 
-	/**
-	 * Switch to this view
-	 * @param view the view
-	 */
+	
 	public void switchTo(Views view) {
 		switchTo(view, null);
 	}
 
-	/**
-	 * Switch to this view and send the appropriate data to it
-	 * @param view the view to switch to
-	 * @param data what to send to the view
-	 */
+	
 	public void switchTo(Views view, Object data) {
 		Controller<?, ?> controller = controllers.get(view);
 
@@ -156,28 +137,19 @@ public class Window {
 		}
 	}
 
-	/**
-	 * Send an error notification (displayed as red)
-	 * @param message the message to display
-	 */
+	
 	public void showNotificationError(String message) {
 		notificationLabel.setText(message);
 		notificationLabel.setForeground(ERROR_COLOR);
 	}
 
-	/**
-	 * Send a success notification (displayed as green)
-	 * @param message the message to display
-	 */
+	
 	public void showNotificationSuccess(String message) {
 		notificationLabel.setText(message);
 		notificationLabel.setForeground(SUCCESS_COLOR);
 	}
 
-	/**
-	 * Send an info notification (displayed as black text)
-	 * @param message the message to display
-	 */
+	
 	public void showNotificationInfo(String message) {
 		notificationLabel.setText(message);
 		notificationLabel.setForeground(INFO_COLOR);

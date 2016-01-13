@@ -2,9 +2,7 @@ package se.lu.sysa11.schinnbehn.model;
 
 import java.util.HashMap;
 
-/**
- * @author
- */
+
 public class Customer {
 	private String customerNbr;
 	private String name;
@@ -14,10 +12,7 @@ public class Customer {
 	private HashMap<String, Order> orders = new HashMap<>();
 	private static int customerNbrCounter = 1;
 
-	/**
-	 * Default constructor, automatically sets the customer number to the next available
-	 * customer number
-	 */
+	
 	public Customer() {
 		customerNbr = String.valueOf(customerNbrCounter);
 		customerNbrCounter++;

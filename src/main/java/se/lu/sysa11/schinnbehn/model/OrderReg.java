@@ -2,9 +2,7 @@ package se.lu.sysa11.schinnbehn.model;
 
 import java.util.HashMap;
 
-/**
- * @author
- */
+
 public class OrderReg {
 	private HashMap<String, Order> orders = new HashMap<>();
 

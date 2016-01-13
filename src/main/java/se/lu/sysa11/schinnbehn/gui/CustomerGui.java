@@ -21,13 +21,9 @@ import se.lu.sysa11.schinnbehn.controller.CustomerController;
 import se.lu.sysa11.schinnbehn.model.Customer;
 import se.lu.sysa11.schinnbehn.model.Order;
 
-/**
- * GUI for the Customer
- */
+
 public class CustomerGui extends Gui<CustomerController> {
-	/**
-	 * @param window
-	 */
+	
 	public CustomerGui(Window window) {
 		super(window);
 	}
@@ -42,10 +38,7 @@ public class CustomerGui extends Gui<CustomerController> {
 	private static final int CUSTOMER_COLUMN_PHONENUMBER = 3;
 	private static final int CUSTOMER_COLUMN_ADRESS = 4;
 
-	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
-	 * then
-	 */
+	
 	private JPanel panel = new JPanel();
 	private JTextField textField_Name;
 	private JTextField textField_Phone;
@@ -59,9 +52,7 @@ public class CustomerGui extends Gui<CustomerController> {
 	private JTextField textField_OrdersTotal;
 	private JTable table_Customer;
 
-	/**
-	 * @wbp.parser.entryPoint
-	 */
+	
 	@Override
 	public void initialize() {
 		panel.setLayout(null);
@@ -332,18 +323,14 @@ public class CustomerGui extends Gui<CustomerController> {
 		setInitialized(true);
 	}
 
-	/**
-	 * Update customer orders
-	 */
+	
 	public void populateOrderTable() {
 		String customerNumber = textField_ShowCustomerNbr.getText();
 		Customer customer = controller.findCustomer(customerNumber);
 		populateOrderTable(customer);
 	}
 
-	/**
-	 * Update customer orders
-	 */
+	
 	public void populateOrderTable(Customer customer) {
 		if (customer != null) {
 			clearTable(tableModel_Order);

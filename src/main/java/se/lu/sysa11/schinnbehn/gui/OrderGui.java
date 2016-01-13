@@ -32,13 +32,9 @@ import se.lu.sysa11.schinnbehn.model.Order;
 import se.lu.sysa11.schinnbehn.model.OrderLine;
 import se.lu.sysa11.schinnbehn.model.Product;
 
-/**
- * @author
- */
+
 public class OrderGui extends Gui<OrderController> {
-	/**
-	 * @param window
-	 */
+	
 	public OrderGui(Window window) {
 		super(window);
 	}
@@ -51,10 +47,7 @@ public class OrderGui extends Gui<OrderController> {
 	private static final int ORDER_TABLE_COLUMN_PRICE = 2;
 	private static final int ORDER_TABLE_COLUMN_QUANTITY = 3;
 	private static final int ORDER_TABLE_COLUMN_SUM = 4;
-	/**
-	 * Can't have panel in base class as we're not able to access WindowBuilder correctly
-	 * then
-	 */
+	
 	private JPanel panel = new JPanel();
 	private JTextField textField_FindOrderNbr;
 	private JTextField textField_DeliveryAddress;
@@ -71,9 +64,7 @@ public class OrderGui extends Gui<OrderController> {
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	private Calendar cal = Calendar.getInstance();
 
-	/**
-	 * @wbp.parser.entryPoint
-	 */
+	
 	@Override
 	public void initialize() {
 		panel.setLayout(null);
@@ -465,10 +456,7 @@ public class OrderGui extends Gui<OrderController> {
 		setInitialized(true);
 	}
 
-	/**
-	 * Add the product from the specified row to the orderline
-	 * @param productRow index of the product row
-	 */
+	
 	private void addProductToOrder(int productRow) {
 		Product tmpProduct = controller
 				.findProduct((String) tableModel_Products.getValueAt(productRow, PRODUCT_TABLE_COLUMN_NUMBER));

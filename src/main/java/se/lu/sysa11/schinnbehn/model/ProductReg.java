@@ -6,9 +6,7 @@ import java.util.List;
 import com.spiddekauga.utils.TokenSearch;
 import com.spiddekauga.utils.TokenizePatterns;
 
-/**
- * @author Ann-Kathrine
- */
+
 public class ProductReg {
 	private HashMap<String, Product> products = new HashMap<String, Product>();
 	private TokenSearch<Product> searchHelper = new TokenSearch<>();
@@ -38,11 +36,7 @@ public class ProductReg {
 		return true;
 	}
 
-	/**
-	 * Call this when a product has been updated. This makes the product searchable with
-	 * the new information.
-	 * @param product the product that has been updated
-	 */
+	
 	public void update(Product product) {
 		if (product != null) {
 			searchHelper.update(product, TokenizePatterns.FROM_START, product.getProductNbr(), product.getIngredients());
@@ -69,12 +63,7 @@ public class ProductReg {
 		return products.get(prodNbr);
 	}
 
-	/**
-	 * Find a product by search string.
-	 * @param searchString what to search for. If you use more than one word they are
-	 *        combined with an 'and'.
-	 * @return found products sorted by relevance
-	 */
+	
 	public List<Product> findProducts(String searchString) {
 		return searchHelper.search(searchString);
 	}

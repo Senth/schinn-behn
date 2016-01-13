@@ -12,14 +12,9 @@ import se.lu.sysa11.schinnbehn.model.CustomerReg;
 import se.lu.sysa11.schinnbehn.model.OrderReg;
 import se.lu.sysa11.schinnbehn.model.ProductReg;
 
-/**
- * Main application of Schinn & Behn
- */
+
 public class Application {
-	/**
-	 * Main class
-	 * @param args not used
-	 */
+	
 	public static void main(String[] args) {
 		// Window
 		Window window = new Window();

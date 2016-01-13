@@ -2,10 +2,7 @@ package se.lu.sysa11.schinnbehn.model;
 
 import java.util.HashSet;
 
-/**
- * dfdsf
- * @author Jesper
- */
+
 public class Order {
 	private String orderNbr;
 	private String deliveryAdress;

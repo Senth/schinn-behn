@@ -12,7 +12,7 @@ public class Order {
 	private Customer madeby;
 	private HashSet<OrderLine> orderLines = new HashSet<OrderLine>();
 	private static int orderNbrCounter = 1;
-	private String orderDate = "2016-01-04";
+	private String orderDate;
 
 	public Order() {
 		orderNbr = String.valueOf(orderNbrCounter);
